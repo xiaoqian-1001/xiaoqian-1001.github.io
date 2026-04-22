@@ -11,22 +11,23 @@
             box-sizing: border-box;
         }
 
-        /* 滚动通知条 */
-        .marquee {
+        /* 顶部全局滚动词条 */
+        .top-marquee {
             width: 100%;
-            background: rgba(255,255,255,0.2);
-            color: #fff;
+            background: #DC2626;
+            color: #FFFBEB;
             padding: 6px 0;
             font-size: 12px;
             white-space: nowrap;
             overflow: hidden;
-            position: relative;
-            margin-bottom: 15px;
-            border-radius: 8px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
         }
-        .marquee span {
+        .top-marquee span {
             display: inline-block;
-            animation: marquee 15s linear infinite;
+            animation: marquee 18s linear infinite;
             padding-left: 100%;
         }
         @keyframes marquee {
@@ -40,7 +41,7 @@
             /* 汉堡薯条经典配色：暖棕+金黄渐变 */
             background: linear-gradient(135deg, #D97706 0%, #92400E 100%);
             background-attachment: fixed;
-            padding: 30px 15px;
+            padding: 40px 15px 30px;
             display: flex;
             justify-content: center;
         }
@@ -57,22 +58,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-
-        /* 福利小板块 */
-        .welfare {
-            background: #fef2bf;
-            border: 2px solid #FBBF24;
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin-bottom: 16px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #DC2626;
-        }
-        .welfare a {
-            color: #DC2626;
-            text-decoration: none;
         }
 
         h1 {
@@ -100,6 +85,44 @@
             margin-bottom: 25px;
             position: relative;
             z-index: 1;
+            cursor: pointer;
+            text-decoration: underline dotted;
+        }
+
+        /* 福利小板块 */
+        .welfare {
+            background: #fef2bf;
+            border: 2px solid #FBBF24;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin: 0 auto 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #DC2626;
+            max-width: 300px;
+        }
+        .welfare a {
+            color: #DC2626;
+            text-decoration: none;
+        }
+
+        /* 滚动通知条 */
+        .marquee {
+            width: 100%;
+            background: rgba(255,255,255,0.2);
+            color: #92400E;
+            padding: 6px 0;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .marquee span {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            padding-left: 100%;
         }
 
         h2 {
@@ -202,20 +225,26 @@
     </style>
 </head>
 <body>
+    <!-- 最顶部全局滚动词条 -->
+    <div class="top-marquee">
+        <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
+    </div>
+
     <div class="container">
-        <!-- 顶部：福利小板块 -->
+        <h1>🍔 小钱全网综合分享 🍟</h1>
+        <p class="username">xiaoqian-1001</p>
+        <!-- 点击弹出提示框 -->
+        <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
+
+        <!-- 福利小板块：放在影视软件合集上方 -->
         <div class="welfare">
             🎁 福利：<a href="http://dpurl.cn/RRNL6G3z" target="_blank">丑团</a>
         </div>
 
-        <!-- 顶部滚动通知 -->
+        <!-- 滚动通知条 -->
         <div class="marquee">
             <span>小钱全网综合分享，建立于2026年4月22日，技术支持Github。</span>
         </div>
-
-        <h1>🍔 小钱全网综合分享 🍟</h1>
-        <p class="username">xiaoqian-1001</p>
-        <p class="tagline">热爱是所有的理由和答案</p>
 
         <!-- 1️⃣ 影视软件合集 -->
         <h2>📺 影视软件合集</h2>
