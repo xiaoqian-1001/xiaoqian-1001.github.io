@@ -6,21 +6,36 @@
     <title>小钱全网综合分享</title>
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.2);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            --text-primary: #222222;
+            --glass-bg: rgba(255, 255, 255, 0.22);
+            --glass-border: rgba(255, 255, 255, 0.28);
+            --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.09);
+            --text-primary: #1d1d1f;
             --accent-color: #4a6cf7;
-            --accent-hover: #3a5ce5;
+            --accent-hover: #3658e9;
+            --content-bg: #ffffff;
+            --overlay-bg: rgba(255, 255, 255, 0.78);
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        /* 深色主题变量 */
+        [data-theme="dark"] {
+            --glass-bg: rgba(30, 30, 35, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+            --text-primary: #f0f0f0;
+            --accent-color: #5b7cf8;
+            --accent-hover: #6b88ff;
+            --content-bg: #24242a;
+            --overlay-bg: rgba(15, 15, 18, 0.82);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -33,41 +48,44 @@
             position: relative;
             padding: 15px;
             padding-top: 8vh;
-            background-color: #f5f7fa;
+            transition: background-color 0.4s ease;
         }
 
-        .background-layer { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: -2; 
+        /* 背景层 */
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
         }
-        .background-video { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
+        .background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .background-overlay {
             position: absolute;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.75);
+            background: var(--overlay-bg);
             z-index: -1;
+            transition: background 0.4s ease;
         }
 
+        /* 顶部滚动条 */
         .marquee-container {
             position: fixed;
-            top: 0; 
-            left: 0; 
+            top: 0;
+            left: 0;
             width: 100%;
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 9px 0;
+            backdrop-filter: blur(25px) saturate(190%);
+            -webkit-backdrop-filter: blur(25px) saturate(190%);
+            padding: 10px 0;
             box-shadow: var(--glass-shadow);
             overflow: hidden;
             z-index: 100;
@@ -75,10 +93,10 @@
         .marquee {
             white-space: nowrap;
             display: flex;
-            animation: marquee 18s linear infinite;
+            animation: marquee 19s linear infinite;
         }
         .marquee span {
-            color: #333;
+            color: var(--text-primary);
             font-weight: 600;
             padding: 0 15px;
             font-size: 14px;
@@ -88,18 +106,19 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* 渐变标题 */
         .page-title {
             text-align: center;
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 800;
-            margin-bottom: 6px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #ff9a56, #ff6b6b, #5b86e5, #36d1dc, #a855f7);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradient 8s ease infinite;
+            animation: gradientFlow 9s ease infinite;
         }
-        @keyframes gradient {
+        @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -108,115 +127,137 @@
         .username {
             text-align: center;
             font-size: 15px;
-            color: #444;
+            color: var(--text-primary);
+            opacity: 0.85;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 7px;
         }
 
         .tagline {
             text-align: center;
             font-size: 13px;
-            color: #666;
-            margin-bottom: 28px;
+            color: var(--text-primary);
+            opacity: 0.7;
+            margin-bottom: 32px;
             cursor: pointer;
+            transition: opacity 0.2s;
         }
+        .tagline:hover { opacity: 0.95; }
 
-        .main-layer { 
-            width: 100%; 
-            max-width: 450px; 
-            margin-top: 0; 
-        }
-        
-        .accordion-item {
-            margin-bottom: 14px;
-            border-radius: 18px;
-            overflow: hidden;
+        /* 主题切换按钮 */
+        .theme-switch {
+            position: fixed;
+            top: 12px;
+            right: 15px;
+            z-index: 101;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .theme-switch:active { transform: scale(0.92); }
+
+        .main-layer {
+            width: 100%;
+            max-width: 450px;
+            margin-top: 0;
+        }
+
+        /* 折叠面板终极优化 */
+        .accordion-item {
+            margin-bottom: 16px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px) saturate(185%);
+            -webkit-backdrop-filter: blur(25px) saturate(185%);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
             transform: translateZ(0);
             will-change: max-height;
         }
 
+        /* 折叠标题 居中+原生按压 */
         .accordion-header {
-            background: rgba(255, 255, 255, 0.25);
-            color: #222;
-            font-size: 16px;
+            color: var(--text-primary);
+            font-size: 17px;
             font-weight: 700;
-            padding: 16px 20px;
+            padding: 17px 22px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
             user-select: none;
             text-align: center;
         }
         .accordion-header:active {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0.985);
+        }
+        [data-theme="dark"] .accordion-header:active {
+            background: rgba(255, 255, 255, 0.1);
         }
 
+        /* 内容区 丝滑动画+主题适配 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-            padding: 0 20px;
-            background: #ffffff;
+            transition: max-height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+            padding: 0 22px;
+            background: var(--content-bg);
         }
         .accordion-item.active .accordion-content {
-            max-height: 3000px;
-            padding: 20px 20px 24px 20px;
+            max-height: 4000px;
+            padding: 22px 22px 26px 22px;
         }
 
+        /* 蓝色按钮全套质感 */
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         .btn {
             display: block;
-            padding: 15px 18px;
+            padding: 16px 20px;
             background: var(--accent-color);
             border: none;
-            border-radius: 14px;
+            border-radius: 15px;
             color: #ffffff;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 15.5px;
             font-weight: 600;
             transition: all 0.2s ease;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(74, 108, 247, 0.25);
+            box-shadow: 0 3px 10px rgba(74, 108, 247, 0.28);
         }
         .btn:hover {
             background: var(--accent-hover);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.35);
         }
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 6px rgba(74, 108, 247, 0.2);
         }
 
+        /* 移动端极致适配 */
         @media (max-width: 600px) {
-            .page-title {
-                font-size: 28px;
-            }
-            .accordion-header {
-                font-size: 15px;
-                padding: 14px 16px;
-            }
-            .accordion-item.active .accordion-content {
-                padding: 16px 16px 20px 16px;
-            }
-            .btn {
-                padding: 13px 16px;
-                border-radius: 12px;
-                font-size: 14px;
-            }
+            .page-title { font-size: 30px; }
+            .accordion-header { font-size: 16px; padding: 15px 18px; }
+            .accordion-item.active .accordion-content { padding: 18px 18px 22px 18px; }
+            .btn { padding: 14px 18px; border-radius: 13px; font-size: 15px; }
         }
     </style>
 </head>
 <body>
-
+    <!-- 背景视频 -->
     <div class="background-layer">
         <video class="background-video" autoplay muted loop playsinline>
             <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
@@ -224,18 +265,22 @@
         <div class="background-overlay"></div>
     </div>
 
+    <!-- 顶部滚动条 -->
     <div class="marquee-container">
         <div class="marquee">
             <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
         </div>
     </div>
 
+    <!-- 明暗主题切换按钮（右上角太阳/月亮） -->
+    <div class="theme-switch" id="themeBtn">🌞</div>
+
     <div class="main-layer">
         <h1 class="page-title">小钱全网综合分享</h1>
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
-        <!-- 1 -->
+        <!-- 影视软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">影视软件仓库</div>
             <div class="accordion-content">
@@ -255,7 +300,7 @@
             </div>
         </div>
 
-        <!-- 2 -->
+        <!-- 小说软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">小说软件仓库</div>
             <div class="accordion-content">
@@ -264,13 +309,13 @@
                     <a href="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json" target="_blank" class="btn">复制亨读书源</a>
                     <a href="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517" target="_blank" class="btn">读不舍手「苹果」</a>
                     <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json" target="_blank" class="btn">复制读不舍手书源</a>
-                    <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
+                    <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AFBB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
                     <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json" target="_blank" class="btn">复制千阅书源</a>
                 </div>
             </div>
         </div>
 
-        <!-- 3 -->
+        <!-- 视频解析网站仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">视频解析网站仓库</div>
             <div class="accordion-content">
@@ -284,7 +329,7 @@
             </div>
         </div>
 
-        <!-- 4 -->
+        <!-- 网盘资源仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">网盘资源仓库</div>
             <div class="accordion-content">
@@ -301,7 +346,7 @@
             </div>
         </div>
 
-        <!-- 5 -->
+        <!-- 小火箭订阅 -->
         <div class="accordion-item">
             <div class="accordion-header">小火箭订阅</div>
             <div class="accordion-content">
@@ -315,7 +360,7 @@
             </div>
         </div>
 
-        <!-- 6 -->
+        <!-- 公益项目仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">公益项目仓库</div>
             <div class="accordion-content">
@@ -331,7 +376,7 @@
             </div>
         </div>
 
-        <!-- 7 -->
+        <!-- 猫系软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">猫系软件仓库</div>
             <div class="accordion-content">
@@ -351,14 +396,35 @@
     </div>
 
     <script>
+        // 1. 折叠面板丝滑动画
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
                 const item = header.parentElement;
                 item.classList.toggle('active');
                 item.offsetHeight;
+                // 手机原生点击震动
+                if (window.navigator.vibrate) navigator.vibrate(25);
             }
         }, { passive: true });
+
+        // 2. 明暗主题一键切换（右上角日月按钮）
+        const themeBtn = document.getElementById('themeBtn');
+        const html = document.documentElement;
+        // 读取本地存储记忆主题
+        const saveTheme = localStorage.getItem('theme');
+        if (saveTheme) html.setAttribute('data-theme', saveTheme);
+        themeBtn.innerText = saveTheme === 'dark' ? '🌙' : '🌞';
+
+        themeBtn.addEventListener('click', () => {
+            const now = html.getAttribute('data-theme');
+            const newTheme = now === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeBtn.innerText = newTheme === 'dark' ? '🌙' : '🌞';
+            // 点击震动
+            if (window.navigator.vibrate) navigator.vibrate(35);
+        });
     </script>
 </body>
 </html>
