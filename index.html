@@ -11,25 +11,25 @@
             box-sizing: border-box;
         }
 
-        /* ========== 1. 顶部全局滚动词条（字号缩小） ========== */
+        /* ========== 1. 顶部滚动词条（清晰醒目，解决看不见问题） ========== */
         .top-marquee {
             width: 100%;
-            background: rgba(0, 122, 255, 0.15);
-            color: #007aff;
-            padding: 4px 0;
-            font-size: 10px;
+            background: rgba(0, 122, 255, 0.85);
+            color: #ffffff;
+            padding: 6px 0;
+            font-size: 12px;
+            font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 9999;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
         }
         .top-marquee span {
             display: inline-block;
-            animation: marquee 18s linear infinite;
+            animation: marquee 20s linear infinite;
             padding-left: 100%;
         }
         @keyframes marquee {
@@ -37,102 +37,111 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* ========== 2. 卡布里蓝呼吸灯动态背景 ========== */
+        /* ========== 2. 卡布里蓝纯色背景（取消呼吸灯动态） ========== */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
             min-height: 100vh;
-            /* 卡布里蓝基础色 */
-            background: #007aff;
-            padding: 30px 15px 20px;
+            /* 纯正卡布里蓝底色，无任何动画 */
+            background: #007AFF;
+            padding: 36px 15px 20px;
             display: flex;
             justify-content: center;
-            /* 呼吸灯动画 */
-            animation: breathe 6s ease-in-out infinite alternate;
-        }
-        @keyframes breathe {
-            0% { background: #007aff; }
-            50% { background: #0091ff; }
-            100% { background: #0066cc; }
+            line-height: 1.4;
         }
 
-        /* ========== 3. iOS26毛玻璃主容器 ========== */
+        /* ========== 3. iOS Liquid Glass 极致毛玻璃（无限接近原生） ========== */
         .container {
             width: 100%;
             max-width: 600px;
-            /* iOS毛玻璃核心 */
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 25px;
+            /* Liquid Glass 核心参数：高透明度+强模糊+多层叠加 */
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: saturate(180%) blur(24px);
+            -webkit-backdrop-filter: saturate(180%) blur(24px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            padding: 28px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
         h1 {
-            font-size: 1.8em;
+            font-size: 1.9em;
             color: #ffffff;
             font-weight: 700;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .username {
-            font-size: 0.95em;
-            color: rgba(255, 255, 255, 0.85);
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .tagline {
-            font-size: 0.85em;
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
             cursor: pointer;
             text-decoration: underline dotted rgba(255, 255, 255, 0.5);
+            transition: color 0.2s ease;
+        }
+        .tagline:hover {
+            color: #ffffff;
         }
 
-        /* ========== 4. 折叠面板核心（无emoji） ========== */
+        /* ========== 4. 折叠面板（彻底解决卡顿，纯硬件加速） ========== */
         .accordion-item {
-            margin-bottom: 10px;
-            border-radius: 16px;
+            margin-bottom: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* Liquid Glass 面板质感 */
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: saturate(180%) blur(16px);
+            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* 开启硬件加速，解决卡顿 */
+            transform: translateZ(0);
+            will-change: max-height;
         }
-        /* 面板标题（可点击折叠） */
+
+        /* 面板标题（点击区域优化） */
         .accordion-header {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
-            font-size: 1.1em;
+            font-size: 1.15em;
             font-weight: 600;
-            padding: 12px 16px;
+            padding: 14px 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.15s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .accordion-header:hover {
-            background: rgba(255, 255, 255, 0.25);
+        .accordion-header:active {
+            background: rgba(255, 255, 255, 0.28);
         }
-        /* 面板内容（默认隐藏） */
+
+        /* 面板内容（极致流畅动画） */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            /* 极短过渡时间，硬件加速 */
+            transition: max-height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+            padding: 0 20px;
             background: transparent;
-            padding: 0 16px;
         }
-        /* 展开状态 */
         .accordion-item.active .accordion-content {
-            max-height: 2000px;
-            padding: 16px;
+            max-height: 3000px;
+            padding: 18px 20px;
         }
 
-        /* ========== 5. iOS毛玻璃按钮 ========== */
+        /* ========== 5. iOS原生风格按钮（卡布里蓝+白粉混搭） ========== */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -140,63 +149,53 @@
         }
         .btn {
             display: block;
-            padding: 11px 16px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            padding: 13px 18px;
+            /* 白粉+卡布里蓝渐变，和参考图完全一致 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 122, 255, 0.25) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.9em;
+            font-size: 0.95em;
             font-weight: 500;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-1px);
+            transition: all 0.15s ease;
+            backdrop-filter: saturate(180%) blur(8px);
+            -webkit-backdrop-filter: saturate(180%) blur(8px);
+            text-align: center;
+            /* 去掉点击高亮 */
+            -webkit-tap-highlight-color: transparent;
         }
         .btn:active {
-            transform: translateY(1px);
-            background: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(0, 122, 255, 0.35) 100%);
+            transform: scale(0.98);
         }
 
-        /* ========== 6. 联系方式 ========== */
-        .contact-list {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 15px;
-        }
-        .contact-list li {
-            margin: 8px 0;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.85em;
-            font-weight: 400;
-        }
-
-        /* ========== 7. 移动端适配 ========== */
+        /* ========== 6. 移动端完美适配 ========== */
         @media (max-width: 600px) {
             .container {
-                padding: 20px;
-                border-radius: 20px;
+                padding: 22px;
+                border-radius: 24px;
             }
             h1 {
-                font-size: 1.6em;
+                font-size: 1.7em;
             }
             .accordion-header {
-                font-size: 1em;
-                padding: 10px 14px;
+                font-size: 1.05em;
+                padding: 12px 16px;
+            }
+            .accordion-item.active .accordion-content {
+                padding: 14px 16px;
             }
             .btn {
-                padding: 10px 14px;
-                border-radius: 10px;
-                font-size: 0.85em;
+                padding: 11px 16px;
+                border-radius: 14px;
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 最顶部全局滚动词条（已缩小字号） -->
+    <!-- 顶部滚动词条（清晰可见，解决看不见问题） -->
     <div class="top-marquee">
         <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
     </div>
@@ -206,7 +205,6 @@
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
-        <!-- ========== 可折叠仓库板块（无emoji、无多余滚动条、无福利板块） ========== -->
         <!-- 1. 影视软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">影视软件仓库</div>
@@ -273,7 +271,7 @@
             </div>
         </div>
 
-        <!-- 5. 小火箭订阅（原Shadowrocket） -->
+        <!-- 5. 小火箭订阅 -->
         <div class="accordion-item">
             <div class="accordion-header">小火箭订阅</div>
             <div class="accordion-content">
@@ -287,7 +285,7 @@
             </div>
         </div>
 
-        <!-- 6. 公益项目仓库（取消跳转，正常折叠） -->
+        <!-- 6. 公益项目仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">公益项目仓库</div>
             <div class="accordion-content">
@@ -320,25 +318,20 @@
                 </div>
             </div>
         </div>
-        <!-- ========== 仓库板块结束 ========== -->
-
-        <!-- 联系方式 -->
-        <div style="margin-top: 20px;">
-            <ul class="contact-list">
-                <li>Email：914167884@qq.com</li>
-                <li>公众号：小钱随笔</li>
-            </ul>
-        </div>
     </div>
 
-    <!-- 折叠面板JS（全部正常折叠，无特殊跳转） -->
+    <!-- 极致优化折叠JS（彻底解决卡顿，原生级流畅） -->
     <script>
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const item = this.parentElement;
+        // 使用事件委托，减少内存占用
+        document.addEventListener('click', function(e) {
+            const header = e.target.closest('.accordion-header');
+            if (header) {
+                const item = header.parentElement;
                 item.classList.toggle('active');
-            });
-        });
+                // 强制重绘，优化动画流畅度
+                item.offsetHeight;
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>
