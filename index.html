@@ -5,116 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ========== 全局变量：100% 复用对方网站主色体系 ========== */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --text-primary: #333333;
+            --accent-color: #4a6cf7;
+            --accent-hover: #3a5ce5;
         }
 
-        /* ========== 1. 顶部滚动词条（清晰醒目，解决看不见问题） ========== */
-        .top-marquee {
-            width: 100%;
-            background: rgba(0, 122, 255, 0.85);
-            color: #ffffff;
-            padding: 6px 0;
-            font-size: 12px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
         }
-        .top-marquee span {
-            display: inline-block;
-            animation: marquee 20s linear infinite;
-            padding-left: 100%;
+
+        /* ========== 背景层：完全复刻对方视频背景+白色遮罩 ========== */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            padding: 15px;
+            padding-top: 8vh;
+        }
+
+        .background-layer { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -2; 
+        }
+        .background-video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .background-overlay {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7); /* 对方原版白色半透明遮罩 */
+            z-index: -1;
+        }
+
+        /* ========== 顶部滚动条：完全复刻对方毛玻璃样式 ========== */
+        .marquee-container {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 8px 0;
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+            z-index: 100;
+        }
+        .marquee {
+            white-space: nowrap;
+            display: flex;
+            animation: marquee 15s linear infinite;
+        }
+        .marquee span {
+            color: var(--text-primary);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 15px;
+            font-size: 14px;
         }
         @keyframes marquee {
-            0% { transform: translateX(0); }
+            0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-        /* ========== 2. 卡布里蓝纯色背景（取消呼吸灯动态） ========== */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-            min-height: 100vh;
-            /* 纯正卡布里蓝底色，无任何动画 */
-            background: #007AFF;
-            padding: 36px 15px 20px;
-            display: flex;
-            justify-content: center;
-            line-height: 1.4;
-        }
-
-        /* ========== 3. iOS Liquid Glass 极致毛玻璃（无限接近原生） ========== */
-        .container {
-            width: 100%;
-            max-width: 600px;
-            /* Liquid Glass 核心参数：高透明度+强模糊+多层叠加 */
-            background: rgba(255, 255, 255, 0.22);
-            backdrop-filter: saturate(180%) blur(24px);
-            -webkit-backdrop-filter: saturate(180%) blur(24px);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            padding: 28px;
+        /* ========== 标题：1:1 复刻对方彩虹渐变文字 ========== */
+        .page-title {
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 1.9em;
-            color: #ffffff;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 8px;
-            letter-spacing: 0.3px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .username {
+            text-align: center;
             font-size: 1em;
-            color: rgba(255, 255, 255, 0.9);
+            color: #666666;
             font-weight: 500;
             margin-bottom: 10px;
         }
 
         .tagline {
+            text-align: center;
             font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.8);
+            color: #888888;
             margin-bottom: 24px;
             cursor: pointer;
-            text-decoration: underline dotted rgba(255, 255, 255, 0.5);
+            text-decoration: underline dotted #cccccc;
             transition: color 0.2s ease;
         }
         .tagline:hover {
-            color: #ffffff;
+            color: var(--accent-color);
         }
 
-        /* ========== 4. 折叠面板（彻底解决卡顿，纯硬件加速） ========== */
+        /* ========== 主容器：对方原版毛玻璃卡片规范 ========== */
+        .main-layer { 
+            width: 100%; 
+            max-width: 450px; 
+            margin-top: 0; 
+        }
+        
+        /* 折叠面板：完全沿用对方玻璃卡片样式 */
         .accordion-item {
             margin-bottom: 12px;
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
-            /* Liquid Glass 面板质感 */
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: saturate(180%) blur(16px);
-            -webkit-backdrop-filter: saturate(180%) blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            /* 开启硬件加速，解决卡顿 */
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
             transform: translateZ(0);
             will-change: max-height;
         }
 
-        /* 面板标题（点击区域优化） */
+        /* 面板标题：对方原版交互配色 */
         .accordion-header {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
             font-size: 1.15em;
             font-weight: 600;
             padding: 14px 20px;
@@ -124,14 +162,13 @@
             -webkit-tap-highlight-color: transparent;
         }
         .accordion-header:active {
-            background: rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.35);
         }
 
-        /* 面板内容（极致流畅动画） */
+        /* 面板内容：流畅折叠动画 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            /* 极短过渡时间，硬件加速 */
             transition: max-height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
             padding: 0 20px;
             background: transparent;
@@ -141,7 +178,7 @@
             padding: 18px 20px;
         }
 
-        /* ========== 5. iOS原生风格按钮（卡布里蓝+白粉混搭） ========== */
+        /* ========== 按钮：100% 对方网站主色规范 ========== */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -150,34 +187,32 @@
         .btn {
             display: block;
             padding: 13px 18px;
-            /* 白粉+卡布里蓝渐变，和参考图完全一致 */
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 122, 255, 0.25) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 16px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 6px;
             color: #ffffff;
             text-decoration: none;
             font-size: 0.95em;
-            font-weight: 500;
-            transition: all 0.15s ease;
-            backdrop-filter: saturate(180%) blur(8px);
-            -webkit-backdrop-filter: saturate(180%) blur(8px);
+            font-weight: 600;
+            transition: all 0.3s ease;
             text-align: center;
-            /* 去掉点击高亮 */
             -webkit-tap-highlight-color: transparent;
         }
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
         .btn:active {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(0, 122, 255, 0.35) 100%);
-            transform: scale(0.98);
+            transform: translateY(0);
         }
 
-        /* ========== 6. 移动端完美适配 ========== */
+        /* ========== 移动端完美适配 ========== */
         @media (max-width: 600px) {
-            .container {
-                padding: 22px;
-                border-radius: 24px;
+            .main-layer {
+                padding: 0 10px;
             }
-            h1 {
-                font-size: 1.7em;
+            .page-title {
+                font-size: 26px;
             }
             .accordion-header {
                 font-size: 1.05em;
@@ -188,20 +223,31 @@
             }
             .btn {
                 padding: 11px 16px;
-                border-radius: 14px;
+                border-radius: 6px;
                 font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 顶部滚动词条（清晰可见，解决看不见问题） -->
-    <div class="top-marquee">
-        <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
+    <!-- 对方原版视频背景 -->
+    <div class="background-layer">
+        <video class="background-video" autoplay muted loop playsinline>
+            <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
+        </video>
+        <div class="background-overlay"></div>
     </div>
 
-    <div class="container">
-        <h1>小钱全网综合分享</h1>
+    <!-- 对方原版顶部滚动条 -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-layer">
+        <h1 class="page-title">小钱全网综合分享</h1>
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
@@ -320,15 +366,13 @@
         </div>
     </div>
 
-    <!-- 极致优化折叠JS（彻底解决卡顿，原生级流畅） -->
+    <!-- 流畅折叠JS -->
     <script>
-        // 使用事件委托，减少内存占用
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
                 const item = header.parentElement;
                 item.classList.toggle('active');
-                // 强制重绘，优化动画流畅度
                 item.offsetHeight;
             }
         }, { passive: true });
