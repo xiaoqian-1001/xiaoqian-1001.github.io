@@ -1,5 +1,5 @@
-# xiaoqian-1001.github.io
-# xiaoqian-1001
+# 小钱全网综合分享
+# [xiaoqian-1001](https://xiaoqian-1001.github.io/)
 自用节点订阅 & 工具分享
 
 ## Clash 订阅
