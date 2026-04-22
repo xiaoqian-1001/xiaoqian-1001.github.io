@@ -38,7 +38,6 @@
         body {
             font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
             min-height: 100vh;
-            /* 汉堡薯条经典配色：暖棕+金黄渐变 */
             background: linear-gradient(135deg, #D97706 0%, #92400E 100%);
             background-attachment: fixed;
             padding: 40px 15px 30px;
@@ -46,7 +45,7 @@
             justify-content: center;
         }
 
-        /* 主容器：奶白底色+薯条黄边框 */
+        /* 主容器 */
         .container {
             width: 100%;
             max-width: 600px;
@@ -125,32 +124,50 @@
             padding-left: 100%;
         }
 
-        h2 {
+        /* ========== 折叠面板核心样式 ========== */
+        .accordion-item {
+            margin-bottom: 12px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 2px dashed #FBBF24;
+        }
+        /* 面板标题（可点击） */
+        .accordion-header {
+            background: #DC2626;
+            color: #FFFBEB;
             font-size: 1.3em;
-            color: #DC2626;
             font-weight: 700;
-            margin: 30px 0 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px dashed #FBBF24;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* 公益项目汇总标题加跳转 */
-        h2.gongyi {
+            padding: 14px 16px;
             cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .accordion-header:hover {
+            background: #E53E3E;
+        }
+        /* 面板内容（默认隐藏） */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #FFFBEB;
+            padding: 0 16px;
+        }
+        /* 展开状态 */
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+            padding: 16px;
         }
 
-        /* 汉堡风按钮：红底+白字+薯条黄边框 */
+        /* 汉堡风按钮 */
         .btn-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
         }
-
         .btn {
             display: block;
             padding: 12px 16px;
@@ -164,13 +181,11 @@
             transition: all 0.2s ease;
             box-shadow: 0 3px 0 #991B1B;
         }
-
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 0 #991B1B;
             background: #E53E3E;
         }
-
         .btn:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #991B1B;
@@ -181,10 +196,7 @@
             list-style: none;
             padding-left: 0;
             margin-top: 8px;
-            position: relative;
-            z-index: 1;
         }
-
         .contact-list li {
             margin: 10px 0;
             color: #92400E;
@@ -205,7 +217,6 @@
             animation: burgerBG 10s ease infinite;
             z-index: -1;
         }
-
         @keyframes burgerBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -226,6 +237,10 @@
                 border-radius: 12px;
                 font-size: 0.9em;
             }
+            .accordion-header {
+                font-size: 1.2em;
+                padding: 12px 14px;
+            }
         }
     </style>
 </head>
@@ -238,10 +253,9 @@
     <div class="container">
         <h1>🍔 小钱全网综合分享 🍟</h1>
         <p class="username">xiaoqian-1001</p>
-        <!-- 点击弹出提示框 -->
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
-        <!-- 福利小板块：放在影视软件合集上方 -->
+        <!-- 福利小板块 -->
         <div class="welfare">
             🎁 福利：<a href="http://dpurl.cn/RRNL6G3z" target="_blank">丑团</a>
         </div>
@@ -251,93 +265,121 @@
             <span>小钱全网综合分享，建立于2026年4月22日，技术支持Github。</span>
         </div>
 
+        <!-- ========== 可折叠板块开始 ========== -->
         <!-- 1️⃣ 影视软件合集 -->
-        <h2>📺 影视软件合集</h2>
-        <div class="btn-group">
-            <a href="https://a123tv.com/" target="_blank" class="btn">123TV「网页」</a>
-            <a href="https://www.flixflop.com/" target="_blank" class="btn">飞流视频「网页」</a>
-            <a href="https://gaze.run/" target="_blank" class="btn">注视影视「网页」</a>
-            <a href="https://kafeizhibo.com/" target="_blank" class="btn">咖啡直播「体育」</a>
-            <a href="https://dogpan.com/s/R6GKck" target="_blank" class="btn">OK影视「安卓+TV」</a>
-            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" target="_blank" class="btn">TVbox订阅「裤佬」</a>
-            <a href="https://9280.kstore.vip/newwex.json" target="_blank" class="btn">TVbox订阅「牛二」</a>
-            <a href="https://dogpan.com/s/mZp9cK" target="_blank" class="btn">UZ影视「全家桶」</a>
-            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" target="_blank" class="btn">UZ影视订阅</a>
-            <a href="https://aptv.wegic.app/" target="_blank" class="btn">APTV「苹果系全家桶」</a>
-            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u" target="_blank" class="btn">IPTV订阅</a>
+        <div class="accordion-item">
+            <div class="accordion-header">📺 影视软件合集</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://a123tv.com/" target="_blank" class="btn">123TV「网页」</a>
+                    <a href="https://www.flixflop.com/" target="_blank" class="btn">飞流视频「网页」</a>
+                    <a href="https://gaze.run/" target="_blank" class="btn">注视影视「网页」</a>
+                    <a href="https://kafeizhibo.com/" target="_blank" class="btn">咖啡直播「体育」</a>
+                    <a href="https://dogpan.com/s/R6GKck" target="_blank" class="btn">OK影视「安卓+TV」</a>
+                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" target="_blank" class="btn">TVbox订阅「裤佬」</a>
+                    <a href="https://9280.kstore.vip/newwex.json" target="_blank" class="btn">TVbox订阅「牛二」</a>
+                    <a href="https://dogpan.com/s/mZp9cK" target="_blank" class="btn">UZ影视「全家桶」</a>
+                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" target="_blank" class="btn">UZ影视订阅</a>
+                    <a href="https://aptv.wegic.app/" target="_blank" class="btn">APTV「苹果系全家桶」</a>
+                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u" target="_blank" class="btn">IPTV订阅</a>
+                </div>
+            </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- 新增：小说软件合辑 -->
-        <!-- ============================================== -->
-        <h2>📖 小说软件合辑</h2>
-        <div class="btn-group">
-            <a href="https://apps.apple.com/cn/app/id6445861996" target="_blank" class="btn">亨读「苹果」</a>
-            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json" target="_blank" class="btn">复制亨读书源</a>
-            <a href="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517" target="_blank" class="btn">读不舍手「苹果」</a>
-            <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json" target="_blank" class="btn">复制读不舍手书源</a>
-            <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
-            <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json" target="_blank" class="btn">复制千阅书源</a>
+        <!-- 2️⃣ 小说软件合辑 -->
+        <div class="accordion-item">
+            <div class="accordion-header">📖 小说软件合辑</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://apps.apple.com/cn/app/id6445861996" target="_blank" class="btn">亨读「苹果」</a>
+                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json" target="_blank" class="btn">复制亨读书源</a>
+                    <a href="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517" target="_blank" class="btn">读不舍手「苹果」</a>
+                    <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json" target="_blank" class="btn">复制读不舍手书源</a>
+                    <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
+                    <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json" target="_blank" class="btn">复制千阅书源</a>
+                </div>
+            </div>
         </div>
 
-        <!-- 2️⃣ 视频解析网站合集 -->
-        <h2>🎬 视频解析网站合集</h2>
-        <div class="btn-group">
-            <a href="https://9xbuddy.in/zh" target="_blank" class="btn">国外主流软件平台解析</a>
-            <a href="https://www.v2ob.com/" target="_blank" class="btn">国内短视频去水印解析</a>
-            <a href="https://am1907.top/" target="_blank" class="btn">爱优腾芒vip解析-直接搜索</a>
-            <a href="https://www.nuliya.top/vip" target="_blank" class="btn">爱优腾芒vip解析-粘贴链接</a>
-            <a href="https://www.dlbunny.com/" target="_blank" class="btn">抖音专用-去水印解析+下载</a>
+        <!-- 3️⃣ 视频解析网站合集 -->
+        <div class="accordion-item">
+            <div class="accordion-header">🎬 视频解析网站合集</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://9xbuddy.in/zh" target="_blank" class="btn">国外主流软件平台解析</a>
+                    <a href="https://www.v2ob.com/" target="_blank" class="btn">国内短视频去水印解析</a>
+                    <a href="https://am1907.top/" target="_blank" class="btn">爱优腾芒vip解析-直接搜索</a>
+                    <a href="https://www.nuliya.top/vip" target="_blank" class="btn">爱优腾芒vip解析-粘贴链接</a>
+                    <a href="https://www.dlbunny.com/" target="_blank" class="btn">抖音专用-去水印解析+下载</a>
+                </div>
+            </div>
         </div>
 
-        <!-- 3️⃣ 网盘资源合集 -->
-        <h2>📁 网盘资源合集</h2>
-        <div class="btn-group">
-            <a href="https://so.252035.xyz/?ref=thlm.com" target="_blank" class="btn">资源共建盘搜</a>
-            <a href="https://jsnzkpg.github.io/pansou/" target="_blank" class="btn">裤佬全网盘搜</a>
-            <a href="https://seedhub.cc/" target="_blank" class="btn">SeedHub</a>
-            <a href="https://mdsub.top/" target="_blank" class="btn">漫迪小站</a>
-            <a href="https://kangfuzhongx.in/#" target="_blank" class="btn">三次元成瘾者康复中心</a>
-            <a href="https://chaospace.cc/" target="_blank" class="btn">CHAOSPACE</a>
-            <a href="https://vlink.cc/xmo" target="_blank" class="btn">可爱帅气的小木偶</a>
-            <a href="https://pomo.mom/" target="_blank" class="btn">4K原盘</a>
+        <!-- 4️⃣ 网盘资源合集 -->
+        <div class="accordion-item">
+            <div class="accordion-header">📁 网盘资源合集</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://so.252035.xyz/?ref=thlm.com" target="_blank" class="btn">资源共建盘搜</a>
+                    <a href="https://jsnzkpg.github.io/pansou/" target="_blank" class="btn">裤佬全网盘搜</a>
+                    <a href="https://seedhub.cc/" target="_blank" class="btn">SeedHub</a>
+                    <a href="https://mdsub.top/" target="_blank" class="btn">漫迪小站</a>
+                    <a href="https://kangfuzhongx.in/#" target="_blank" class="btn">三次元成瘾者康复中心</a>
+                    <a href="https://chaospace.cc/" target="_blank" class="btn">CHAOSPACE</a>
+                    <a href="https://vlink.cc/xmo" target="_blank" class="btn">可爱帅气的小木偶</a>
+                    <a href="https://pomo.mom/" target="_blank" class="btn">4K原盘</a>
+                </div>
+            </div>
         </div>
 
-        <!-- 4️⃣ Shadowrocket订阅 -->
-        <h2>🚀 Shadowrocket订阅</h2>
-        <div class="btn-group">
-            <a href="https://edt2.qxy929.ccwu.cc/sub?token=eb46aa665e02fe11fa9d9b4960b92d08" target="_blank" class="btn">小钱自建</a>
-            <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg" target="_blank" class="btn">裤佬</a>
-            <a href="https://shz.al/~WangCai" target="_blank" class="btn">旺财</a>
-            <a href="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b" target="_blank" class="btn">周润发</a>
-            <a href="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao" target="_blank" class="btn">香蕉</a>
+        <!-- 5️⃣ Shadowrocket订阅 -->
+        <div class="accordion-item">
+            <div class="accordion-header">🚀 Shadowrocket订阅</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://edt2.qxy929.ccwu.cc/sub?token=eb46aa665e02fe11fa9d9b4960b92d08" target="_blank" class="btn">小钱自建</a>
+                    <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg" target="_blank" class="btn">裤佬</a>
+                    <a href="https://shz.al/~WangCai" target="_blank" class="btn">旺财</a>
+                    <a href="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b" target="_blank" class="btn">周润发</a>
+                    <a href="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao" target="_blank" class="btn">香蕉</a>
+                </div>
+            </div>
         </div>
 
-        <!-- 5️⃣ 公益项目汇总（点击跳转） -->
-        <h2 class="gongyi" onclick="window.open('https://kdsq.cc/m.html','_blank')">🤝 公益项目汇总</h2>
-        <div class="btn-group">
-            <a href="https://stymei.github.io/" target="_blank" class="btn">共享小火箭</a>
-            <a href="https://jsnzkpg.github.io/music" target="_blank" class="btn">音乐网站</a>
-            <a href="https://jsnzkpg.github.io/TelegramProxy" target="_blank" class="btn">TG代理</a>
-            <a href="https://jsnzkpg.github.io/email" target="_blank" class="btn">临时邮箱</a>
-            <a href="https://jsnzkpg.github.io/ai" target="_blank" class="btn">智能Ai</a>
-            <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt" target="_blank" class="btn">Emby共享账号</a>
-            <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt" target="_blank" class="btn">WebDAV共享账号</a>
+        <!-- 6️⃣ 公益项目汇总 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="window.open('https://kdsq.cc/m.html','_blank')">🤝 公益项目汇总</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://stymei.github.io/" target="_blank" class="btn">共享小火箭</a>
+                    <a href="https://jsnzkpg.github.io/music" target="_blank" class="btn">音乐网站</a>
+                    <a href="https://jsnzkpg.github.io/TelegramProxy" target="_blank" class="btn">TG代理</a>
+                    <a href="https://jsnzkpg.github.io/email" target="_blank" class="btn">临时邮箱</a>
+                    <a href="https://jsnzkpg.github.io/ai" target="_blank" class="btn">智能Ai</a>
+                    <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt" target="_blank" class="btn">Emby共享账号</a>
+                    <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt" target="_blank" class="btn">WebDAV共享账号</a>
+                </div>
+            </div>
         </div>
 
-        <!-- 6️⃣ 猫系软件合集 -->
-        <h2>🐱 猫系软件合集</h2>
-        <div class="btn-group">
-            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5" target="_blank" class="btn">永久猫源订阅</a>
-            <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5" target="_blank" class="btn">导师猫源</a>
-            <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5" target="_blank" class="btn">雪乃猫源</a>
-            <a href="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5" target="_blank" class="btn">豆儿猫源</a>
-            <a href="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5" target="_blank" class="btn">沐辰猫源</a>
-            <a href="https://9280.kstore.vip/cat/index.js.md5" target="_blank" class="btn">牛二猫源</a>
-            <a href="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN" target="_blank" class="btn">MiraPlay「苹果」</a>
-            <a href="https://testflight.apple.com/join/thdxEjTZ" target="_blank" class="btn">JSTV「苹果」</a>
-            <a href="https://testflight.apple.com/join/ywzcMKS3" target="_blank" class="btn">魔力云播「苹果」</a>
+        <!-- 7️⃣ 猫系软件合集 -->
+        <div class="accordion-item">
+            <div class="accordion-header">🐱 猫系软件合集</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5" target="_blank" class="btn">永久猫源订阅</a>
+                    <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5" target="_blank" class="btn">导师猫源</a>
+                    <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5" target="_blank" class="btn">雪乃猫源</a>
+                    <a href="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5" target="_blank" class="btn">豆儿猫源</a>
+                    <a href="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5" target="_blank" class="btn">沐辰猫源</a>
+                    <a href="https://9280.kstore.vip/cat/index.js.md5" target="_blank" class="btn">牛二猫源</a>
+                    <a href="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN" target="_blank" class="btn">MiraPlay「苹果」</a>
+                    <a href="https://testflight.apple.com/join/thdxEjTZ" target="_blank" class="btn">JSTV「苹果」</a>
+                    <a href="https://testflight.apple.com/join/ywzcMKS3" target="_blank" class="btn">魔力云播「苹果」</a>
+                </div>
+            </div>
         </div>
+        <!-- ========== 可折叠板块结束 ========== -->
 
         <!-- 联系方式 -->
         <h2>📞 联系方式</h2>
@@ -346,5 +388,18 @@
             <li>公众号：小钱随笔</li>
         </ul>
     </div>
+
+    <!-- 折叠面板JS -->
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            // 公益项目汇总单独是跳转，不绑定折叠
+            if (!header.onclick) {
+                header.addEventListener('click', function() {
+                    const item = this.parentElement;
+                    item.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
