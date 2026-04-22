@@ -22,7 +22,7 @@
             justify-content: center;
         }
 
-        /* 主容器：毛玻璃卡片 + 内容居中 */
+        /* 主容器：居中 + 毛玻璃卡片 */
         .container {
             width: 100%;
             max-width: 600px;
@@ -36,43 +36,41 @@
             text-align: center;
         }
 
-        /* 标题样式 */
         h1 {
             font-size: 2.2em;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .username {
             font-size: 1.1em;
             opacity: 0.9;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .tagline {
             font-size: 1em;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             opacity: 0.95;
         }
 
-        /* 板块标题 */
         h2 {
             font-size: 1.4em;
-            margin: 35px 0 20px;
-            padding-bottom: 10px;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
             border-bottom: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 悬浮按钮样式 */
+        /* 按钮组样式 */
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 10px;
         }
 
         .btn {
-            display: inline-block;
+            display: block;
             padding: 12px 20px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -101,7 +99,7 @@
             opacity: 0.9;
         }
 
-        /* 呼吸背景动画 */
+        /* 动态背景 */
         body::before {
             content: "";
             position: fixed;
@@ -121,7 +119,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 移动端适配 */
         @media (max-width: 600px) {
             .container {
                 padding: 25px;
@@ -157,14 +154,18 @@
             <a href="https://your-link-here" class="btn">订阅链接</a >
         </div>
 
-        <!-- 订阅转换 -->
-        <h2>订阅转换</h2>
+        <!-- 订阅转换 → 视频解析网站合集 -->
+        <h2>视频解析网站合集</h2>
         <div class="btn-group">
-            <a href="https://your-link-here" class="btn">订阅转换工具</a >
+            <a href="https://9xbuddy.in/zh" class="btn">国外主流软件平台解析</a >
+            <a href="https://www.v2ob.com/" class="btn">国内短视频去水印解析</a >
+            <a href="https://am1907.top/" class="btn">爱优腾芒vip解析-直接搜索</a >
+            <a href="https://www.nuliya.top/vip" class="btn">爱优腾芒vip解析-粘贴链接</a >
+            <a href="https://www.dlbunny.com/" class="btn">抖音专用-去水印解析+下载</a >
         </div>
 
-        <!-- 影视分享板块 -->
-        <h2>影视分享</h2>
+        <!-- 影视分享 → 影视软件合集 -->
+        <h2>影视软件合集</h2>
         <div class="btn-group">
             <a href="https://a123tv.com/" class="btn">123TV</a >
             <a href="https://www.yinglishidaquantv.com/" class="btn">影视大全</a >
@@ -172,10 +173,9 @@
             <a href="https://gaze.run/" class="btn">注视影视</a >
         </div>
 
-        <!-- 联系方式 -->
+        <!-- 联系方式（已删掉 TG 频道） -->
         <h2>联系方式</h2>
         <ul class="contact-list">
-            <li>TG 频道：@yuzhouhui</li>
             <li>Email：914167884@qq.com</li>
             <li>公众号：小钱随笔</li>
         </ul>
