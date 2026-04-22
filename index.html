@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
     <style>
+        /* 完全沿用参考网站原版变量 */
         :root {
             --glass-bg: rgba(255, 255, 255, 0.15);
             --glass-border: rgba(255, 255, 255, 0.2);
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --text-primary: #333333;
+            --text-primary: #333;
             --accent-color: #4a6cf7;
             --accent-hover: #3a5ce5;
         }
@@ -21,6 +22,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
         }
 
+        /* 参考网站原版视频背景+白色遮罩 */
         body {
             min-height: 100vh;
             display: flex;
@@ -31,12 +33,32 @@
             position: relative;
             padding: 15px;
             padding-top: 8vh;
-            background: url('https://p3-flow-image-sign.byteimg.com/tos-cn-i-a9rned3rph/3000e3244e4340189d7d4d4f00f31351~tplv-a9rned3rph-image.image') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
         }
 
-        /* 顶部滚动条 */
+        .background-layer { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -2; 
+        }
+        .background-video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .background-overlay {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: -1;
+        }
+
+        /* 参考网站原版顶部滚动条 */
         .marquee-container {
             position: fixed;
             top: 0; 
@@ -67,7 +89,7 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* 标题样式 */
+        /* 参考网站原版彩虹渐变标题 */
         .page-title {
             text-align: center;
             font-size: 32px;
@@ -88,7 +110,7 @@
         .username {
             text-align: center;
             font-size: 1em;
-            color: #666666;
+            color: #666;
             font-weight: 500;
             margin-bottom: 10px;
         }
@@ -96,10 +118,10 @@
         .tagline {
             text-align: center;
             font-size: 0.9em;
-            color: #888888;
+            color: #888;
             margin-bottom: 24px;
             cursor: pointer;
-            text-decoration: underline dotted #cccccc;
+            text-decoration: underline dotted #ccc;
             transition: color 0.2s ease;
         }
         .tagline:hover {
@@ -112,21 +134,23 @@
             margin-top: 0; 
         }
         
-        /* 折叠面板 - 完全居中+毛玻璃 */
+        /* ========== 核心：1:1复刻参考网站折叠面板 ========== */
         .accordion-item {
             margin-bottom: 12px;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
+            /* 标题毛玻璃 */
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
+            /* 硬件加速，保证动画丝滑 */
             transform: translateZ(0);
             will-change: max-height;
         }
 
-        /* 面板标题 - 强制居中 */
+        /* 面板标题：居中 + 参考网站原版样式 */
         .accordion-header {
             background: rgba(255, 255, 255, 0.2);
             color: var(--text-primary);
@@ -137,28 +161,28 @@
             transition: background 0.15s ease;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
-            text-align: center; /* 强制标题居中 */
+            text-align: center; /* 强制居中 */
         }
         .accordion-header:active {
             background: rgba(255, 255, 255, 0.35);
         }
 
-        /* 面板内容 - 毛玻璃背景 */
+        /* 面板内容：展开后纯白背景 + 丝滑动画 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
+            /* 参考网站原版流畅动画 */
             transition: max-height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
             padding: 0 20px;
-            background: var(--glass-bg); /* 内容区毛玻璃 */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            /* 展开后纯白背景，和你截图完全一致 */
+            background: #ffffff;
         }
         .accordion-item.active .accordion-content {
             max-height: 3000px;
             padding: 18px 20px;
         }
 
-        /* 按钮样式 - 完全匹配截图 */
+        /* 按钮：参考网站原版蓝色实心按钮 */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -186,7 +210,7 @@
             transform: translateY(0);
         }
 
-        /* 移动端适配 */
+        /* 移动端完美适配 */
         @media (max-width: 600px) {
             .main-layer {
                 padding: 0 10px;
@@ -210,7 +234,15 @@
     </style>
 </head>
 <body>
-    <!-- 顶部滚动条 -->
+    <!-- 参考网站原版视频背景 -->
+    <div class="background-layer">
+        <video class="background-video" autoplay muted loop playsinline>
+            <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
+        </video>
+        <div class="background-overlay"></div>
+    </div>
+
+    <!-- 参考网站原版顶部滚动条 -->
     <div class="marquee-container">
         <div class="marquee">
             <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
@@ -327,7 +359,7 @@
                     <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5" target="_blank" class="btn">导师猫源</a>
                     <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5" target="_blank" class="btn">雪乃猫源</a>
                     <a href="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5" target="_blank" class="btn">豆儿猫源</a>
-                    <a href="ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5" target="_blank" class="btn">沐辰猫源</a>
+                    <a href="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5" target="_blank" class="btn">沐辰猫源</a>
                     <a href="https://9280.kstore.vip/cat/index.js.md5" target="_blank" class="btn">牛二猫源</a>
                     <a href="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN" target="_blank" class="btn">MiraPlay「苹果」</a>
                     <a href="https://testflight.apple.com/join/thdxEjTZ" target="_blank" class="btn">JSTV「苹果」</a>
@@ -337,12 +369,14 @@
         </div>
     </div>
 
+    <!-- 参考网站原版折叠JS，动画100%丝滑 -->
     <script>
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
                 const item = header.parentElement;
                 item.classList.toggle('active');
+                // 强制重绘，保证动画流畅
                 item.offsetHeight;
             }
         }, { passive: true });
