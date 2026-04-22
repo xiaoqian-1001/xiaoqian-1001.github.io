@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
     <style>
-        /* 全局基础样式 */
         * {
             margin: 0;
             padding: 0;
@@ -18,13 +17,15 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
             color: #fff;
-            padding: 20px;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
         }
 
-        /* 毛玻璃卡片容器 */
+        /* 主容器：毛玻璃卡片 + 内容居中 */
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            width: 100%;
+            max-width: 600px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -32,70 +33,75 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 40px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            text-align: center;
         }
 
         /* 标题样式 */
         h1 {
-            font-size: 2.5em;
-            text-align: center;
+            font-size: 2.2em;
             margin-bottom: 10px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        .subtitle {
-            text-align: center;
-            font-size: 1.2em;
+        .username {
+            font-size: 1.1em;
             opacity: 0.9;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        /* 链接样式 */
-        a {
-            color: #fff;
-            text-decoration: none;
-            border-bottom: 1px dashed rgba(255,255,255,0.5);
-            transition: all 0.3s ease;
+        .tagline {
+            font-size: 1em;
+            margin-bottom: 40px;
+            opacity: 0.95;
         }
 
-        a:hover {
-            color: #ffeb3b;
-            border-bottom-color: #ffeb3b;
-        }
-
-        /* 二级标题 */
+        /* 板块标题 */
         h2 {
-            font-size: 1.5em;
-            margin: 30px 0 15px;
+            font-size: 1.4em;
+            margin: 35px 0 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 列表样式 */
-        ul {
+        /* 悬浮按钮样式 */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* 联系方式列表 */
+        .contact-list {
             list-style: none;
             padding-left: 0;
+            margin-top: 10px;
         }
 
-        li {
-            margin: 10px 0;
-            padding-left: 20px;
-            position: relative;
+        .contact-list li {
+            margin: 8px 0;
+            opacity: 0.9;
         }
 
-        li::before {
-            content: "•";
-            color: #ffeb3b;
-            position: absolute;
-            left: 0;
-        }
-
-        /* 段落 */
-        p {
-            margin: 10px 0;
-            line-height: 1.8;
-        }
-
-        /* 动画背景（呼吸效果） */
+        /* 呼吸背景动画 */
         body::before {
             content: "";
             position: fixed;
@@ -115,14 +121,13 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 响应式适配 */
+        /* 移动端适配 */
         @media (max-width: 600px) {
             .container {
-                margin: 20px auto;
                 padding: 25px;
             }
             h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
         }
     </style>
@@ -130,28 +135,46 @@
 <body>
     <div class="container">
         <h1>小钱全网综合分享</h1>
-        <p class="subtitle"><a href=" ">xiaoqian-1001</a ></p >
-        <p>自用节点订阅 &amp; 工具分享</p >
+        <p class="username">xiaoqian-1001</p >
+        <p class="tagline">热爱是所有的理由和答案</p >
 
+        <!-- Clash 订阅 -->
         <h2>Clash 订阅</h2>
-        <ul>
-            <li>原始订阅：<a href="https://your-link-here">https://your-link-here</a ></li>
-            <li>免翻订阅：<a href="https://your-link-here">https://your-link-here</a ></li>
-        </ul>
+        <div class="btn-group">
+            <a href=" " class="btn">原始订阅</a >
+            <a href="https://your-link-here" class="btn">免翻订阅</a >
+        </div>
 
+        <!-- Singbox 订阅 -->
         <h2>Singbox 订阅</h2>
-        <p><a href="https://your-link-here">https://your-link-here</a ></p >
+        <div class="btn-group">
+            <a href="https://your-link-here" class="btn">订阅链接</a >
+        </div>
 
+        <!-- Base64 订阅 -->
         <h2>Base64 订阅</h2>
-        <p><a href="https://your-link-here">https://your-link-here</a ></p >
+        <div class="btn-group">
+            <a href="https://your-link-here" class="btn">订阅链接</a >
+        </div>
 
+        <!-- 订阅转换 -->
         <h2>订阅转换</h2>
-        <ul>
-            <li>订阅转换工具：<a href="https://your-link-here">https://your-link-here</a ></li>
-        </ul>
+        <div class="btn-group">
+            <a href="https://your-link-here" class="btn">订阅转换工具</a >
+        </div>
 
+        <!-- 影视分享板块 -->
+        <h2>影视分享</h2>
+        <div class="btn-group">
+            <a href="https://a123tv.com/" class="btn">123TV</a >
+            <a href="https://www.yinglishidaquantv.com/" class="btn">影视大全</a >
+            <a href="https://www.flixflop.com/" class="btn">飞流视频</a >
+            <a href="https://gaze.run/" class="btn">注视影视</a >
+        </div>
+
+        <!-- 联系方式 -->
         <h2>联系方式</h2>
-        <ul>
+        <ul class="contact-list">
             <li>TG 频道：@yuzhouhui</li>
             <li>Email：914167884@qq.com</li>
             <li>公众号：小钱随笔</li>
