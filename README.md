@@ -16,5 +16,6 @@ https://your-link-here
 - 订阅转换工具：https://your-link-here
 
 ## 联系方式
-- TG 频道：@your-channel
-- Blog：https://your-blog-link
+- TG 频道：@yuzhouhui
+- Email：914167884@qq.com
+- 公众号：小钱随笔
