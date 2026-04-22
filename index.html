@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
     <style>
-        /* 完全沿用参考网站原版变量 */
+        /* 全局变量统一 */
         :root {
             --glass-bg: rgba(255, 255, 255, 0.15);
             --glass-border: rgba(255, 255, 255, 0.2);
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             --text-primary: #333;
-            --accent-color: #4a6cf7;
-            --accent-hover: #3a5ce5;
+            --accent-color: #ff6b6b; /* 统一橙红色调 */
+            --accent-hover: #ff5252;
+            --menu-gradient: linear-gradient(45deg, #ff6b6b, #4ecdc4);
         }
 
         * { 
@@ -22,55 +23,20 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
         }
 
-        /* 参考网站原版视频背景+白色遮罩 */
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            position: relative;
-            padding: 15px;
-            padding-top: 8vh;
-        }
-
-        .background-layer { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: -2; 
-        }
-        .background-video { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .background-overlay {
-            position: absolute;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: rgba(255, 255, 255, 0.7);
-            z-index: -1;
-        }
-
-        /* 参考网站原版顶部滚动条 */
+        /* 顶部菜单栏样式 */
         .marquee-container {
             position: fixed;
             top: 0; 
             left: 0; 
             width: 100%;
-            background: var(--glass-bg);
+            background: var(--menu-gradient);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 8px 0;
             box-shadow: var(--glass-shadow);
             overflow: hidden;
             z-index: 100;
+            border-radius: 0 0 12px 12px;
         }
         .marquee {
             white-space: nowrap;
@@ -78,308 +44,131 @@
             animation: marquee 15s linear infinite;
         }
         .marquee span {
-            color: var(--text-primary);
+            color: white;
             font-weight: bold;
             text-decoration: none;
             padding: 0 15px;
             font-size: 14px;
         }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+
+        /* 统一的下拉菜单样式 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+        .dropdown-btn {
+            background: var(--menu-gradient);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+        .dropdown-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: var(--glass-bg);
+            min-width: 200px;
+            box-shadow: var(--glass-shadow);
+            border-radius: 8px;
+            z-index: 1;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: var(--text-primary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.2s ease;
+        }
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--accent-color);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
 
-        /* 参考网站原版彩虹渐变标题 */
+        /* 彩虹渐变标题 */
         .page-title {
             text-align: center;
             font-size: 32px;
             font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+            margin: 20px 0;
+            background: var(--menu-gradient);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradient 8s ease infinite;
         }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
 
-        .username {
-            text-align: center;
-            font-size: 1em;
-            color: #666;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .tagline {
-            text-align: center;
-            font-size: 0.9em;
-            color: #888;
-            margin-bottom: 24px;
-            cursor: pointer;
-            text-decoration: underline dotted #ccc;
-            transition: color 0.2s ease;
-        }
-        .tagline:hover {
-            color: var(--accent-color);
-        }
-
-        .main-layer { 
-            width: 100%; 
-            max-width: 450px; 
-            margin-top: 0; 
-        }
-        
-        /* ========== 核心：1:1复刻参考网站折叠面板 ========== */
-        .accordion-item {
-            margin-bottom: 12px;
-            border-radius: 12px;
-            overflow: hidden;
-            /* 标题毛玻璃 */
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            /* 硬件加速，保证动画丝滑 */
-            transform: translateZ(0);
-            will-change: max-height;
-        }
-
-        /* 面板标题：居中 + 参考网站原版样式 */
-        .accordion-header {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--text-primary);
-            font-size: 1.15em;
-            font-weight: 600;
-            padding: 14px 20px;
-            cursor: pointer;
-            transition: background 0.15s ease;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            text-align: center; /* 强制居中 */
-        }
-        .accordion-header:active {
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        /* 面板内容：展开后纯白背景 + 丝滑动画 */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            /* 参考网站原版流畅动画 */
-            transition: max-height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-            padding: 0 20px;
-            /* 展开后纯白背景，和你截图完全一致 */
-            background: #ffffff;
-        }
-        .accordion-item.active .accordion-content {
-            max-height: 3000px;
-            padding: 18px 20px;
-        }
-
-        /* 按钮：参考网站原版蓝色实心按钮 */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .btn {
-            display: block;
-            padding: 13px 18px;
-            background: var(--accent-color);
-            border: none;
-            border-radius: 12px;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.95em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-align: center;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        /* 移动端完美适配 */
+        /* 响应式设计 */
         @media (max-width: 600px) {
-            .main-layer {
-                padding: 0 10px;
+            .dropdown-btn {
+                padding: 8px 15px;
+                font-size: 14px;
             }
-            .page-title {
-                font-size: 26px;
-            }
-            .accordion-header {
-                font-size: 1.05em;
-                padding: 12px 16px;
-            }
-            .accordion-item.active .accordion-content {
-                padding: 14px 16px;
-            }
-            .btn {
-                padding: 11px 16px;
-                border-radius: 10px;
-                font-size: 0.9em;
+            .dropdown-content {
+                min-width: 160px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 参考网站原版视频背景 -->
-    <div class="background-layer">
-        <video class="background-video" autoplay muted loop playsinline>
-            <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
-        </video>
-        <div class="background-overlay"></div>
-    </div>
-
-    <!-- 参考网站原版顶部滚动条 -->
+    <!-- 顶部菜单栏 -->
     <div class="marquee-container">
         <div class="marquee">
             <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
         </div>
     </div>
 
-    <div class="main-layer">
+    <div style="margin-top: 50px; text-align: center;">
         <h1 class="page-title">小钱全网综合分享</h1>
-        <p class="username">xiaoqian-1001</p>
-        <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
-
-        <!-- 1. 影视软件仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">影视软件仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://a123tv.com/" target="_blank" class="btn">123TV「网页」</a>
-                    <a href="https://www.flixflop.com/" target="_blank" class="btn">飞流视频「网页」</a>
-                    <a href="https://gaze.run/" target="_blank" class="btn">注视影视「网页」</a>
-                    <a href="https://kafeizhibo.com/" target="_blank" class="btn">咖啡直播「体育」</a>
-                    <a href="https://dogpan.com/s/R6GKck" target="_blank" class="btn">OK影视「安卓+TV」</a>
-                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" target="_blank" class="btn">TVbox订阅「裤佬」</a>
-                    <a href="https://9280.kstore.vip/newwex.json" target="_blank" class="btn">TVbox订阅「牛二」</a>
-                    <a href="https://dogpan.com/s/mZp9cK" target="_blank" class="btn">UZ影视「全家桶」</a>
-                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" target="_blank" class="btn">UZ影视订阅</a>
-                    <a href="https://aptv.wegic.app/" target="_blank" class="btn">APTV「苹果系全家桶」</a>
-                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u" target="_blank" class="btn">IPTV订阅</a>
-                </div>
+        
+        <!-- 统一风格的下拉菜单 -->
+        <div class="dropdown">
+            <button class="dropdown-btn">影视软件仓库</button>
+            <div class="dropdown-content">
+                <a href="#">123TV「网页」</a>
+                <a href="#">飞流视频「网页」</a>
+                <a href="#">注视影视「网页」</a>
             </div>
         </div>
 
-        <!-- 2. 小说软件仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">小说软件仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://apps.apple.com/cn/app/id6445861996" target="_blank" class="btn">亨读「苹果」</a>
-                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json" target="_blank" class="btn">复制亨读书源</a>
-                    <a href="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517" target="_blank" class="btn">读不舍手「苹果」</a>
-                    <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json" target="_blank" class="btn">复制读不舍手书源</a>
-                    <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
-                    <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json" target="_blank" class="btn">复制千阅书源</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. 视频解析网站仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">视频解析网站仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://9xbuddy.in/zh" target="_blank" class="btn">国外主流软件平台解析</a>
-                    <a href="https://www.v2ob.com/" target="_blank" class="btn">国内短视频去水印解析</a>
-                    <a href="https://am1907.top/" target="_blank" class="btn">爱优腾芒vip解析-直接搜索</a>
-                    <a href="https://www.nuliya.top/vip" target="_blank" class="btn">爱优腾芒vip解析-粘贴链接</a>
-                    <a href="https://www.dlbunny.com/" target="_blank" class="btn">抖音专用-去水印解析+下载</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. 网盘资源仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">网盘资源仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://so.252035.xyz/?ref=thlm.com" target="_blank" class="btn">资源共建盘搜</a>
-                    <a href="https://jsnzkpg.github.io/pansou/" target="_blank" class="btn">裤佬全网盘搜</a>
-                    <a href="https://seedhub.cc/" target="_blank" class="btn">SeedHub</a>
-                    <a href="https://mdsub.top/" target="_blank" class="btn">漫迪小站</a>
-                    <a href="https://kangfuzhongx.in/#" target="_blank" class="btn">三次元成瘾者康复中心</a>
-                    <a href="https://chaospace.cc/" target="_blank" class="btn">CHAOSPACE</a>
-                    <a href="https://vlink.cc/xmo" target="_blank" class="btn">可爱帅气的小木偶</a>
-                    <a href="https://pomo.mom/" target="_blank" class="btn">4K原盘</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. 小火箭订阅 -->
-        <div class="accordion-item">
-            <div class="accordion-header">小火箭订阅</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://edt2.qxy929.ccwu.cc/sub?token=eb46aa665e02fe11fa9d9b4960b92d08" target="_blank" class="btn">小钱自建</a>
-                    <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg" target="_blank" class="btn">裤佬</a>
-                    <a href="https://shz.al/~WangCai" target="_blank" class="btn">旺财</a>
-                    <a href="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b" target="_blank" class="btn">周润发</a>
-                    <a href="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao" target="_blank" class="btn">香蕉</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 6. 公益项目仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">公益项目仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://stymei.github.io/" target="_blank" class="btn">共享小火箭</a>
-                    <a href="https://jsnzkpg.github.io/music" target="_blank" class="btn">音乐网站</a>
-                    <a href="https://jsnzkpg.github.io/TelegramProxy" target="_blank" class="btn">TG代理</a>
-                    <a href="https://jsnzkpg.github.io/email" target="_blank" class="btn">临时邮箱</a>
-                    <a href="https://jsnzkpg.github.io/ai" target="_blank" class="btn">智能Ai</a>
-                    <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt" target="_blank" class="btn">Emby共享账号</a>
-                    <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt" target="_blank" class="btn">WebDAV共享账号</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. 猫系软件仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">猫系软件仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5" target="_blank" class="btn">永久猫源订阅</a>
-                    <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5" target="_blank" class="btn">导师猫源</a>
-                    <a href="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5" target="_blank" class="btn">雪乃猫源</a>
-                    <a href="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5" target="_blank" class="btn">豆儿猫源</a>
-                    <a href="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5" target="_blank" class="btn">沐辰猫源</a>
-                    <a href="https://9280.kstore.vip/cat/index.js.md5" target="_blank" class="btn">牛二猫源</a>
-                    <a href="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN" target="_blank" class="btn">MiraPlay「苹果」</a>
-                    <a href="https://testflight.apple.com/join/thdxEjTZ" target="_blank" class="btn">JSTV「苹果」</a>
-                    <a href="https://testflight.apple.com/join/ywzcMKS3" target="_blank" class="btn">魔力云播「苹果」</a>
-                </div>
+        <div class="dropdown">
+            <button class="dropdown-btn">小说软件仓库</button>
+            <div class="dropdown-content">
+                <a href="#">亨读「苹果」</a>
+                <a href="#">读不舍手「苹果」</a>
             </div>
         </div>
     </div>
 
-    <!-- 参考网站原版折叠JS，动画100%丝滑 -->
     <script>
-        document.addEventListener('click', function(e) {
-            const header = e.target.closest('.accordion-header');
-            if (header) {
-                const item = header.parentElement;
-                item.classList.toggle('active');
-                // 强制重绘，保证动画流畅
-                item.offsetHeight;
-            }
-        }, { passive: true });
+        // 保持与顶部菜单相同的动画效果
+        document.querySelectorAll('.dropdown-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+                }
+            });
+        });
     </script>
 </body>
 </html>
