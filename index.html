@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小钱全网综合分享</title>
+    <title>小钱全网综合分享 - 海绵宝宝版</title>
     <style>
         * {
             margin: 0;
@@ -12,97 +12,145 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #88a878 0%, #799c69 100%);
+            /* 海绵宝宝经典配色：明黄+天蓝渐变 */
+            background: linear-gradient(135deg, #FFE600 0%, #44A8FF 100%);
             background-attachment: fixed;
-            color: #fff;
+            font-family: "PingFang SC", "Microsoft YaHei", "Arial Rounded MT Bold", sans-serif;
+            min-height: 100vh;
             padding: 40px 20px;
             display: flex;
             justify-content: center;
         }
 
+        /* 主容器：气泡圆角+卡通质感 */
         .container {
             width: 100%;
             max-width: 600px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            border: 5px solid #FFB900;
+            box-shadow: 0 10px 0 #FF8800, 0 15px 30px rgba(0,0,0,0.2);
             padding: 40px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 海绵宝宝气泡背景装饰 */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(68, 168, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .container::after {
+            content: "";
+            position: absolute;
+            bottom: -60px;
+            right: -40px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 230, 0, 0.1);
+            border-radius: 50%;
+            z-index: 0;
         }
 
         h1 {
-            font-size: 2.2em;
+            font-size: 2.4em;
+            color: #FF5500;
+            font-weight: 900;
             margin-bottom: 8px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 3px 3px 0 #FFE600, 5px 5px 0 #44A8FF;
+            position: relative;
+            z-index: 1;
         }
 
         .username {
-            font-size: 1.1em;
-            opacity: 0.9;
+            font-size: 1.2em;
+            color: #44A8FF;
+            font-weight: bold;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .tagline {
-            font-size: 1em;
+            font-size: 1.1em;
+            color: #666;
             margin-bottom: 30px;
-            opacity: 0.95;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
         }
 
         h2 {
-            font-size: 1.4em;
-            margin: 30px 0 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
+            font-size: 1.5em;
+            color: #FF5500;
+            font-weight: bold;
+            margin: 35px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px dotted #44A8FF;
+            position: relative;
+            z-index: 1;
         }
 
+        /* 卡通按钮组 */
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .btn {
             display: block;
-            padding: 14px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            padding: 15px 20px;
+            background: linear-gradient(180deg, #44A8FF 0%, #0077DD 100%);
+            border: 3px solid #0055AA;
+            border-radius: 20px;
             color: #fff;
             text-decoration: none;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            font-size: 1em;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 5px 0 #003366;
         }
 
         .btn:hover {
-            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 0 #003366;
+            background: linear-gradient(180deg, #66BBFF 0%, #0088EE 100%);
         }
 
         .btn:active {
-            transform: translateY(0);
-            box-shadow: none;
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #003366;
         }
 
+        /* 联系方式 */
         .contact-list {
             list-style: none;
             padding-left: 0;
             margin-top: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-list li {
-            margin: 10px 0;
-            opacity: 0.9;
-            font-size: 1em;
+            margin: 12px 0;
+            color: #333;
+            font-size: 1.05em;
+            font-weight: 500;
         }
 
+        /* 动态波浪背景动画 */
         body::before {
             content: "";
             position: fixed;
@@ -110,27 +158,30 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #88a878 0%, #799c69 100%);
+            background: linear-gradient(135deg, #FFE600 0%, #44A8FF 100%);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: waveBG 8s ease infinite;
             z-index: -1;
         }
 
-        @keyframes gradientBG {
+        @keyframes waveBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        /* 移动端适配 */
         @media (max-width: 600px) {
             .container {
                 padding: 25px;
+                border-radius: 25px;
             }
             h1 {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             .btn {
-                padding: 12px 16px;
+                padding: 13px 16px;
+                border-radius: 15px;
             }
         }
     </style>
@@ -142,18 +193,18 @@
         <p class="tagline">热爱是所有的理由和答案</p>
 
         <!-- 第一位：影视软件合集 -->
-        <h2>影视软件合集</h2>
+        <h2>📺 影视软件合集</h2>
         <div class="btn-group">
-            <a href="https://a123tv.com/" target="_blank" class="btn">123TV【网页】</a>
-            <a href="https://www.flixflop.com/" target="_blank" class="btn">飞流视频【网页】</a>
-            <a href="https://gaze.run/" target="_blank" class="btn">注视影视【网页】</a>
+            <a href="https://a123tv.com/" target="_blank" class="btn">123TV「网页」</a>
+            <a href="https://www.flixflop.com/" target="_blank" class="btn">飞流视频「网页」</a>
+            <a href="https://gaze.run/" target="_blank" class="btn">注视影视「网页」</a>
             <a href="https://dogpan.com/s/R6GKck" target="_blank" class="btn">OK影视「安卓+TV」</a>
             <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" target="_blank" class="btn">TVbox订阅「裤佬」</a>
             <a href="https://9280.kstore.vip/newwex.json" target="_blank" class="btn">TVbox订阅「牛二」</a>
         </div>
 
         <!-- 第二位：视频解析网站合集 -->
-        <h2>视频解析网站合集</h2>
+        <h2>🎬 视频解析网站合集</h2>
         <div class="btn-group">
             <a href="https://9xbuddy.in/zh" target="_blank" class="btn">国外主流软件平台解析</a>
             <a href="https://www.v2ob.com/" target="_blank" class="btn">国内短视频去水印解析</a>
@@ -163,7 +214,7 @@
         </div>
 
         <!-- 第三位：网盘资源合集 -->
-        <h2>网盘资源合集</h2>
+        <h2>📁 网盘资源合集</h2>
         <div class="btn-group">
             <a href="https://so.252035.xyz/?ref=thlm.com" target="_blank" class="btn">资源共建盘搜</a>
             <a href="https://jsnzkpg.github.io/pansou/" target="_blank" class="btn">裤佬全网盘搜</a>
@@ -175,20 +226,24 @@
             <a href="https://pomo.mom/" target="_blank" class="btn">4K原盘</a>
         </div>
 
-        <!-- 第四位：Singbox 订阅 -->
-        <h2>Singbox 订阅</h2>
+        <!-- 第四位：Shadowrocket订阅 -->
+        <h2>🚀 Shadowrocket订阅</h2>
         <div class="btn-group">
-            <a href="https://your-link-here" class="btn">订阅链接</a>
+            <a href="https://edt2.qxy929.ccwu.cc/sub?token=eb46aa665e02fe11fa9d9b4960b92d08" target="_blank" class="btn">小钱自建</a>
+            <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg" target="_blank" class="btn">裤佬</a>
+            <a href="https://shz.al/~WangCai" target="_blank" class="btn">旺财</a>
+            <a href="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b" target="_blank" class="btn">周润发</a>
+            <a href="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao" target="_blank" class="btn">香蕉</a>
         </div>
 
         <!-- 第五位：Base64 订阅 -->
-        <h2>Base64 订阅</h2>
+        <h2>🔐 Base64 订阅</h2>
         <div class="btn-group">
             <a href="https://your-link-here" class="btn">订阅链接</a>
         </div>
 
         <!-- 联系方式 -->
-        <h2>联系方式</h2>
+        <h2>📞 联系方式</h2>
         <ul class="contact-list">
             <li>Email：914167884@qq.com</li>
             <li>公众号：小钱随笔</li>
