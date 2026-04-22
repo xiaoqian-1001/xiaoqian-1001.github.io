@@ -91,8 +91,9 @@
         }
         .marquee {
             white-space: nowrap;
-            display: flex;
-            animation: marquee 19s linear infinite;
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+            padding-left: 100%;
         }
         .marquee span {
             color: var(--text-primary);
@@ -101,7 +102,7 @@
             font-size: 14px;
         }
         @keyframes marquee {
-            0% { transform: translateX(100%); }
+            0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
 
@@ -168,7 +169,6 @@
             margin-top: 0;
         }
 
-        /* ========== 统一所有材质 ========== */
         .accordion-item {
             margin-bottom: 16px;
             border-radius: var(--common-radius);
@@ -178,8 +178,6 @@
             -webkit-backdrop-filter: blur(25px) saturate(185%);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
-            transform: translateZ(0);
-            will-change: max-height;
         }
 
         .accordion-header {
@@ -204,15 +202,12 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: max-height 0.4s ease;
             padding: 0 22px;
-            background: transparent;
-            backdrop-filter: blur(25px) saturate(185%);
-            -webkit-backdrop-filter: blur(25px) saturate(185%);
         }
         .accordion-item.active .accordion-content {
-            max-height: 4000px;
-            padding: 0px 22px 22px 22px;
+            max-height: 5000px;
+            padding: 0 22px 22px 22px;
         }
 
         .btn-group {
@@ -258,7 +253,7 @@
 <body>
 
     <div class="background-layer">
-        <video class="background-video" autoplay muted loop playsinline>
+        <video class="background-video" autoplay muted loop playsinline preload="auto">
             <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
         </video>
         <div class="background-overlay"></div>
@@ -391,16 +386,18 @@
             if (header) {
                 const item = header.parentElement;
                 item.classList.toggle('active');
-                item.offsetHeight;
-                if (window.navigator.vibrate) navigator.vibrate(25);
+                if (navigator.vibrate) navigator.vibrate(20);
             }
         }, { passive: true });
 
         const themeBtn = document.getElementById('themeBtn');
         const html = document.documentElement;
         const saveTheme = localStorage.getItem('theme');
-        if (saveTheme) html.setAttribute('data-theme', saveTheme);
-        themeBtn.innerText = saveTheme === 'dark' ? '🌙' : '🌞';
+        
+        if (saveTheme) {
+            html.setAttribute('data-theme', saveTheme);
+            themeBtn.innerText = saveTheme === 'dark' ? '🌙' : '🌞';
+        }
 
         themeBtn.addEventListener('click', () => {
             const now = html.getAttribute('data-theme');
@@ -408,7 +405,7 @@
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             themeBtn.innerText = newTheme === 'dark' ? '🌙' : '🌞';
-            if (window.navigator.vibrate) navigator.vibrate(35);
+            if (navigator.vibrate) navigator.vibrate(30);
         });
     </script>
 </body>
