@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小钱全网综合分享 - 汉堡薯条版</title>
+    <title>小钱全网综合分享</title>
     <style>
         * {
             margin: 0;
@@ -11,19 +11,21 @@
             box-sizing: border-box;
         }
 
-        /* 顶部全局滚动词条 */
+        /* ========== 1. 顶部全局滚动词条（字号缩小） ========== */
         .top-marquee {
             width: 100%;
-            background: #DC2626;
-            color: #FFFBEB;
-            padding: 6px 0;
-            font-size: 12px;
+            background: rgba(0, 122, 255, 0.15);
+            color: #007aff;
+            padding: 4px 0;
+            font-size: 10px;
             white-space: nowrap;
             overflow: hidden;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 9999;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         .top-marquee span {
             display: inline-block;
@@ -35,125 +37,93 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* ========== 2. 卡布里蓝呼吸灯动态背景 ========== */
         body {
-            font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #D97706 0%, #92400E 100%);
-            background-attachment: fixed;
-            padding: 40px 15px 30px;
+            /* 卡布里蓝基础色 */
+            background: #007aff;
+            padding: 30px 15px 20px;
             display: flex;
             justify-content: center;
+            /* 呼吸灯动画 */
+            animation: breathe 6s ease-in-out infinite alternate;
+        }
+        @keyframes breathe {
+            0% { background: #007aff; }
+            50% { background: #0091ff; }
+            100% { background: #0066cc; }
         }
 
-        /* 主容器 */
+        /* ========== 3. iOS26毛玻璃主容器 ========== */
         .container {
             width: 100%;
             max-width: 600px;
-            background: #FFFBEB;
-            border-radius: 20px;
-            border: 3px solid #FBBF24;
-            box-shadow: 0 6px 0 #92400E, 0 10px 20px rgba(0,0,0,0.2);
-            padding: 30px;
+            /* iOS毛玻璃核心 */
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 25px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
         h1 {
-            font-size: 2em;
-            color: #DC2626;
-            font-weight: 800;
+            font-size: 1.8em;
+            color: #ffffff;
+            font-weight: 700;
             margin-bottom: 6px;
-            text-shadow: 2px 2px 0 #FBBF24;
-            position: relative;
-            z-index: 1;
+            letter-spacing: 0.5px;
         }
 
         .username {
-            font-size: 1em;
-            color: #92400E;
-            font-weight: 600;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
             margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
         }
 
         .tagline {
-            font-size: 0.9em;
-            color: #B45309;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-            cursor: pointer;
-            text-decoration: underline dotted;
-        }
-
-        /* 福利小板块 */
-        .welfare {
-            background: #fef2bf;
-            border: 2px solid #FBBF24;
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin: 0 auto 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #DC2626;
-            max-width: 300px;
-        }
-        .welfare a {
-            color: #DC2626;
-            text-decoration: none;
-        }
-
-        /* 滚动通知条 */
-        .marquee {
-            width: 100%;
-            background: rgba(255,255,255,0.2);
-            color: #92400E;
-            padding: 6px 0;
-            font-size: 12px;
-            white-space: nowrap;
-            overflow: hidden;
-            position: relative;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.75);
             margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        .marquee span {
-            display: inline-block;
-            animation: marquee 15s linear infinite;
-            padding-left: 100%;
+            cursor: pointer;
+            text-decoration: underline dotted rgba(255, 255, 255, 0.5);
         }
 
-        /* ========== 折叠面板核心样式 ========== */
+        /* ========== 4. 折叠面板核心（无emoji） ========== */
         .accordion-item {
-            margin-bottom: 12px;
-            border-radius: 14px;
+            margin-bottom: 10px;
+            border-radius: 16px;
             overflow: hidden;
-            border: 2px dashed #FBBF24;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        /* 面板标题（可点击） */
+        /* 面板标题（可点击折叠） */
         .accordion-header {
-            background: #DC2626;
-            color: #FFFBEB;
-            font-size: 1.3em;
-            font-weight: 700;
-            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 12px 16px;
             cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
         }
         .accordion-header:hover {
-            background: #E53E3E;
+            background: rgba(255, 255, 255, 0.25);
         }
         /* 面板内容（默认隐藏） */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
-            background: #FFFBEB;
+            background: transparent;
             padding: 0 16px;
         }
         /* 展开状态 */
@@ -162,113 +132,84 @@
             padding: 16px;
         }
 
-        /* 汉堡风按钮 */
+        /* ========== 5. iOS毛玻璃按钮 ========== */
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         .btn {
             display: block;
-            padding: 12px 16px;
-            background: #DC2626;
-            border: 2px solid #FBBF24;
-            border-radius: 14px;
-            color: #FFFBEB;
+            padding: 11px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
             text-decoration: none;
-            font-size: 0.95em;
-            font-weight: 600;
+            font-size: 0.9em;
+            font-weight: 500;
             transition: all 0.2s ease;
-            box-shadow: 0 3px 0 #991B1B;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 0 #991B1B;
-            background: #E53E3E;
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
         }
         .btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 #991B1B;
+            transform: translateY(1px);
+            background: rgba(255, 255, 255, 0.3);
         }
 
-        /* 联系方式 */
+        /* ========== 6. 联系方式 ========== */
         .contact-list {
             list-style: none;
             padding-left: 0;
-            margin-top: 8px;
+            margin-top: 15px;
         }
         .contact-list li {
-            margin: 10px 0;
-            color: #92400E;
-            font-size: 0.95em;
-            font-weight: 500;
+            margin: 8px 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85em;
+            font-weight: 400;
         }
 
-        /* 动态渐变背景 */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #D97706 0%, #92400E 100%);
-            background-size: 400% 400%;
-            animation: burgerBG 10s ease infinite;
-            z-index: -1;
-        }
-        @keyframes burgerBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 移动端适配 */
+        /* ========== 7. 移动端适配 ========== */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
-                border-radius: 16px;
+                border-radius: 20px;
             }
             h1 {
-                font-size: 1.7em;
+                font-size: 1.6em;
+            }
+            .accordion-header {
+                font-size: 1em;
+                padding: 10px 14px;
             }
             .btn {
                 padding: 10px 14px;
-                border-radius: 12px;
-                font-size: 0.9em;
-            }
-            .accordion-header {
-                font-size: 1.2em;
-                padding: 12px 14px;
+                border-radius: 10px;
+                font-size: 0.85em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 最顶部全局滚动词条 -->
+    <!-- 最顶部全局滚动词条（已缩小字号） -->
     <div class="top-marquee">
         <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
     </div>
 
     <div class="container">
-        <h1>🍔 小钱全网综合分享 🍟</h1>
+        <h1>小钱全网综合分享</h1>
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
-        <!-- 福利小板块 -->
-        <div class="welfare">
-            🎁 福利：<a href="http://dpurl.cn/RRNL6G3z" target="_blank">丑团</a>
-        </div>
-
-        <!-- 滚动通知条 -->
-        <div class="marquee">
-            <span>小钱全网综合分享，建立于2026年4月22日，技术支持Github。</span>
-        </div>
-
-        <!-- ========== 可折叠板块开始 ========== -->
-        <!-- 1️⃣ 影视软件合集 -->
+        <!-- ========== 可折叠仓库板块（无emoji、无多余滚动条、无福利板块） ========== -->
+        <!-- 1. 影视软件仓库 -->
         <div class="accordion-item">
-            <div class="accordion-header">📺 影视软件合集</div>
+            <div class="accordion-header">影视软件仓库</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://a123tv.com/" target="_blank" class="btn">123TV「网页」</a>
@@ -286,9 +227,9 @@
             </div>
         </div>
 
-        <!-- 2️⃣ 小说软件合辑 -->
+        <!-- 2. 小说软件仓库 -->
         <div class="accordion-item">
-            <div class="accordion-header">📖 小说软件合辑</div>
+            <div class="accordion-header">小说软件仓库</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://apps.apple.com/cn/app/id6445861996" target="_blank" class="btn">亨读「苹果」</a>
@@ -301,9 +242,9 @@
             </div>
         </div>
 
-        <!-- 3️⃣ 视频解析网站合集 -->
+        <!-- 3. 视频解析网站仓库 -->
         <div class="accordion-item">
-            <div class="accordion-header">🎬 视频解析网站合集</div>
+            <div class="accordion-header">视频解析网站仓库</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://9xbuddy.in/zh" target="_blank" class="btn">国外主流软件平台解析</a>
@@ -315,9 +256,9 @@
             </div>
         </div>
 
-        <!-- 4️⃣ 网盘资源合集 -->
+        <!-- 4. 网盘资源仓库 -->
         <div class="accordion-item">
-            <div class="accordion-header">📁 网盘资源合集</div>
+            <div class="accordion-header">网盘资源仓库</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://so.252035.xyz/?ref=thlm.com" target="_blank" class="btn">资源共建盘搜</a>
@@ -332,9 +273,9 @@
             </div>
         </div>
 
-        <!-- 5️⃣ Shadowrocket订阅 -->
+        <!-- 5. 小火箭订阅（原Shadowrocket） -->
         <div class="accordion-item">
-            <div class="accordion-header">🚀 Shadowrocket订阅</div>
+            <div class="accordion-header">小火箭订阅</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://edt2.qxy929.ccwu.cc/sub?token=eb46aa665e02fe11fa9d9b4960b92d08" target="_blank" class="btn">小钱自建</a>
@@ -346,9 +287,9 @@
             </div>
         </div>
 
-        <!-- 6️⃣ 公益项目汇总 -->
+        <!-- 6. 公益项目仓库（取消跳转，正常折叠） -->
         <div class="accordion-item">
-            <div class="accordion-header" onclick="window.open('https://kdsq.cc/m.html','_blank')">🤝 公益项目汇总</div>
+            <div class="accordion-header">公益项目仓库</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://stymei.github.io/" target="_blank" class="btn">共享小火箭</a>
@@ -362,9 +303,9 @@
             </div>
         </div>
 
-        <!-- 7️⃣ 猫系软件合集 -->
+        <!-- 7. 猫系软件仓库 -->
         <div class="accordion-item">
-            <div class="accordion-header">🐱 猫系软件合集</div>
+            <div class="accordion-header">猫系软件仓库</div>
             <div class="accordion-content">
                 <div class="btn-group">
                     <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5" target="_blank" class="btn">永久猫源订阅</a>
@@ -379,26 +320,24 @@
                 </div>
             </div>
         </div>
-        <!-- ========== 可折叠板块结束 ========== -->
+        <!-- ========== 仓库板块结束 ========== -->
 
         <!-- 联系方式 -->
-        <h2>📞 联系方式</h2>
-        <ul class="contact-list">
-            <li>Email：914167884@qq.com</li>
-            <li>公众号：小钱随笔</li>
-        </ul>
+        <div style="margin-top: 20px;">
+            <ul class="contact-list">
+                <li>Email：914167884@qq.com</li>
+                <li>公众号：小钱随笔</li>
+            </ul>
+        </div>
     </div>
 
-    <!-- 折叠面板JS -->
+    <!-- 折叠面板JS（全部正常折叠，无特殊跳转） -->
     <script>
         document.querySelectorAll('.accordion-header').forEach(header => {
-            // 公益项目汇总单独是跳转，不绑定折叠
-            if (!header.onclick) {
-                header.addEventListener('click', function() {
-                    const item = this.parentElement;
-                    item.classList.toggle('active');
-                });
-            }
+            header.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
+            });
         });
     </script>
 </body>
