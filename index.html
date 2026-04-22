@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
     <style>
-        /* 完全沿用参考网站原版变量 */
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --text-primary: #333;
+            --glass-bg: rgba(255, 255, 255, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --text-primary: #222222;
             --accent-color: #4a6cf7;
             --accent-hover: #3a5ce5;
         }
@@ -20,9 +19,10 @@
             padding: 0; 
             box-sizing: border-box; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 参考网站原版视频背景+白色遮罩 */
         body {
             min-height: 100vh;
             display: flex;
@@ -33,6 +33,7 @@
             position: relative;
             padding: 15px;
             padding-top: 8vh;
+            background-color: #f5f7fa;
         }
 
         .background-layer { 
@@ -54,20 +55,19 @@
             left: 0; 
             width: 100%; 
             height: 100%;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             z-index: -1;
         }
 
-        /* 参考网站原版顶部滚动条 */
         .marquee-container {
             position: fixed;
             top: 0; 
             left: 0; 
             width: 100%;
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 8px 0;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 9px 0;
             box-shadow: var(--glass-shadow);
             overflow: hidden;
             z-index: 100;
@@ -75,12 +75,11 @@
         .marquee {
             white-space: nowrap;
             display: flex;
-            animation: marquee 15s linear infinite;
+            animation: marquee 18s linear infinite;
         }
         .marquee span {
-            color: var(--text-primary);
-            font-weight: bold;
-            text-decoration: none;
+            color: #333;
+            font-weight: 600;
             padding: 0 15px;
             font-size: 14px;
         }
@@ -89,12 +88,11 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* 参考网站原版彩虹渐变标题 */
         .page-title {
             text-align: center;
             font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-weight: 800;
+            margin-bottom: 6px;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
             background-size: 400% 400%;
             -webkit-background-clip: text;
@@ -109,23 +107,18 @@
 
         .username {
             text-align: center;
-            font-size: 1em;
-            color: #666;
-            font-weight: 500;
-            margin-bottom: 10px;
+            font-size: 15px;
+            color: #444;
+            font-weight: 600;
+            margin-bottom: 6px;
         }
 
         .tagline {
             text-align: center;
-            font-size: 0.9em;
-            color: #888;
-            margin-bottom: 24px;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 28px;
             cursor: pointer;
-            text-decoration: underline dotted #ccc;
-            transition: color 0.2s ease;
-        }
-        .tagline:hover {
-            color: var(--accent-color);
         }
 
         .main-layer { 
@@ -134,55 +127,47 @@
             margin-top: 0; 
         }
         
-        /* ========== 核心：1:1复刻参考网站折叠面板 ========== */
         .accordion-item {
-            margin-bottom: 12px;
-            border-radius: 12px;
+            margin-bottom: 14px;
+            border-radius: 18px;
             overflow: hidden;
-            /* 标题毛玻璃 */
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
-            /* 硬件加速，保证动画丝滑 */
             transform: translateZ(0);
             will-change: max-height;
         }
 
-        /* 面板标题：居中 + 参考网站原版样式 */
         .accordion-header {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--text-primary);
-            font-size: 1.15em;
-            font-weight: 600;
-            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #222;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 20px;
             cursor: pointer;
-            transition: background 0.15s ease;
+            transition: all 0.2s ease;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            text-align: center; /* 强制居中 */
+            text-align: center;
         }
         .accordion-header:active {
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0.98);
         }
 
-        /* 面板内容：展开后纯白背景 + 丝滑动画 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            /* 参考网站原版流畅动画 */
-            transition: max-height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: max-height 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
             padding: 0 20px;
-            /* 展开后纯白背景，和你截图完全一致 */
             background: #ffffff;
         }
         .accordion-item.active .accordion-content {
             max-height: 3000px;
-            padding: 18px 20px;
+            padding: 20px 20px 24px 20px;
         }
 
-        /* 按钮：参考网站原版蓝色实心按钮 */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -190,51 +175,48 @@
         }
         .btn {
             display: block;
-            padding: 13px 18px;
+            padding: 15px 18px;
             background: var(--accent-color);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.95em;
+            font-size: 15px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-align: center;
-            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 8px rgba(74, 108, 247, 0.25);
         }
         .btn:hover {
             background: var(--accent-hover);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
         }
         .btn:active {
             transform: translateY(0);
         }
 
-        /* 移动端完美适配 */
         @media (max-width: 600px) {
-            .main-layer {
-                padding: 0 10px;
-            }
             .page-title {
-                font-size: 26px;
+                font-size: 28px;
             }
             .accordion-header {
-                font-size: 1.05em;
-                padding: 12px 16px;
-            }
-            .accordion-item.active .accordion-content {
+                font-size: 15px;
                 padding: 14px 16px;
             }
+            .accordion-item.active .accordion-content {
+                padding: 16px 16px 20px 16px;
+            }
             .btn {
-                padding: 11px 16px;
-                border-radius: 10px;
-                font-size: 0.9em;
+                padding: 13px 16px;
+                border-radius: 12px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 参考网站原版视频背景 -->
+
     <div class="background-layer">
         <video class="background-video" autoplay muted loop playsinline>
             <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
@@ -242,7 +224,6 @@
         <div class="background-overlay"></div>
     </div>
 
-    <!-- 参考网站原版顶部滚动条 -->
     <div class="marquee-container">
         <div class="marquee">
             <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
@@ -254,7 +235,7 @@
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
-        <!-- 1. 影视软件仓库 -->
+        <!-- 1 -->
         <div class="accordion-item">
             <div class="accordion-header">影视软件仓库</div>
             <div class="accordion-content">
@@ -274,7 +255,7 @@
             </div>
         </div>
 
-        <!-- 2. 小说软件仓库 -->
+        <!-- 2 -->
         <div class="accordion-item">
             <div class="accordion-header">小说软件仓库</div>
             <div class="accordion-content">
@@ -289,7 +270,7 @@
             </div>
         </div>
 
-        <!-- 3. 视频解析网站仓库 -->
+        <!-- 3 -->
         <div class="accordion-item">
             <div class="accordion-header">视频解析网站仓库</div>
             <div class="accordion-content">
@@ -303,7 +284,7 @@
             </div>
         </div>
 
-        <!-- 4. 网盘资源仓库 -->
+        <!-- 4 -->
         <div class="accordion-item">
             <div class="accordion-header">网盘资源仓库</div>
             <div class="accordion-content">
@@ -320,7 +301,7 @@
             </div>
         </div>
 
-        <!-- 5. 小火箭订阅 -->
+        <!-- 5 -->
         <div class="accordion-item">
             <div class="accordion-header">小火箭订阅</div>
             <div class="accordion-content">
@@ -334,7 +315,7 @@
             </div>
         </div>
 
-        <!-- 6. 公益项目仓库 -->
+        <!-- 6 -->
         <div class="accordion-item">
             <div class="accordion-header">公益项目仓库</div>
             <div class="accordion-content">
@@ -350,7 +331,7 @@
             </div>
         </div>
 
-        <!-- 7. 猫系软件仓库 -->
+        <!-- 7 -->
         <div class="accordion-item">
             <div class="accordion-header">猫系软件仓库</div>
             <div class="accordion-content">
@@ -369,14 +350,12 @@
         </div>
     </div>
 
-    <!-- 参考网站原版折叠JS，动画100%丝滑 -->
     <script>
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
                 const item = header.parentElement;
                 item.classList.toggle('active');
-                // 强制重绘，保证动画流畅
                 item.offsetHeight;
             }
         }, { passive: true });
