@@ -14,6 +14,8 @@
             --accent-hover: #3658e9;
             --content-bg: #ffffff;
             --overlay-bg: rgba(255, 255, 255, 0.78);
+            --common-radius: 18px;
+            --common-transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
         [data-theme="dark"] {
@@ -140,7 +142,6 @@
         }
         .tagline:hover { opacity: 0.95; }
 
-        /* ========== 主题按钮移到右下角 ========== */
         .theme-switch {
             position: fixed;
             bottom: 20px;
@@ -167,9 +168,10 @@
             margin-top: 0;
         }
 
+        /* ========== 统一所有材质 ========== */
         .accordion-item {
             margin-bottom: 16px;
-            border-radius: 20px;
+            border-radius: var(--common-radius);
             overflow: hidden;
             background: var(--glass-bg);
             backdrop-filter: blur(25px) saturate(185%);
@@ -186,16 +188,17 @@
             font-weight: 700;
             padding: 17px 22px;
             cursor: pointer;
-            transition: all 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: var(--common-transition);
             user-select: none;
             text-align: center;
+            background: transparent;
         }
         .accordion-header:active {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             transform: scale(0.985);
         }
         [data-theme="dark"] .accordion-header:active {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .accordion-content {
@@ -203,11 +206,13 @@
             overflow: hidden;
             transition: max-height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
             padding: 0 22px;
-            background: var(--content-bg);
+            background: transparent;
+            backdrop-filter: blur(25px) saturate(185%);
+            -webkit-backdrop-filter: blur(25px) saturate(185%);
         }
         .accordion-item.active .accordion-content {
             max-height: 4000px;
-            padding: 22px 22px 26px 22px;
+            padding: 0px 22px 22px 22px;
         }
 
         .btn-group {
@@ -218,32 +223,35 @@
         .btn {
             display: block;
             padding: 16px 20px;
-            background: var(--accent-color);
-            border: none;
-            border-radius: 15px;
-            color: #ffffff;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px) saturate(185%);
+            -webkit-backdrop-filter: blur(25px) saturate(185%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--common-radius);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 15.5px;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: var(--common-transition);
             text-align: center;
-            box-shadow: 0 3px 10px rgba(74, 108, 247, 0.28);
+            box-shadow: var(--glass-shadow);
         }
         .btn:hover {
-            background: var(--accent-hover);
+            background: rgba(255,255,255,0.3);
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.35);
         }
         .btn:active {
             transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 6px rgba(74, 108, 247, 0.2);
+        }
+        [data-theme="dark"] .btn:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         @media (max-width: 600px) {
             .page-title { font-size: 30px; }
             .accordion-header { font-size: 16px; padding: 15px 18px; }
-            .accordion-item.active .accordion-content { padding: 18px 18px 22px 18px; }
-            .btn { padding: 14px 18px; border-radius: 13px; font-size: 15px; }
+            .accordion-item.active .accordion-content { padding: 0 18px 18px 18px; }
+            .btn { padding: 14px 18px; border-radius: 14px; font-size: 15px; }
         }
     </style>
 </head>
@@ -262,7 +270,6 @@
         </div>
     </div>
 
-    <!-- 右下角主题切换 -->
     <div class="theme-switch" id="themeBtn">🌞</div>
 
     <div class="main-layer">
@@ -336,7 +343,6 @@
             <div class="accordion-header">小火箭订阅</div>
             <div class="accordion-content">
                 <div class="btn-group">
-                    <!-- ========== 小钱自建链接已更新 ========== -->
                     <a href="https://edt2.qxy929.ccwu.cc/login" target="_blank" class="btn">小钱自建</a>
                     <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg" target="_blank" class="btn">裤佬</a>
                     <a href="https://shz.al/~WangCai" target="_blank" class="btn">旺财</a>
