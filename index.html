@@ -16,7 +16,6 @@
             --overlay-bg: rgba(255, 255, 255, 0.78);
         }
 
-        /* 深色主题变量 */
         [data-theme="dark"] {
             --glass-bg: rgba(30, 30, 35, 0.55);
             --glass-border: rgba(255, 255, 255, 0.12);
@@ -51,7 +50,6 @@
             transition: background-color 0.4s ease;
         }
 
-        /* 背景层 */
         .background-layer {
             position: fixed;
             top: 0;
@@ -76,7 +74,6 @@
             transition: background 0.4s ease;
         }
 
-        /* 顶部滚动条 */
         .marquee-container {
             position: fixed;
             top: 0;
@@ -106,7 +103,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* 渐变标题 */
         .page-title {
             text-align: center;
             font-size: 34px;
@@ -144,14 +140,14 @@
         }
         .tagline:hover { opacity: 0.95; }
 
-        /* 主题切换按钮 */
+        /* ========== 主题按钮移到右下角 ========== */
         .theme-switch {
             position: fixed;
-            top: 12px;
-            right: 15px;
+            bottom: 20px;
+            right: 20px;
             z-index: 101;
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -160,7 +156,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             transition: all 0.3s ease;
         }
         .theme-switch:active { transform: scale(0.92); }
@@ -171,7 +167,6 @@
             margin-top: 0;
         }
 
-        /* 折叠面板终极优化 */
         .accordion-item {
             margin-bottom: 16px;
             border-radius: 20px;
@@ -185,7 +180,6 @@
             will-change: max-height;
         }
 
-        /* 折叠标题 居中+原生按压 */
         .accordion-header {
             color: var(--text-primary);
             font-size: 17px;
@@ -204,7 +198,6 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* 内容区 丝滑动画+主题适配 */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -217,7 +210,6 @@
             padding: 22px 22px 26px 22px;
         }
 
-        /* 蓝色按钮全套质感 */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -247,7 +239,6 @@
             box-shadow: 0 2px 6px rgba(74, 108, 247, 0.2);
         }
 
-        /* 移动端极致适配 */
         @media (max-width: 600px) {
             .page-title { font-size: 30px; }
             .accordion-header { font-size: 16px; padding: 15px 18px; }
@@ -257,7 +248,7 @@
     </style>
 </head>
 <body>
-    <!-- 背景视频 -->
+
     <div class="background-layer">
         <video class="background-video" autoplay muted loop playsinline>
             <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
@@ -265,14 +256,13 @@
         <div class="background-overlay"></div>
     </div>
 
-    <!-- 顶部滚动条 -->
     <div class="marquee-container">
         <div class="marquee">
             <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
         </div>
     </div>
 
-    <!-- 明暗主题切换按钮（右上角太阳/月亮） -->
+    <!-- 右下角主题切换 -->
     <div class="theme-switch" id="themeBtn">🌞</div>
 
     <div class="main-layer">
@@ -280,7 +270,6 @@
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
 
-        <!-- 影视软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">影视软件仓库</div>
             <div class="accordion-content">
@@ -300,7 +289,6 @@
             </div>
         </div>
 
-        <!-- 小说软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">小说软件仓库</div>
             <div class="accordion-content">
@@ -309,13 +297,12 @@
                     <a href="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json" target="_blank" class="btn">复制亨读书源</a>
                     <a href="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517" target="_blank" class="btn">读不舍手「苹果」</a>
                     <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json" target="_blank" class="btn">复制读不舍手书源</a>
-                    <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AFBB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
+                    <a href="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317" target="_blank" class="btn">千阅「苹果」</a>
                     <a href="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json" target="_blank" class="btn">复制千阅书源</a>
                 </div>
             </div>
         </div>
 
-        <!-- 视频解析网站仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">视频解析网站仓库</div>
             <div class="accordion-content">
@@ -329,7 +316,6 @@
             </div>
         </div>
 
-        <!-- 网盘资源仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">网盘资源仓库</div>
             <div class="accordion-content">
@@ -346,12 +332,12 @@
             </div>
         </div>
 
-        <!-- 小火箭订阅 -->
         <div class="accordion-item">
             <div class="accordion-header">小火箭订阅</div>
             <div class="accordion-content">
                 <div class="btn-group">
-                    <a href="https://edt2.qxy929.ccwu.cc/sub?token=eb46aa665e02fe11fa9d9b4960b92d08" target="_blank" class="btn">小钱自建</a>
+                    <!-- ========== 小钱自建链接已更新 ========== -->
+                    <a href="https://edt2.qxy929.ccwu.cc/login" target="_blank" class="btn">小钱自建</a>
                     <a href="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg" target="_blank" class="btn">裤佬</a>
                     <a href="https://shz.al/~WangCai" target="_blank" class="btn">旺财</a>
                     <a href="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b" target="_blank" class="btn">周润发</a>
@@ -360,7 +346,6 @@
             </div>
         </div>
 
-        <!-- 公益项目仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">公益项目仓库</div>
             <div class="accordion-content">
@@ -376,7 +361,6 @@
             </div>
         </div>
 
-        <!-- 猫系软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">猫系软件仓库</div>
             <div class="accordion-content">
@@ -396,22 +380,18 @@
     </div>
 
     <script>
-        // 1. 折叠面板丝滑动画
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
                 const item = header.parentElement;
                 item.classList.toggle('active');
                 item.offsetHeight;
-                // 手机原生点击震动
                 if (window.navigator.vibrate) navigator.vibrate(25);
             }
         }, { passive: true });
 
-        // 2. 明暗主题一键切换（右上角日月按钮）
         const themeBtn = document.getElementById('themeBtn');
         const html = document.documentElement;
-        // 读取本地存储记忆主题
         const saveTheme = localStorage.getItem('theme');
         if (saveTheme) html.setAttribute('data-theme', saveTheme);
         themeBtn.innerText = saveTheme === 'dark' ? '🌙' : '🌞';
@@ -422,7 +402,6 @@
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             themeBtn.innerText = newTheme === 'dark' ? '🌙' : '🌞';
-            // 点击震动
             if (window.navigator.vibrate) navigator.vibrate(35);
         });
     </script>
