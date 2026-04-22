@@ -136,6 +136,11 @@
             z-index: 1;
         }
 
+        /* 公益项目汇总标题加跳转 */
+        h2.gongyi {
+            cursor: pointer;
+        }
+
         /* 汉堡风按钮：红底+白字+薯条黄边框 */
         .btn-group {
             display: flex;
@@ -295,8 +300,8 @@
             <a href="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao" target="_blank" class="btn">香蕉</a>
         </div>
 
-        <!-- 5️⃣ 公益项目汇总（原Base64） -->
-        <h2>🤝 公益项目汇总</h2>
+        <!-- 5️⃣ 公益项目汇总（点击跳转） -->
+        <h2 class="gongyi" onclick="window.open('https://kdsq.cc/m.html','_blank')">🤝 公益项目汇总</h2>
         <div class="btn-group">
             <a href="https://stymei.github.io/" target="_blank" class="btn">共享小火箭</a>
             <a href="https://jsnzkpg.github.io/music" target="_blank" class="btn">音乐网站</a>
