@@ -18,17 +18,6 @@
             --common-transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
-        [data-theme="dark"] {
-            --glass-bg: rgba(30, 30, 35, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
-            --text-primary: #f0f0f0;
-            --accent-color: #5b7cf8;
-            --accent-hover: #6b88ff;
-            --content-bg: #24242a;
-            --overlay-bg: rgba(15, 15, 18, 0.82);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -144,7 +133,8 @@
         }
         .tagline:hover { opacity: 0.95; }
 
-        .theme-switch {
+        /* 音乐播放按钮 */
+        .music-switch {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -162,7 +152,7 @@
             font-size: 20px;
             transition: all 0.3s ease;
         }
-        .theme-switch:active { transform: scale(0.92); }
+        .music-switch:active { transform: scale(0.92); }
 
         .main-layer {
             width: 100%;
@@ -170,7 +160,7 @@
             margin-top: 0;
         }
 
-        /* ========== 电脑端多列布局自适应 ========== */
+        /* 电脑端多列布局 */
         @media screen and (min-width: 1024px) {
             .main-layer {
                 max-width: 1100px;
@@ -213,9 +203,6 @@
             background: rgba(255, 255, 255, 0.2);
             transform: scale(0.985);
         }
-        [data-theme="dark"] .accordion-header:active {
-            background: rgba(255, 255, 255, 0.08);
-        }
 
         .accordion-content {
             max-height: 0;
@@ -257,11 +244,8 @@
         .btn:active {
             transform: translateY(0) scale(0.98);
         }
-        [data-theme="dark"] .btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
 
-        /* ========== 底部版权 ========== */
+        /* 底部版权 */
         .copyright {
             width: 100%;
             max-width: 450px;
@@ -283,7 +267,7 @@
             }
         }
 
-        /* 复制提示悬浮弹窗 */
+        /* 复制提示 */
         .copy-toast {
             position: fixed;
             top: 50%;
@@ -306,7 +290,6 @@
         @media (max-width: 600px) {
             .page-title { font-size: 30px; }
             .accordion-header { font-size: 16px; padding: 15px 18px; }
-            .accordion-item.active .accordion-content { padding: 0 18px 18px 18px; }
             .btn { padding: 14px 18px; border-radius: 14px; font-size: 15px; }
         }
     </style>
@@ -320,14 +303,15 @@
         <div class="background-overlay"></div>
     </div>
 
+    <!-- 顶部滚动 -->
     <div class="marquee-container">
         <div class="marquee">
-            <span>小钱全网资源分享，海量资源免费看，付费内容低价解锁</span>
+            <span>将军赶路，不追小兔</span>
         </div>
     </div>
 
-    <div class="theme-switch" id="themeBtn">🌞</div>
-    <!-- 复制提示弹窗 -->
+    <!-- 音乐控制按钮 -->
+    <div class="music-switch" id="musicBtn">🎵</div>
     <div class="copy-toast" id="copyToast">链接已复制</div>
 
     <div class="main-layer">
@@ -367,6 +351,7 @@
                     <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3">UZ影视订阅</a>
                     <a class="btn" data-url="https://aptv.wegic.app/">APTV「苹果系全家桶」</a>
                     <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u">IPTV订阅</a>
+                    <a class="btn" data-url="https://www.饭太硬.com/">饭总接口汇总</a>
                 </div>
             </div>
         </div>
@@ -402,6 +387,9 @@
                     <a class="btn" data-url="https://chaospace.cc/">CHAOSPACE</a>
                     <a class="btn" data-url="https://vlink.cc/xmo">可爱帅气的小木偶</a>
                     <a class="btn" data-url="https://pomo.mom/">4K原盘</a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW">韩剧Tv综合吧</a>
+                    <a class="btn" data-url="https://link3.cc/dyyj">电影云集</a>
+                    <a class="btn" data-url="https://pinglian.lol/index.php">盘链</a>
                 </div>
             </div>
         </div>
@@ -421,7 +409,7 @@
             </div>
         </div>
 
-        <!-- 6. 更名：小火箭永久订阅 -->
+        <!-- 6. 小火箭永久订阅 -->
         <div class="accordion-item">
             <div class="accordion-header">小火箭永久订阅</div>
             <div class="accordion-content">
@@ -449,17 +437,48 @@
             </div>
         </div>
 
-        <!-- 底部版权信息 -->
+        <!-- 底部版权 -->
         <div class="copyright">
             © 2026 小钱全网综合分享 | xiaoqian-1001<br>
             本站仅做资源导航分享，不存储任何资源<br>
             所有链接来源于网络公开分享，侵权请联系删除<br>
-            由杜老板友情赞助支持
+            由杜老板亲情赞助支持
         </div>
     </div>
 
     <script>
-        // 折叠面板 + 手机震动
+        // 背景音乐（随机播放）
+        const audioList = [
+            "https://music.163.com/asset/4e252f6e8a2574680866648281969845.mp3",
+            "https://music.163.com/asset/8565526a7f7a96d2d38e4e0d75688881.mp3",
+            "https://music.163.com/asset/727a1b9a8d2c7d2f2a8b0c9d0e8f7a6b5.mp3"
+        ];
+        let audio = null;
+        let isPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+
+        function initAudio() {
+            const randomUrl = audioList[Math.floor(Math.random() * audioList.length)];
+            audio = new Audio(randomUrl);
+            audio.loop = true;
+        }
+
+        initAudio();
+
+        musicBtn.addEventListener('click', () => {
+            if (!audio) return;
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.textContent = "🎵";
+            } else {
+                audio.play();
+                musicBtn.textContent = "⏸";
+            }
+            isPlaying = !isPlaying;
+            if (navigator.vibrate) navigator.vibrate(20);
+        });
+
+        // 折叠面板
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
@@ -469,26 +488,7 @@
             }
         }, { passive: true });
 
-        // 暗黑主题切换
-        const themeBtn = document.getElementById('themeBtn');
-        const html = document.documentElement;
-        const saveTheme = localStorage.getItem('theme');
-        
-        if (saveTheme) {
-            html.setAttribute('data-theme', saveTheme);
-            themeBtn.innerText = saveTheme === 'dark' ? '🌙' : '🌞';
-        }
-
-        themeBtn.addEventListener('click', () => {
-            const now = html.getAttribute('data-theme');
-            const newTheme = now === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            themeBtn.innerText = newTheme === 'dark' ? '🌙' : '🌞';
-            if (navigator.vibrate) navigator.vibrate(30);
-        });
-
-        // ========== 按钮点击复制链接功能 ==========
+        // 复制链接
         const copyToast = document.getElementById('copyToast');
         const allBtns = document.querySelectorAll('.btn');
 
@@ -496,15 +496,9 @@
             btn.addEventListener('click', async function(e) {
                 const url = this.dataset.url;
                 if (!url) return;
-
-                // 复制链接到剪贴板
                 await navigator.clipboard.writeText(url);
-                
-                // 弹出提示
                 copyToast.classList.add('show');
                 setTimeout(() => copyToast.classList.remove('show'), 1200);
-
-                // 新标签打开链接
                 window.open(url, '_blank');
             });
         });
