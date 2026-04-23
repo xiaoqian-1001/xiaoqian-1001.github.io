@@ -133,27 +133,6 @@
         }
         .tagline:hover { opacity: 0.95; }
 
-        /* 音乐播放按钮 */
-        .music-switch {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 101;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            transition: all 0.3s ease;
-        }
-        .music-switch:active { transform: scale(0.92); }
-
         .main-layer {
             width: 100%;
             max-width: 450px;
@@ -310,8 +289,6 @@
         </div>
     </div>
 
-    <!-- 音乐控制按钮 -->
-    <div class="music-switch" id="musicBtn">🎵</div>
     <div class="copy-toast" id="copyToast">链接已复制</div>
 
     <div class="main-layer">
@@ -390,6 +367,7 @@
                     <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW">韩剧Tv综合吧</a>
                     <a class="btn" data-url="https://link3.cc/dyyj">电影云集</a>
                     <a class="btn" data-url="https://pinglian.lol/index.php">盘链</a>
+                    <a class="btn" data-url="https://link3.cc/xkfenx">星空影视</a>
                 </div>
             </div>
         </div>
@@ -447,37 +425,6 @@
     </div>
 
     <script>
-        // 背景音乐（随机播放）
-        const audioList = [
-            "https://music.163.com/asset/4e252f6e8a2574680866648281969845.mp3",
-            "https://music.163.com/asset/8565526a7f7a96d2d38e4e0d75688881.mp3",
-            "https://music.163.com/asset/727a1b9a8d2c7d2f2a8b0c9d0e8f7a6b5.mp3"
-        ];
-        let audio = null;
-        let isPlaying = false;
-        const musicBtn = document.getElementById('musicBtn');
-
-        function initAudio() {
-            const randomUrl = audioList[Math.floor(Math.random() * audioList.length)];
-            audio = new Audio(randomUrl);
-            audio.loop = true;
-        }
-
-        initAudio();
-
-        musicBtn.addEventListener('click', () => {
-            if (!audio) return;
-            if (isPlaying) {
-                audio.pause();
-                musicBtn.textContent = "🎵";
-            } else {
-                audio.play();
-                musicBtn.textContent = "⏸";
-            }
-            isPlaying = !isPlaying;
-            if (navigator.vibrate) navigator.vibrate(20);
-        });
-
         // 折叠面板
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
