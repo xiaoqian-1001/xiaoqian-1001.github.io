@@ -139,7 +139,6 @@
             margin-top: 0;
         }
 
-        /* 电脑端多列布局 */
         @media screen and (min-width: 1024px) {
             .main-layer {
                 max-width: 1100px;
@@ -224,7 +223,6 @@
             transform: translateY(0) scale(0.98);
         }
 
-        /* 底部版权 */
         .copyright {
             width: 100%;
             max-width: 450px;
@@ -246,7 +244,6 @@
             }
         }
 
-        /* 复制提示 */
         .copy-toast {
             position: fixed;
             top: 50%;
@@ -282,7 +279,6 @@
         <div class="background-overlay"></div>
     </div>
 
-    <!-- 顶部滚动 -->
     <div class="marquee-container">
         <div class="marquee">
             <span>将军赶路，不追小兔</span>
@@ -308,11 +304,22 @@
                     <a class="btn" data-url="https://jsnzkpg.github.io/ai">智能Ai</a>
                     <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt">Emby共享账号</a>
                     <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt">WebDAV共享账号</a>
+                    <a class="btn" data-url="https://dogpan.com/s/wpBRSz">羊羊科技</a>
                 </div>
             </div>
         </div>
 
-        <!-- 2. 影视软件仓库 -->
+        <!-- 2. 游戏开发仓库 -->
+        <div class="accordion-item">
+            <div class="accordion-header">游戏开发仓库</div>
+            <div class="accordion-content">
+                <div class="btn-group">
+                    <a class="btn" data-url="https://proxy.api.030101.xyz/xiaoqian-1001.github.io/game">女巫的毒药</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 影视软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">影视软件仓库</div>
             <div class="accordion-content">
@@ -333,7 +340,7 @@
             </div>
         </div>
 
-        <!-- 3. 猫系软件仓库 -->
+        <!-- 4. 猫系软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">猫系软件仓库</div>
             <div class="accordion-content">
@@ -351,7 +358,7 @@
             </div>
         </div>
 
-        <!-- 4. 网盘资源仓库 -->
+        <!-- 5. 网盘资源仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">网盘资源仓库</div>
             <div class="accordion-content">
@@ -372,7 +379,7 @@
             </div>
         </div>
 
-        <!-- 5. 小说软件仓库 -->
+        <!-- 6. 小说软件仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">小说软件仓库</div>
             <div class="accordion-content">
@@ -387,7 +394,7 @@
             </div>
         </div>
 
-        <!-- 6. 小火箭永久订阅 -->
+        <!-- 7. 小火箭永久订阅 -->
         <div class="accordion-item">
             <div class="accordion-header">小火箭永久订阅</div>
             <div class="accordion-content">
@@ -401,7 +408,7 @@
             </div>
         </div>
 
-        <!-- 7. 视频解析网站仓库 -->
+        <!-- 8. 视频解析网站仓库 -->
         <div class="accordion-item">
             <div class="accordion-header">视频解析网站仓库</div>
             <div class="accordion-content">
@@ -415,7 +422,6 @@
             </div>
         </div>
 
-        <!-- 底部版权 -->
         <div class="copyright">
             © 2026 小钱全网综合分享 | xiaoqian-1001<br>
             本站仅做资源导航分享，不存储任何资源<br>
@@ -425,7 +431,6 @@
     </div>
 
     <script>
-        // 折叠面板
         document.addEventListener('click', function(e) {
             const header = e.target.closest('.accordion-header');
             if (header) {
@@ -435,7 +440,6 @@
             }
         }, { passive: true });
 
-        // 复制链接
         const copyToast = document.getElementById('copyToast');
         const allBtns = document.querySelectorAll('.btn');
 
