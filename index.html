@@ -1,334 +1,849 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #0d1117;
             --bg-card: rgba(255,255,255,0.08);
-            --bg-card-hover: rgba(255,255,255,0.14);
-            --border: rgba(255,255,255,0.13);
-            --border-hover: rgba(255,255,255,0.32);
+            --bg-card-hover: rgba(255,255,255,0.13);
+            --border: rgba(255,255,255,0.12);
+            --border-hover: rgba(255,255,255,0.30);
             --text-primary: #f0f2f8;
-            --text-muted: rgba(240,242,248,0.55);
-            --accent-1: #e0b97a;
-            --accent-2: #6dd5ed;
-            --accent-3: #c084fc;
+            --text-muted: rgba(240,242,248,0.50);
+            --accent-teal: #6dd5ed;
+            --accent-gold: #e0b97a;
+            --accent-purple: #c084fc;
             --radius: 14px;
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        *, *::before, *::after {
-            margin: 0; padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-        }
+```
+    *, *::before, *::after {
+        margin: 0; padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            min-height: 100vh;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            font-family: 'Noto Serif SC', 'PingFang SC', serif;
-            overflow-x: hidden;
-            padding: 80px 16px 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    body {
+        min-height: 100vh;
+        background: var(--bg-deep);
+        color: var(--text-primary);
+        font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        overflow-x: hidden;
+        padding: 58px 14px 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        /* 极光画布层 */
-        #aurora {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
+    /* ── Canvas 极光 ── */
+    #aurora {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .noise {
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        background-size: 180px;
+        opacity: 0.65;
+        pointer-events: none;
+        z-index: 1;
+    }
 
-        .noise {
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-            background-size: 180px;
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 1;
-        }
+    .wrap {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 480px;
+    }
+    @media(min-width:1024px){ .wrap{ max-width:1100px; } }
 
-        .wrap {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 480px;
-        }
-        @media(min-width:1024px){ .wrap{ max-width:1100px; } }
+    /* ── 跑马灯 ── */
+    .marquee-bar {
+        position: fixed;
+        top: 0; left: 0; width: 100%;
+        background: rgba(13,17,23,0.80);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.09);
+        padding: 9px 0;
+        overflow: hidden;
+        z-index: 200;
+    }
+    .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: mscroll 20s linear infinite;
+    }
+    .marquee-track span {
+        flex-shrink: 0;
+        padding: 0 60px;
+        font-size: 11.5px;
+        letter-spacing: 0.14em;
+        color: var(--accent-gold);
+        font-variant-numeric: tabular-nums;
+    }
+    @keyframes mscroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
 
-        /* 跑马灯优化 */
-        .marquee-bar {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            background: rgba(13,17,23,0.8);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 0;
-            overflow: hidden;
-            z-index: 200;
-        }
-        .marquee-track {
-            display: flex;
-            width: fit-content;
-            animation: mscroll 20s linear infinite;
-        }
-        .marquee-track span {
-            padding: 0 40px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            color: var(--accent-1);
-            white-space: nowrap;
-        }
-        @keyframes mscroll {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-        }
+    /* ── 头部 ── */
+    .header {
+        text-align: center;
+        padding: 18px 0 28px;
+        animation: fadeUp 0.9s var(--ease) both;
+    }
+    .header-dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: var(--accent-teal);
+        margin: 0 auto 18px;
+        box-shadow: 0 0 16px var(--accent-teal), 0 0 32px rgba(109,213,237,0.35);
+        animation: pulse 2.8s ease infinite;
+    }
+    @keyframes pulse {
+        0%,100% { transform:scale(1); box-shadow:0 0 16px var(--accent-teal),0 0 32px rgba(109,213,237,0.35); }
+        50%      { transform:scale(0.6); box-shadow:0 0 5px var(--accent-teal); }
+    }
+    .page-title {
+        font-size: clamp(26px, 5.5vw, 40px);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+        background: linear-gradient(120deg, #e0b97a 0%, #f5d9a0 28%, #6dd5ed 58%, #c084fc 82%, #e0b97a 100%);
+        background-size: 260% 260%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 7s ease infinite;
+        margin-bottom: 4px;
+    }
+    @keyframes shimmer {
+        0%,100% { background-position:0% 50%; }
+        50%      { background-position:100% 50%; }
+    }
 
-        /* 头部 */
-        .header { text-align: center; margin-bottom: 40px; animation: fadeUp 0.8s var(--ease); }
-        .page-title {
-            font-size: clamp(28px, 6vw, 42px);
-            font-weight: 900;
-            background: linear-gradient(90deg, #e0b97a, #6dd5ed, #c084fc, #e0b97a);
-            background-size: 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 5s linear infinite;
-        }
-        @keyframes shimmer { to { background-position: 200% center; } }
+    /* ── 工具栏：搜索 + 全部展开/收起 ── */
+    .toolbar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+        animation: fadeUp 0.7s 0.1s var(--ease) both;
+    }
+    .search-wrap {
+        flex: 1;
+        position: relative;
+    }
+    .search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+    }
+    .search-icon svg { width:15px; height:15px; display:block; }
+    #search {
+        width: 100%;
+        padding: 11px 14px 11px 36px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s, background 0.2s;
+        backdrop-filter: blur(12px);
+    }
+    #search::placeholder { color: var(--text-muted); }
+    #search:focus {
+        border-color: rgba(109,213,237,0.45);
+        background: rgba(255,255,255,0.11);
+    }
+    .toggle-all-btn {
+        padding: 11px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-muted);
+        font-size: 12px;
+        font-family: inherit;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s, border-color 0.2s, color 0.2s;
+        backdrop-filter: blur(12px);
+        letter-spacing: 0.03em;
+    }
+    .toggle-all-btn:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-hover);
+        color: var(--text-primary);
+    }
 
-        /* 折叠面板 */
-        .accordion {
-            margin-bottom: 12px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all 0.3s var(--ease);
-        }
-        .accordion:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
-        .accordion.active { border-color: var(--accent-2); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    /* 无搜索结果提示 */
+    .no-result {
+        display: none;
+        text-align: center;
+        padding: 30px;
+        color: var(--text-muted);
+        font-size: 14px;
+        letter-spacing: 0.05em;
+    }
 
-        .accordion-header {
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-        .header-label { font-size: 16px; font-weight: 700; color: var(--text-primary); }
-        .header-arrow { transition: transform 0.4s var(--ease); color: var(--text-muted); }
-        .accordion.active .header-arrow { transform: rotate(180deg); color: var(--accent-2); }
+    /* ── 折叠卡片 ── */
+    .accordion {
+        margin-bottom: 9px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        overflow: hidden;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s, opacity 0.2s;
+        animation: fadeUp 0.65s var(--ease) both;
+    }
+    .accordion:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.10); }
+    .accordion.active {
+        border-color: rgba(109,213,237,0.32);
+        box-shadow: 0 0 0 1px rgba(109,213,237,0.10), 0 14px 45px rgba(0,0,0,0.32);
+    }
+    .accordion.hidden { display: none; }
 
-        .accordion-body {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.4s var(--ease);
-        }
-        .accordion.active .accordion-body { grid-template-rows: 1fr; }
-        .accordion-inner { overflow: hidden; }
+    /* 入场延迟 */
+    .accordion:nth-child(1){ animation-delay:0.04s; }
+    .accordion:nth-child(2){ animation-delay:0.09s; }
+    .accordion:nth-child(3){ animation-delay:0.14s; }
+    .accordion:nth-child(4){ animation-delay:0.19s; }
+    .accordion:nth-child(5){ animation-delay:0.24s; }
+    .accordion:nth-child(6){ animation-delay:0.29s; }
+    .accordion:nth-child(7){ animation-delay:0.34s; }
 
-        .btn-grid {
-            padding: 0 16px 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
-        }
+    /* 彩色顶部装饰线 */
+    .accordion::before {
+        content: '';
+        display: block;
+        height: 0;
+        background: var(--cat-color, var(--accent-teal));
+        transition: height 0.35s var(--ease);
+        opacity: 0.7;
+    }
+    .accordion.active::before { height: 2.5px; }
 
-        /* 按钮 */
-        .btn {
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 14px;
-            text-align: center;
-            transition: 0.2s;
-            position: relative;
-            overflow: hidden;
-            display: block;
-        }
-        .btn:hover { background: rgba(255,255,255,0.12); border-color: var(--accent-2); transform: translateY(-2px); }
-        .btn:active { transform: translateY(0); }
+    .accordion-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 18px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.18s;
+    }
+    .accordion-header:active { background: rgba(255,255,255,0.04); }
 
-        /* 书源类按钮特殊颜色区分 (可选) */
-        .btn[data-type="copy"] { border-left: 3px solid var(--accent-3); }
+    .header-left { display: flex; align-items: center; gap: 10px; }
 
-        .copyright {
-            margin-top: 50px;
-            font-size: 11px;
-            color: var(--text-muted);
-            text-align: center;
-            line-height: 1.8;
-            font-family: 'JetBrains Mono', monospace;
-        }
+    .cat-icon {
+        font-size: 18px;
+        line-height: 1;
+        flex-shrink: 0;
+        filter: drop-shadow(0 0 4px rgba(255,255,255,0.1));
+    }
 
-        .toast {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(30px);
-            background: rgba(0,0,0,0.8);
-            color: var(--accent-2);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 12px;
-            opacity: 0;
-            transition: 0.3s;
-            z-index: 1000;
-            border: 1px solid var(--accent-2);
-        }
-        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .header-label {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: var(--text-primary);
+    }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .badge-count {
+        font-size: 11px;
+        padding: 2px 7px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.08);
+        color: var(--text-muted);
+        letter-spacing: 0.03em;
+        transition: background 0.2s, color 0.2s;
+    }
+    .accordion.active .badge-count {
+        background: rgba(109,213,237,0.15);
+        color: var(--accent-teal);
+    }
+
+    .header-arrow {
+        flex-shrink: 0;
+        color: var(--text-muted);
+        transition: transform 0.4s var(--ease), color 0.3s;
+    }
+    .accordion.active .header-arrow { transform: rotate(180deg); color: var(--accent-teal); }
+    .header-arrow svg { width:14px; height:14px; display:block; }
+
+    /* 丝滑折叠 */
+    .accordion-body {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.42s var(--ease);
+    }
+    .accordion.active .accordion-body { grid-template-rows: 1fr; }
+    .accordion-inner { overflow: hidden; }
+
+    .btn-grid {
+        padding: 0 12px 12px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+    @media(min-width:1024px){ .btn-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1600px){ .btn-grid{ grid-template-columns:repeat(3,1fr); } }
+
+    /* ── 按钮 ── */
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 14px;
+        border-radius: 9px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.055);
+        color: #eef0f8;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s var(--ease), border-color 0.2s, transform 0.18s var(--ease), box-shadow 0.2s, color 0.18s;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+    }
+    .btn-name { flex: 1; }
+    .btn-tag {
+        font-size: 10.5px;
+        padding: 2px 7px;
+        border-radius: 12px;
+        margin-left: 8px;
+        flex-shrink: 0;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+    }
+    /* 标签颜色 */
+    .tag-web     { background: rgba(109,213,237,0.15); color: #6dd5ed; }
+    .tag-apple   { background: rgba(192,132,252,0.15); color: #c084fc; }
+    .tag-android { background: rgba(100,220,120,0.15); color: #64dc78; }
+    .tag-tv      { background: rgba(255,180,60,0.16);  color: #ffb43c; }
+    .tag-sub     { background: rgba(224,185,122,0.15); color: #e0b97a; }
+    .tag-share   { background: rgba(255,120,120,0.15); color: #ff7878; }
+    .tag-4k      { background: rgba(60,180,255,0.15);  color: #3cb4ff; }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(109,213,237,0.08) 0%, rgba(192,132,252,0.05) 100%);
+        opacity: 0;
+        transition: opacity 0.25s;
+    }
+    .btn:hover {
+        background: rgba(255,255,255,0.12);
+        border-color: rgba(109,213,237,0.38);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(109,213,237,0.12);
+        color: #fff;
+    }
+    .btn:hover::before { opacity: 1; }
+    .btn:active { transform: translateY(0) scale(0.975); }
+
+    /* 搜索高亮 */
+    .btn.search-match { border-color: rgba(109,213,237,0.3); }
+    .btn.search-hidden { display: none; }
+
+    /* 波纹 */
+    .btn .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(109,213,237,0.20);
+        transform: scale(0);
+        animation: ripple-anim 0.55s linear;
+        pointer-events: none;
+    }
+    @keyframes ripple-anim { to { transform:scale(4); opacity:0; } }
+
+    /* ── 版权 ── */
+    .copyright {
+        margin-top: 36px;
+        padding: 18px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        backdrop-filter: blur(18px);
+        text-align: center;
+        font-size: 11px;
+        line-height: 2;
+        color: rgba(240,242,248,0.42);
+        letter-spacing: 0.05em;
+        animation: fadeUp 0.7s 0.5s var(--ease) both;
+    }
+
+    /* ── Toast ── */
+    .toast {
+        position: fixed;
+        bottom: 28px; left: 50%;
+        transform: translateX(-50%) translateY(16px);
+        padding: 9px 22px;
+        border-radius: 40px;
+        background: rgba(18,22,30,0.93);
+        border: 1px solid rgba(109,213,237,0.32);
+        color: var(--accent-teal);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s, transform 0.22s var(--ease);
+        backdrop-filter: blur(20px);
+        white-space: nowrap;
+    }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    @keyframes fadeUp {
+        from { opacity:0; transform:translateY(16px); }
+        to   { opacity:1; transform:translateY(0); }
+    }
+</style>
+```
+
 </head>
 <body>
 
+```
 <canvas id="aurora"></canvas>
 <div class="noise"></div>
 
 <div class="marquee-bar">
     <div class="marquee-track">
-        <span>将军赶路，不追小兔 • 资源整理不易，请勿商用 • 持续维护更新中 • </span>
-        <span>将军赶路，不追小兔 • 资源整理不易，请勿商用 • 持续维护更新中 • </span>
+        <span>将军赶路，不追小兔</span>
+        <span>将军赶路，不追小兔</span>
+        <span>将军赶路，不追小兔</span>
+        <span>将军赶路，不追小兔</span>
     </div>
 </div>
 
-<div class="toast" id="toast">已复制到剪贴板</div>
+<div class="toast" id="toast">✓ 链接已复制</div>
 
 <div class="wrap">
+    <!-- 头部 -->
     <div class="header">
+        <div class="header-dot"></div>
         <h1 class="page-title">小钱全网综合分享</h1>
     </div>
 
-    <div class="accordion">
-        <div class="accordion-header">
-            <span class="header-label">小说软件仓库</span>
-            <div class="header-arrow">▼</div>
+    <!-- 工具栏 -->
+    <div class="toolbar">
+        <div class="search-wrap">
+            <span class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></span>
+            <input id="search" type="search" placeholder="搜索链接…" autocomplete="off" spellcheck="false">
         </div>
-        <div class="accordion-body">
-            <div class="accordion-inner">
-                <div class="btn-grid">
-                    <a class="btn" href="https://apps.apple.com/cn/app/id6445861996" target="_blank">亨读「苹果」</a>
-                    <a class="btn" data-type="copy" data-url="https://gh-proxy.org/.../total.json">复制亨读书源</a>
-                </div>
+        <button class="toggle-all-btn" id="toggleAll">全部展开</button>
+    </div>
+
+    <div class="no-result" id="noResult">🔍 没有找到相关内容</div>
+
+    <!-- 1. 公益项目仓库 -->
+    <div class="accordion" style="--cat-color:#6dd5ed" data-id="0">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">🎁</span>
+                <span class="header-label">公益项目仓库</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">8</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
             </div>
         </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://stymei.github.io/"><span class="btn-name">共享小火箭</span><span class="btn-tag tag-share">共享</span></a>
+            <a class="btn" data-url="https://jsnzkpg.github.io/music"><span class="btn-name">音乐网站</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://jsnzkpg.github.io/TelegramProxy"><span class="btn-name">TG代理</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://jsnzkpg.github.io/email"><span class="btn-name">临时邮箱</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://jsnzkpg.github.io/ai"><span class="btn-name">智能Ai</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt"><span class="btn-name">Emby共享账号</span><span class="btn-tag tag-share">共享</span></a>
+            <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt"><span class="btn-name">WebDAV共享账号</span><span class="btn-tag tag-share">共享</span></a>
+            <a class="btn" data-url="https://dogpan.com/s/wpBRSz"><span class="btn-name">羊羊科技</span><span class="btn-tag tag-web">网页</span></a>
+        </div></div></div>
     </div>
-    
+
+    <!-- 2. 影视软件仓库 -->
+    <div class="accordion" style="--cat-color:#ffb43c" data-id="1">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">🎬</span>
+                <span class="header-label">影视软件仓库</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">12</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://a123tv.com/"><span class="btn-name">123TV</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://www.flixflop.com/"><span class="btn-name">飞流视频</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://gaze.run/"><span class="btn-name">注视影视</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://kafeizhibo.com/"><span class="btn-name">咖啡直播</span><span class="btn-tag tag-tv">体育</span></a>
+            <a class="btn" data-url="https://dogpan.com/s/R6GKck"><span class="btn-name">OK影视</span><span class="btn-tag tag-android">安卓+TV</span></a>
+            <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2"><span class="btn-name">TVbox订阅「裤佬」</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://9280.kstore.vip/newwex.json"><span class="btn-name">TVbox订阅「牛二」</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://dogpan.com/s/mZp9cK"><span class="btn-name">UZ影视全家桶</span><span class="btn-tag tag-tv">TV</span></a>
+            <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3"><span class="btn-name">UZ影视订阅</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://aptv.wegic.app/"><span class="btn-name">APTV</span><span class="btn-tag tag-apple">苹果</span></a>
+            <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u"><span class="btn-name">IPTV订阅</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://www.饭太硬.com/"><span class="btn-name">饭总接口汇总</span><span class="btn-tag tag-web">网页</span></a>
+        </div></div></div>
+    </div>
+
+    <!-- 3. 猫系软件仓库 -->
+    <div class="accordion" style="--cat-color:#c084fc" data-id="2">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">🐱</span>
+                <span class="header-label">猫系软件仓库</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">9</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5"><span class="btn-name">永久猫源订阅</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5"><span class="btn-name">导师猫源</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5"><span class="btn-name">雪乃猫源</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5"><span class="btn-name">豆儿猫源</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5"><span class="btn-name">沐辰猫源</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://9280.kstore.vip/cat/index.js.md5"><span class="btn-name">牛二猫源</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN"><span class="btn-name">MiraPlay</span><span class="btn-tag tag-apple">苹果</span></a>
+            <a class="btn" data-url="https://testflight.apple.com/join/thdxEjTZ"><span class="btn-name">JSTV</span><span class="btn-tag tag-apple">苹果</span></a>
+            <a class="btn" data-url="https://testflight.apple.com/join/ywzcMKS3"><span class="btn-name">魔力云播</span><span class="btn-tag tag-apple">苹果</span></a>
+        </div></div></div>
+    </div>
+
+    <!-- 4. 网盘资源仓库 -->
+    <div class="accordion" style="--cat-color:#64dc78" data-id="3">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">☁️</span>
+                <span class="header-label">网盘资源仓库</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">12</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://so.252035.xyz/?ref=thlm.com"><span class="btn-name">资源共建盘搜</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://jsnzkpg.github.io/pansou/"><span class="btn-name">裤佬全网盘搜</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://seedhub.cc/"><span class="btn-name">SeedHub</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://mdsub.top/"><span class="btn-name">漫迪小站</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://kangfuzhongx.in/#"><span class="btn-name">三次元成瘾者康复中心</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://chaospace.cc/"><span class="btn-name">CHAOSPACE</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://vlink.cc/xmo"><span class="btn-name">可爱帅气的小木偶</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://pomo.mom/"><span class="btn-name">4K原盘</span><span class="btn-tag tag-4k">4K</span></a>
+            <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW"><span class="btn-name">韩剧Tv综合吧</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://link3.cc/dyyj"><span class="btn-name">电影云集</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://pinglian.lol/index.php"><span class="btn-name">盘链</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://link3.cc/xkfenx"><span class="btn-name">星空影视</span><span class="btn-tag tag-web">网页</span></a>
+        </div></div></div>
+    </div>
+
+    <!-- 5. 小说软件仓库 -->
+    <div class="accordion" style="--cat-color:#e0b97a" data-id="4">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">📚</span>
+                <span class="header-label">小说软件仓库</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">6</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://apps.apple.com/cn/app/id6445861996"><span class="btn-name">亨读</span><span class="btn-tag tag-apple">苹果</span></a>
+            <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json"><span class="btn-name">亨读书源</span><span class="btn-tag tag-sub">书源</span></a>
+            <a class="btn" data-url="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517"><span class="btn-name">读不舍手</span><span class="btn-tag tag-apple">苹果</span></a>
+            <a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json"><span class="btn-name">读不舍手书源</span><span class="btn-tag tag-sub">书源</span></a>
+            <a class="btn" data-url="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317"><span class="btn-name">千阅</span><span class="btn-tag tag-apple">苹果</span></a>
+            <a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json"><span class="btn-name">千阅书源</span><span class="btn-tag tag-sub">书源</span></a>
+        </div></div></div>
+    </div>
+
+    <!-- 6. 小火箭永久订阅 -->
+    <div class="accordion" style="--cat-color:#ff7878" data-id="5">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">🚀</span>
+                <span class="header-label">小火箭永久订阅</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">5</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://edt2.qxy929.ccwu.cc/login"><span class="btn-name">小钱自建</span><span class="btn-tag tag-share">自建</span></a>
+            <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg"><span class="btn-name">裤佬</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://shz.al/~WangCai"><span class="btn-name">旺财</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b"><span class="btn-name">周润发</span><span class="btn-tag tag-sub">订阅</span></a>
+            <a class="btn" data-url="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao"><span class="btn-name">香蕉</span><span class="btn-tag tag-sub">订阅</span></a>
+        </div></div></div>
+    </div>
+
+    <!-- 7. 视频解析网站仓库 -->
+    <div class="accordion" style="--cat-color:#3cb4ff" data-id="6">
+        <div class="accordion-header">
+            <div class="header-left">
+                <span class="cat-icon">🔗</span>
+                <span class="header-label">视频解析网站仓库</span>
+            </div>
+            <div class="header-right">
+                <span class="badge-count">5</span>
+                <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
+            <a class="btn" data-url="https://9xbuddy.in/zh"><span class="btn-name">国外主流平台解析</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://www.v2ob.com/"><span class="btn-name">国内短视频去水印</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://am1907.top/"><span class="btn-name">爱优腾芒vip解析·搜索</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://www.nuliya.top/vip"><span class="btn-name">爱优腾芒vip解析·链接</span><span class="btn-tag tag-web">网页</span></a>
+            <a class="btn" data-url="https://www.dlbunny.com/"><span class="btn-name">抖音专用·去水印下载</span><span class="btn-tag tag-web">网页</span></a>
+        </div></div></div>
+    </div>
+
     <div class="copyright">
-        © 2026 小钱全网综合分享<br>
-        本站仅供资源导航，不存储任何内容<br>
-        如有侵权请联系删除
+        © 2026 小钱全网综合分享 &nbsp;|&nbsp; xiaoqian-1001<br>
+        本站仅做资源导航分享，不存储任何资源<br>
+        所有链接来源于网络公开分享，侵权请联系删除<br>
+        由杜老板亲情赞助支持
     </div>
 </div>
 
 <script>
-    // 1. 极光背景逻辑优化：增加可见性检查以省电
-    (function() {
-        const canvas = document.getElementById('aurora');
-        const ctx = canvas.getContext('2d');
-        let W, H, t = 0, isVisible = true;
+/* ════════════════════════════════
+   极光背景（页面不可见时暂停）
+════════════════════════════════ */
+(function() {
+    const canvas = document.getElementById('aurora');
+    const ctx = canvas.getContext('2d');
+    let W, H, t = 0, rafId, paused = false;
 
-        const resize = () => {
-            W = canvas.width = window.innerWidth;
-            H = canvas.height = window.innerHeight;
-        };
-        window.addEventListener('resize', resize);
-        resize();
+    function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-        document.addEventListener('visibilitychange', () => isVisible = !document.hidden);
+    // 页面不可见时暂停渲染，节省 CPU/电量
+    document.addEventListener('visibilitychange', () => {
+        paused = document.hidden;
+        if (!paused) frame();
+    });
 
-        const bands = [
-            { color:[80,220,200], baseY:0.3, amp:0.1, freq:0.05, speed:0.01, alpha:0.15 },
-            { color:[160,100,255], baseY:0.4, amp:0.08, freq:0.03, speed:0.008, alpha:0.12 }
-        ];
+    const bands = [
+        { color:[80,220,200],  baseY:0.26, amp:0.10, freq:0.55, speed:0.28, width:0.38, alpha:0.22 },
+        { color:[160,100,255], baseY:0.36, amp:0.08, freq:0.40, speed:0.20, width:0.30, alpha:0.18 },
+        { color:[60,200,255],  baseY:0.20, amp:0.12, freq:0.70, speed:0.35, width:0.26, alpha:0.16 },
+        { color:[200,140,255], baseY:0.46, amp:0.07, freq:0.30, speed:0.16, width:0.34, alpha:0.14 },
+        { color:[100,240,180], baseY:0.16, amp:0.09, freq:0.60, speed:0.25, width:0.22, alpha:0.14 },
+    ];
 
-        function frame() {
-            if (isVisible) {
-                t += 1;
-                ctx.fillStyle = '#0d1117';
-                ctx.fillRect(0, 0, W, H);
-                ctx.globalCompositeOperation = 'screen';
+    function drawBand(b, time) {
+        const yC = b.baseY * H + Math.sin(time * b.speed + 1.2) * b.amp * H;
+        const bH  = b.width * H;
+        const [r,g,bl] = b.color;
 
-                bands.forEach(b => {
-                    ctx.beginPath();
-                    for (let x = 0; x <= W; x += 5) {
-                        const y = b.baseY * H + Math.sin(x * b.freq + t * b.speed) * b.amp * H;
-                        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                    }
-                    ctx.lineTo(W, H); ctx.lineTo(0, H);
-                    ctx.fillStyle = `rgba(${b.color[0]},${b.color[1]},${b.color[2]},${b.alpha})`;
-                    ctx.fill();
-                });
-            }
-            requestAnimationFrame(frame);
+        ctx.beginPath();
+        for (let i = 0; i <= 120; i++) {
+            const x = (i / 120) * W;
+            const w = Math.sin(i * b.freq * 0.08 + time * b.speed) * 18
+                    + Math.sin(i * b.freq * 0.15 + time * b.speed * 1.3 + 2) * 10
+                    + Math.sin(i * b.freq * 0.04 + time * b.speed * 0.7 + 4) * 28;
+            i === 0 ? ctx.moveTo(x, yC + w) : ctx.lineTo(x, yC + w);
         }
-        frame();
-    })();
+        ctx.lineTo(W, yC + bH); ctx.lineTo(0, yC + bH); ctx.closePath();
 
-    // 2. 交互逻辑：统一处理点击、复制和跳转
-    const toast = document.getElementById('toast');
-    let toastTimer;
+        const g2 = ctx.createLinearGradient(0, yC - bH * 0.3, 0, yC + bH);
+        g2.addColorStop(0,   `rgba(${r},${g},${bl},0)`);
+        g2.addColorStop(0.2, `rgba(${r},${g},${bl},${b.alpha})`);
+        g2.addColorStop(0.55,`rgba(${r},${g},${bl},${b.alpha * 0.55})`);
+        g2.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
+        ctx.fillStyle = g2;
+        ctx.fill();
+    }
 
-    document.addEventListener('click', async (e) => {
-        // 折叠面板切换
-        const header = e.target.closest('.accordion-header');
-        if (header) {
-            header.parentElement.classList.toggle('active');
-            return;
-        }
+    function frame() {
+        if (paused) return;
+        t += 0.008;
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, W, H);
 
-        // 按钮处理
-        const btn = e.target.closest('.btn');
-        if (btn) {
-            const url = btn.dataset.url || btn.getAttribute('href');
-            const isCopyOnly = btn.dataset.type === 'copy';
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        bands.forEach(b => drawBand(b, t));
+        ctx.restore();
 
-            if (url) {
-                // 执行复制
-                try {
-                    await navigator.clipboard.writeText(url);
-                    showToast(isCopyOnly ? "链接已复制，请去 App 内导入" : "链接已复制并尝试跳转");
-                } catch (err) {}
+        // 底部遮罩，内容区可读性
+        const fade = ctx.createLinearGradient(0, H * 0.48, 0, H);
+        fade.addColorStop(0, 'rgba(13,17,23,0)');
+        fade.addColorStop(1, 'rgba(13,17,23,0.9)');
+        ctx.fillStyle = fade;
+        ctx.fillRect(0, H * 0.48, W, H * 0.52);
 
-                // 如果不是纯复制，则跳转
-                if (!isCopyOnly && btn.hasAttribute('href')) {
-                    // 默认 href 会触发跳转，不需要额外逻辑
-                } else if (!isCopyOnly && btn.dataset.url) {
-                    window.open(url, '_blank');
-                }
-            }
+        rafId = requestAnimationFrame(frame);
+    }
+    frame();
+})();
+
+/* ════════════════════════════════
+   折叠 + 记忆展开状态
+════════════════════════════════ */
+const STORAGE_KEY = 'xq_open';
+
+function saveState() {
+    const open = [...document.querySelectorAll('.accordion.active')]
+        .map(el => el.dataset.id);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(open)); } catch(e){}
+}
+
+function restoreState() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        saved.forEach(id => {
+            const el = document.querySelector(`.accordion[data-id="${id}"]`);
+            if (el) el.classList.add('active');
+        });
+    } catch(e){}
+}
+restoreState();
+
+document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('active');
+        if (navigator.vibrate) navigator.vibrate(15);
+        saveState();
+        updateToggleBtn();
+    });
+});
+
+/* ════════════════════════════════
+   全部展开 / 收起
+════════════════════════════════ */
+const toggleBtn = document.getElementById('toggleAll');
+let allOpen = false;
+
+function updateToggleBtn() {
+    const visibles = [...document.querySelectorAll('.accordion:not(.hidden)')];
+    allOpen = visibles.length > 0 && visibles.every(el => el.classList.contains('active'));
+    toggleBtn.textContent = allOpen ? '全部收起' : '全部展开';
+}
+
+toggleBtn.addEventListener('click', () => {
+    const visibles = document.querySelectorAll('.accordion:not(.hidden)');
+    const target = !allOpen;
+    visibles.forEach(el => el.classList.toggle('active', target));
+    allOpen = target;
+    toggleBtn.textContent = allOpen ? '全部收起' : '全部展开';
+    saveState();
+});
+
+/* ════════════════════════════════
+   搜索
+════════════════════════════════ */
+const searchInput = document.getElementById('search');
+const noResult    = document.getElementById('noResult');
+
+searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    let totalVisible = 0;
+
+    document.querySelectorAll('.accordion').forEach(acc => {
+        const btns = acc.querySelectorAll('.btn');
+        let accVisible = 0;
+
+        btns.forEach(btn => {
+            const text = btn.querySelector('.btn-name').textContent.toLowerCase();
+            const tag  = (btn.querySelector('.btn-tag')?.textContent || '').toLowerCase();
+            const match = !q || text.includes(q) || tag.includes(q);
+            btn.classList.toggle('search-hidden', !match);
+            btn.classList.toggle('search-match', !!q && match);
+            if (match) accVisible++;
+        });
+
+        acc.classList.toggle('hidden', accVisible === 0);
+        if (accVisible > 0) {
+            totalVisible++;
+            if (q) acc.classList.add('active'); // 搜索时自动展开
         }
     });
 
-    function showToast(msg) {
-        toast.textContent = msg;
-        toast.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+    noResult.style.display = totalVisible === 0 ? 'block' : 'none';
+    if (!q) {
+        // 清空搜索时恢复记忆状态
+        document.querySelectorAll('.accordion').forEach(el => {
+            el.classList.remove('hidden');
+            el.querySelectorAll('.btn').forEach(b => {
+                b.classList.remove('search-hidden', 'search-match');
+            });
+        });
+        restoreState();
+        document.querySelectorAll('.accordion').forEach(el => {
+            // 仅恢复之前保存的，清除搜索时新打开的
+        });
     }
+    updateToggleBtn();
+});
+
+/* ════════════════════════════════
+   按钮：波纹 + 复制 + 跳转
+════════════════════════════════ */
+const toast = document.getElementById('toast');
+let toastTimer;
+
+document.querySelectorAll('.btn[data-url]').forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+        // 波纹
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+        this.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+
+        // 复制
+        const url = this.dataset.url;
+        try { await navigator.clipboard.writeText(url); } catch(err){}
+
+        clearTimeout(toastTimer);
+        toast.classList.add('show');
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
+
+        window.open(url, '_blank');
+    });
+});
+
+updateToggleBtn();
 </script>
+```
+
 </body>
 </html>
