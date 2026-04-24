@@ -1,458 +1,609 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小钱全网综合分享</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.22);
-            --glass-border: rgba(255, 255, 255, 0.28);
-            --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.09);
-            --text-primary: #1d1d1f;
-            --accent-color: #4a6cf7;
-            --accent-hover: #3658e9;
-            --content-bg: #ffffff;
-            --overlay-bg: rgba(255, 255, 255, 0.78);
-            --common-radius: 18px;
-            --common-transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --bg-deep: #0a0c10;
+            --bg-card: rgba(255,255,255,0.04);
+            --bg-card-hover: rgba(255,255,255,0.08);
+            --border: rgba(255,255,255,0.09);
+            --border-hover: rgba(255,255,255,0.22);
+            --text-primary: #e8eaf0;
+            --text-muted: rgba(232,234,240,0.45);
+            --accent-1: #c9a96e;
+            --accent-2: #7eb8d4;
+            --accent-3: #a07fd4;
+            --glow: rgba(201,169,110,0.18);
+            --radius: 14px;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            -webkit-tap-highlight-color: transparent;
-        }
+```
+    *, *::before, *::after {
+        margin: 0; padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            color: var(--text-primary);
-            overflow-x: hidden;
-            position: relative;
-            padding: 15px;
-            padding-top: 8vh;
-            padding-bottom: 80px;
-            transition: background-color 0.4s ease;
-        }
+    body {
+        min-height: 100vh;
+        background: var(--bg-deep);
+        color: var(--text-primary);
+        font-family: 'Noto Serif SC', 'PingFang SC', serif;
+        overflow-x: hidden;
+        padding: 60px 16px 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        .background-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        .background-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .background-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--overlay-bg);
-            z-index: -1;
-            transition: background 0.4s ease;
-        }
+    /* ── 背景装饰 ── */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 70% 40% at 20% 10%, rgba(126,184,212,0.08) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 50% at 80% 80%, rgba(160,127,212,0.07) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 30% at 55% 50%, rgba(201,169,110,0.05) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+    }
 
-        .marquee-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(190%);
-            -webkit-backdrop-filter: blur(25px) saturate(190%);
-            padding: 10px 0;
-            box-shadow: var(--glass-shadow);
-            overflow: hidden;
-            z-index: 100;
-        }
-        .marquee {
-            white-space: nowrap;
-            display: inline-block;
-            animation: marquee 15s linear infinite;
-            padding-left: 100%;
-        }
-        .marquee span {
-            color: var(--text-primary);
-            font-weight: 600;
-            padding: 0 15px;
-            font-size: 14px;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+    /* 噪点纹理 */
+    body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        background-size: 200px;
+        opacity: 0.6;
+        pointer-events: none;
+        z-index: 0;
+    }
 
-        .page-title {
-            text-align: center;
-            font-size: 34px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            background: linear-gradient(45deg, #ff9a56, #ff6b6b, #5b86e5, #36d1dc, #a855f7);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientFlow 9s ease infinite;
-        }
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .wrap {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 480px;
+    }
+    @media(min-width:1024px){ .wrap{ max-width:1100px; } }
 
-        .username {
-            text-align: center;
-            font-size: 15px;
-            color: var(--text-primary);
-            opacity: 0.85;
-            font-weight: 600;
-            margin-bottom: 7px;
-        }
+    /* ── 跑马灯 ── */
+    .marquee-bar {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        background: rgba(10,12,16,0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 9px 0;
+        overflow: hidden;
+        z-index: 200;
+    }
+    .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: scroll 18s linear infinite;
+    }
+    .marquee-track span {
+        flex-shrink: 0;
+        padding: 0 60px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        color: var(--accent-1);
+    }
+    @keyframes scroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
 
-        .tagline {
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-primary);
-            opacity: 0.7;
-            margin-bottom: 32px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .tagline:hover { opacity: 0.95; }
+    /* ── 头部 ── */
+    .header {
+        text-align: center;
+        padding: 20px 0 36px;
+        animation: fadeUp 0.9s var(--ease) both;
+    }
+    .header-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--accent-1);
+        margin: 0 auto 20px;
+        box-shadow: 0 0 12px var(--accent-1);
+        animation: pulse 2.5s ease infinite;
+    }
+    @keyframes pulse {
+        0%,100% { opacity:1; transform:scale(1); }
+        50% { opacity:0.5; transform:scale(0.7); }
+    }
+    .page-title {
+        font-size: clamp(26px, 6vw, 40px);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        background: linear-gradient(135deg, var(--accent-1) 0%, #e8c99a 40%, var(--accent-2) 70%, var(--accent-3) 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 6s ease infinite;
+        margin-bottom: 10px;
+    }
+    @keyframes shimmer {
+        0%,100% { background-position:0% 50%; }
+        50%      { background-position:100% 50%; }
+    }
+    .username {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+    .tagline {
+        font-size: 13px;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .tagline:hover { color: var(--accent-1); }
 
-        .main-layer {
-            width: 100%;
-            max-width: 450px;
-            margin-top: 0;
-        }
+    /* ── 折叠卡片 ── */
+    .accordion {
+        margin-bottom: 10px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        overflow: hidden;
+        backdrop-filter: blur(12px);
+        transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        animation: fadeUp 0.7s var(--ease) both;
+    }
+    .accordion:hover {
+        border-color: var(--border-hover);
+    }
+    .accordion.active {
+        border-color: rgba(201,169,110,0.3);
+        box-shadow: 0 0 0 1px rgba(201,169,110,0.1), 0 12px 40px rgba(0,0,0,0.3);
+    }
 
-        @media screen and (min-width: 1024px) {
-            .main-layer {
-                max-width: 1100px;
-            }
-            .btn-group {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-        }
-        @media screen and (min-width: 1600px) {
-            .btn-group {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+    /* 动画延迟 */
+    .accordion:nth-child(1){ animation-delay:0.05s; }
+    .accordion:nth-child(2){ animation-delay:0.10s; }
+    .accordion:nth-child(3){ animation-delay:0.15s; }
+    .accordion:nth-child(4){ animation-delay:0.20s; }
+    .accordion:nth-child(5){ animation-delay:0.25s; }
+    .accordion:nth-child(6){ animation-delay:0.30s; }
+    .accordion:nth-child(7){ animation-delay:0.35s; }
+    .accordion:nth-child(8){ animation-delay:0.40s; }
 
-        .accordion-item {
-            margin-bottom: 16px;
-            border-radius: var(--common-radius);
-            overflow: hidden;
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(185%);
-            -webkit-backdrop-filter: blur(25px) saturate(185%);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-        }
+    .accordion-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.2s;
+    }
+    .accordion-header:active { background: rgba(255,255,255,0.04); }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .header-icon {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: var(--accent-1);
+        flex-shrink: 0;
+        opacity: 0.6;
+        transition: opacity 0.3s;
+    }
+    .accordion.active .header-icon { opacity: 1; }
+    .header-label {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+    .header-arrow {
+        width: 18px; height: 18px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.4s var(--ease);
+        color: var(--text-muted);
+    }
+    .accordion.active .header-arrow { transform: rotate(180deg); }
+    .header-arrow svg { width:14px; height:14px; }
 
-        .accordion-header {
-            color: var(--text-primary);
-            font-size: 17px;
-            font-weight: 700;
-            padding: 17px 22px;
-            cursor: pointer;
-            transition: var(--common-transition);
-            user-select: none;
-            text-align: center;
-            background: transparent;
-        }
-        .accordion-header:active {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(0.985);
-        }
+    /* 折叠内容使用grid实现丝滑动画 */
+    .accordion-body {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.42s var(--ease);
+    }
+    .accordion.active .accordion-body {
+        grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+        overflow: hidden;
+    }
+    .btn-grid {
+        padding: 0 14px 14px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    @media(min-width:1024px){
+        .btn-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(min-width:1600px){
+        .btn-grid { grid-template-columns: repeat(3,1fr); }
+    }
 
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            padding: 0 22px;
-        }
-        .accordion-item.active .accordion-content {
-            max-height: 5000px;
-            padding: 0 22px 22px 22px;
-        }
+    /* ── 按钮 ── */
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 13px 18px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        font-family: 'Noto Serif SC', serif;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+            background 0.25s var(--ease),
+            border-color 0.25s var(--ease),
+            transform 0.2s var(--ease),
+            box-shadow 0.25s var(--ease);
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+    }
+    .btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(201,169,110,0.08) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .btn:hover {
+        background: var(--bg-card-hover);
+        border-color: rgba(201,169,110,0.35);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,169,110,0.1);
+    }
+    .btn:hover::before { opacity: 1; }
+    .btn:active { transform: translateY(0) scale(0.97); }
 
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .btn {
-            display: block;
-            padding: 16px 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(185%);
-            -webkit-backdrop-filter: blur(25px) saturate(185%);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--common-radius);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 15.5px;
-            font-weight: 600;
-            transition: var(--common-transition);
-            text-align: center;
-            box-shadow: var(--glass-shadow);
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-1px);
-        }
-        .btn:active {
-            transform: translateY(0) scale(0.98);
-        }
+    /* 波纹效果 */
+    .btn .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(201,169,110,0.25);
+        transform: scale(0);
+        animation: ripple-anim 0.5s linear;
+        pointer-events: none;
+    }
+    @keyframes ripple-anim {
+        to { transform: scale(4); opacity: 0; }
+    }
 
-        .copyright {
-            width: 100%;
-            max-width: 450px;
-            margin: 40px auto 0;
-            padding: 15px;
-            border-radius: var(--common-radius);
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-primary);
-            opacity: 0.75;
-            line-height: 1.7;
-        }
-        @media (min-width:1024px) {
-            .copyright {
-                max-width: 1100px;
-            }
-        }
+    /* ── 版权 ── */
+    .copyright {
+        margin-top: 40px;
+        padding: 20px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        text-align: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        line-height: 1.9;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+        animation: fadeUp 0.7s 0.5s var(--ease) both;
+    }
 
-        .copy-toast {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 12px 24px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            font-size: 14px;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .copy-toast.show {
-            opacity: 1;
-        }
+    /* ── Toast ── */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        padding: 10px 22px;
+        border-radius: 40px;
+        background: rgba(30,32,38,0.92);
+        border: 1px solid rgba(201,169,110,0.3);
+        color: var(--accent-1);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s, transform 0.25s var(--ease);
+        backdrop-filter: blur(20px);
+    }
+    .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 
-        @media (max-width: 600px) {
-            .page-title { font-size: 30px; }
-            .accordion-header { font-size: 16px; padding: 15px 18px; }
-            .btn { padding: 14px 18px; border-radius: 14px; font-size: 15px; }
-        }
-    </style>
+    @keyframes fadeUp {
+        from { opacity:0; transform:translateY(18px); }
+        to   { opacity:1; transform:translateY(0); }
+    }
+</style>
+```
+
 </head>
 <body>
 
-    <div class="background-layer">
-        <video class="background-video" autoplay muted loop playsinline preload="auto">
-            <source src="https://txmov2.a.kwimgs.com/upic/2023/10/13/16/BMjAyMzEwMTMxNjU4MTJfMTcyNTc4NzU4N18xMTQ4OTQ2OTgxMzRfMl8z_b_B209e890a596d64fbd174507b758b0815.mp4" type="video/mp4">
-        </video>
-        <div class="background-overlay"></div>
+```
+<!-- 跑马灯 -->
+<div class="marquee-bar">
+    <div class="marquee-track">
+        <span>将军赶路，不追小兔</span>
+        <span>将军赶路，不追小兔</span>
+        <span>将军赶路，不追小兔</span>
+        <span>将军赶路，不追小兔</span>
     </div>
+</div>
 
-    <div class="marquee-container">
-        <div class="marquee">
-            <span>将军赶路，不追小兔</span>
-        </div>
-    </div>
+<div class="toast" id="toast">✓ 链接已复制</div>
 
-    <div class="copy-toast" id="copyToast">链接已复制</div>
-
-    <div class="main-layer">
+<div class="wrap">
+    <!-- 头部 -->
+    <div class="header">
+        <div class="header-dot"></div>
         <h1 class="page-title">小钱全网综合分享</h1>
         <p class="username">xiaoqian-1001</p>
         <p class="tagline" onclick="alert('本站由杜老板赞助成立，特此致谢！')">热爱是所有的理由和答案</p>
-
-        <!-- 1. 公益项目仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">公益项目仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://stymei.github.io/">共享小火箭</a>
-                    <a class="btn" data-url="https://jsnzkpg.github.io/music">音乐网站</a>
-                    <a class="btn" data-url="https://jsnzkpg.github.io/TelegramProxy">TG代理</a>
-                    <a class="btn" data-url="https://jsnzkpg.github.io/email">临时邮箱</a>
-                    <a class="btn" data-url="https://jsnzkpg.github.io/ai">智能Ai</a>
-                    <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt">Emby共享账号</a>
-                    <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt">WebDAV共享账号</a>
-                    <a class="btn" data-url="https://dogpan.com/s/wpBRSz">羊羊科技</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. 游戏开发仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">游戏开发仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://proxy.api.030101.xyz/xiaoqian-1001.github.io/game">女巫的毒药</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. 影视软件仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">影视软件仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://a123tv.com/">123TV「网页」</a>
-                    <a class="btn" data-url="https://www.flixflop.com/">飞流视频「网页」</a>
-                    <a class="btn" data-url="https://gaze.run/">注视影视「网页」</a>
-                    <a class="btn" data-url="https://kafeizhibo.com/">咖啡直播「体育」</a>
-                    <a class="btn" data-url="https://dogpan.com/s/R6GKck">OK影视「安卓+TV」</a>
-                    <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2">TVbox订阅「裤佬」</a>
-                    <a class="btn" data-url="https://9280.kstore.vip/newwex.json">TVbox订阅「牛二」</a>
-                    <a class="btn" data-url="https://dogpan.com/s/mZp9cK">UZ影视「全家桶」</a>
-                    <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3">UZ影视订阅</a>
-                    <a class="btn" data-url="https://aptv.wegic.app/">APTV「苹果系全家桶」</a>
-                    <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u">IPTV订阅</a>
-                    <a class="btn" data-url="https://www.饭太硬.com/">饭总接口汇总</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. 猫系软件仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">猫系软件仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5">永久猫源订阅</a>
-                    <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5">导师猫源</a>
-                    <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5">雪乃猫源</a>
-                    <a class="btn" data-url="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5">豆儿猫源</a>
-                    <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5">沐辰猫源</a>
-                    <a class="btn" data-url="https://9280.kstore.vip/cat/index.js.md5">牛二猫源</a>
-                    <a class="btn" data-url="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN">MiraPlay「苹果」</a>
-                    <a class="btn" data-url="https://testflight.apple.com/join/thdxEjTZ">JSTV「苹果」</a>
-                    <a class="btn" data-url="https://testflight.apple.com/join/ywzcMKS3">魔力云播「苹果」</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. 网盘资源仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">网盘资源仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://so.252035.xyz/?ref=thlm.com">资源共建盘搜</a>
-                    <a class="btn" data-url="https://jsnzkpg.github.io/pansou/">裤佬全网盘搜</a>
-                    <a class="btn" data-url="https://seedhub.cc/">SeedHub</a>
-                    <a class="btn" data-url="https://mdsub.top/">漫迪小站</a>
-                    <a class="btn" data-url="https://kangfuzhongx.in/#">三次元成瘾者康复中心</a>
-                    <a class="btn" data-url="https://chaospace.cc/">CHAOSPACE</a>
-                    <a class="btn" data-url="https://vlink.cc/xmo">可爱帅气的小木偶</a>
-                    <a class="btn" data-url="https://pomo.mom/">4K原盘</a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW">韩剧Tv综合吧</a>
-                    <a class="btn" data-url="https://link3.cc/dyyj">电影云集</a>
-                    <a class="btn" data-url="https://pinglian.lol/index.php">盘链</a>
-                    <a class="btn" data-url="https://link3.cc/xkfenx">星空影视</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 6. 小说软件仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">小说软件仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://apps.apple.com/cn/app/id6445861996">亨读「苹果」</a>
-                    <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json">复制亨读书源</a>
-                    <a class="btn" data-url="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517">读不舍手「苹果」</a>
-                    <a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json">复制读不舍手书源</a>
-                    <a class="btn" data-url="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317">千阅「苹果」</a>
-                    <a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json">复制千阅书源</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. 小火箭永久订阅 -->
-        <div class="accordion-item">
-            <div class="accordion-header">小火箭永久订阅</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://edt2.qxy929.ccwu.cc/login">小钱自建</a>
-                    <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg">裤佬</a>
-                    <a class="btn" data-url="https://shz.al/~WangCai">旺财</a>
-                    <a class="btn" data-url="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b">周润发</a>
-                    <a class="btn" data-url="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao">香蕉</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 8. 视频解析网站仓库 -->
-        <div class="accordion-item">
-            <div class="accordion-header">视频解析网站仓库</div>
-            <div class="accordion-content">
-                <div class="btn-group">
-                    <a class="btn" data-url="https://9xbuddy.in/zh">国外主流软件平台解析</a>
-                    <a class="btn" data-url="https://www.v2ob.com/">国内短视频去水印解析</a>
-                    <a class="btn" data-url="https://am1907.top/">爱优腾芒vip解析-直接搜索</a>
-                    <a class="btn" data-url="https://www.nuliya.top/vip">爱优腾芒vip解析-粘贴链接</a>
-                    <a class="btn" data-url="https://www.dlbunny.com/">抖音专用-去水印解析+下载</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="copyright">
-            © 2026 小钱全网综合分享 | xiaoqian-1001<br>
-            本站仅做资源导航分享，不存储任何资源<br>
-            所有链接来源于网络公开分享，侵权请联系删除<br>
-            由杜老板亲情赞助支持
-        </div>
     </div>
 
-    <script>
-        document.addEventListener('click', function(e) {
-            const header = e.target.closest('.accordion-header');
-            if (header) {
-                const item = header.parentElement;
-                item.classList.toggle('active');
-                if (navigator.vibrate) navigator.vibrate(20);
-            }
-        }, { passive: true });
+    <!-- 1. 公益项目仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">公益项目仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://stymei.github.io/">共享小火箭</a>
+                <a class="btn" data-url="https://jsnzkpg.github.io/music">音乐网站</a>
+                <a class="btn" data-url="https://jsnzkpg.github.io/TelegramProxy">TG代理</a>
+                <a class="btn" data-url="https://jsnzkpg.github.io/email">临时邮箱</a>
+                <a class="btn" data-url="https://jsnzkpg.github.io/ai">智能Ai</a>
+                <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/emby.txt">Emby共享账号</a>
+                <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/stymei/webdav.txt">WebDAV共享账号</a>
+                <a class="btn" data-url="https://dogpan.com/s/wpBRSz">羊羊科技</a>
+            </div>
+        </div></div>
+    </div>
 
-        const copyToast = document.getElementById('copyToast');
-        const allBtns = document.querySelectorAll('.btn');
+    <!-- 2. 游戏开发仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">游戏开发仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://proxy.api.030101.xyz/xiaoqian-1001.github.io/game">女巫的毒药</a>
+            </div>
+        </div></div>
+    </div>
 
-        allBtns.forEach(btn => {
-            btn.addEventListener('click', async function(e) {
-                const url = this.dataset.url;
-                if (!url) return;
-                await navigator.clipboard.writeText(url);
-                copyToast.classList.add('show');
-                setTimeout(() => copyToast.classList.remove('show'), 1200);
-                window.open(url, '_blank');
-            });
+    <!-- 3. 影视软件仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">影视软件仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://a123tv.com/">123TV「网页」</a>
+                <a class="btn" data-url="https://www.flixflop.com/">飞流视频「网页」</a>
+                <a class="btn" data-url="https://gaze.run/">注视影视「网页」</a>
+                <a class="btn" data-url="https://kafeizhibo.com/">咖啡直播「体育」</a>
+                <a class="btn" data-url="https://dogpan.com/s/R6GKck">OK影视「安卓+TV」</a>
+                <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2">TVbox订阅「裤佬」</a>
+                <a class="btn" data-url="https://9280.kstore.vip/newwex.json">TVbox订阅「牛二」</a>
+                <a class="btn" data-url="https://dogpan.com/s/mZp9cK">UZ影视「全家桶」</a>
+                <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3">UZ影视订阅</a>
+                <a class="btn" data-url="https://aptv.wegic.app/">APTV「苹果系全家桶」</a>
+                <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u">IPTV订阅</a>
+                <a class="btn" data-url="https://www.饭太硬.com/">饭总接口汇总</a>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- 4. 猫系软件仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">猫系软件仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5">永久猫源订阅</a>
+                <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5">导师猫源</a>
+                <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5">雪乃猫源</a>
+                <a class="btn" data-url="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5">豆儿猫源</a>
+                <a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5">沐辰猫源</a>
+                <a class="btn" data-url="https://9280.kstore.vip/cat/index.js.md5">牛二猫源</a>
+                <a class="btn" data-url="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN">MiraPlay「苹果」</a>
+                <a class="btn" data-url="https://testflight.apple.com/join/thdxEjTZ">JSTV「苹果」</a>
+                <a class="btn" data-url="https://testflight.apple.com/join/ywzcMKS3">魔力云播「苹果」</a>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- 5. 网盘资源仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">网盘资源仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://so.252035.xyz/?ref=thlm.com">资源共建盘搜</a>
+                <a class="btn" data-url="https://jsnzkpg.github.io/pansou/">裤佬全网盘搜</a>
+                <a class="btn" data-url="https://seedhub.cc/">SeedHub</a>
+                <a class="btn" data-url="https://mdsub.top/">漫迪小站</a>
+                <a class="btn" data-url="https://kangfuzhongx.in/#">三次元成瘾者康复中心</a>
+                <a class="btn" data-url="https://chaospace.cc/">CHAOSPACE</a>
+                <a class="btn" data-url="https://vlink.cc/xmo">可爱帅气的小木偶</a>
+                <a class="btn" data-url="https://pomo.mom/">4K原盘</a>
+                <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW">韩剧Tv综合吧</a>
+                <a class="btn" data-url="https://link3.cc/dyyj">电影云集</a>
+                <a class="btn" data-url="https://pinglian.lol/index.php">盘链</a>
+                <a class="btn" data-url="https://link3.cc/xkfenx">星空影视</a>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- 6. 小说软件仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">小说软件仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://apps.apple.com/cn/app/id6445861996">亨读「苹果」</a>
+                <a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json">复制亨读书源</a>
+                <a class="btn" data-url="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517">读不舍手「苹果」</a>
+                <a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json">复制读不舍手书源</a>
+                <a class="btn" data-url="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317">千阅「苹果」</a>
+                <a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json">复制千阅书源</a>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- 7. 小火箭永久订阅 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">小火箭永久订阅</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://edt2.qxy929.ccwu.cc/login">小钱自建</a>
+                <a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg">裤佬</a>
+                <a class="btn" data-url="https://shz.al/~WangCai">旺财</a>
+                <a class="btn" data-url="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b">周润发</a>
+                <a class="btn" data-url="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao">香蕉</a>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- 8. 视频解析网站仓库 -->
+    <div class="accordion">
+        <div class="accordion-header">
+            <div class="header-left">
+                <div class="header-icon"></div>
+                <span class="header-label">视频解析网站仓库</span>
+            </div>
+            <div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="accordion-body"><div class="accordion-inner">
+            <div class="btn-grid">
+                <a class="btn" data-url="https://9xbuddy.in/zh">国外主流软件平台解析</a>
+                <a class="btn" data-url="https://www.v2ob.com/">国内短视频去水印解析</a>
+                <a class="btn" data-url="https://am1907.top/">爱优腾芒vip解析·直接搜索</a>
+                <a class="btn" data-url="https://www.nuliya.top/vip">爱优腾芒vip解析·粘贴链接</a>
+                <a class="btn" data-url="https://www.dlbunny.com/">抖音专用·去水印解析+下载</a>
+            </div>
+        </div></div>
+    </div>
+
+    <div class="copyright">
+        © 2026 小钱全网综合分享 &nbsp;|&nbsp; xiaoqian-1001<br>
+        本站仅做资源导航分享，不存储任何资源<br>
+        所有链接来源于网络公开分享，侵权请联系删除<br>
+        由杜老板亲情赞助支持
+    </div>
+</div>
+
+<script>
+    // 折叠
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+            if (navigator.vibrate) navigator.vibrate(15);
         });
-    </script>
+    });
+
+    // 按钮：波纹 + 复制 + 跳转
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    document.querySelectorAll('.btn[data-url]').forEach(btn => {
+        btn.addEventListener('click', async function (e) {
+            // 波纹
+            const rect = this.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px`;
+            this.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+
+            const url = this.dataset.url;
+            try { await navigator.clipboard.writeText(url); } catch(e){}
+
+            clearTimeout(toastTimer);
+            toast.classList.add('show');
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
+
+            window.open(url, '_blank');
+        });
+    });
+</script>
+```
+
 </body>
 </html>
