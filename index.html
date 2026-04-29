@@ -243,14 +243,6 @@
         .accordion-header:active { background: rgba(255,255,255,0.04); }
 
         .header-left { display: flex; align-items: center; gap: 10px; }
-
-        .cat-icon {
-            font-size: 18px;
-            line-height: 1;
-            flex-shrink: 0;
-            filter: drop-shadow(0 0 4px rgba(255,255,255,0.1));
-        }
-
         .header-label {
             font-size: 15px;
             font-weight: 700;
@@ -298,7 +290,6 @@
         @media(min-width:1024px){ .btn-grid{ grid-template-columns:repeat(2,1fr); } }
         @media(min-width:1600px){ .btn-grid{ grid-template-columns:repeat(3,1fr); } }
 
-        /* 二级子分区样式 */
         .sub-section {
             margin-top: 8px;
         }
@@ -456,10 +447,7 @@
 
     <!-- 公益项目仓库 -->
     <div class="accordion" style="--cat-color:#6dd5ed" data-id="0">
-        <div class="accordion-header">
-            <div class="header-left"><span class="header-label">公益项目仓库</span></div>
-            <div class="header-right"><span class="badge-count">11</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div>
-        </div>
+        <div class="accordion-header"><div class="header-left"><span class="header-label">公益项目仓库</span></div><div class="header-right"><span class="badge-count">11</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>
         <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
             <a class="btn" data-url="https://proxy.api.030101.xyz/xiaoqian-1001.github.io/music/"><span class="btn-name">小钱音乐网</span></a>
             <a class="btn" data-url="https://proxy.api.030101.xyz/xiaoqian-1001.github.io/ai/"><span class="btn-name">小钱AI助手</span></a>
@@ -475,29 +463,27 @@
         </div></div></div>
     </div>
 
-    <!-- 网盘搜索工具 -->
+    <!-- 网盘搜索工具 (大量增删改，移除emoji) -->
     <div class="accordion" style="--cat-color:#3aa8ff" data-id="7">
-        <div class="accordion-header">
-            <div class="header-left"><span class="cat-icon">🔍</span><span class="header-label">网盘搜索工具</span></div>
-            <div class="header-right"><span class="badge-count">45</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div>
-        </div>
+        <div class="accordion-header"><div class="header-left"><span class="header-label">网盘搜索工具</span></div><div class="header-right"><span class="badge-count">38</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>
         <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
-            <a class="btn" data-url="https://so.252035.xyz/?ref=thlm.com"><span class="btn-name">资源共建盘搜</span></a>
+            <!-- 修改项 -->
+            <a class="btn" data-url="https://so.252035.xyz/?ref=thlm.com"><span class="btn-name">PanSou</span></a>
             <a class="btn" data-url="https://jsnzkpg.github.io/pansou/"><span class="btn-name">裤佬全网盘搜</span></a>
             <a class="btn" data-url="https://www.cuppaso.com/"><span class="btn-name">咔帕搜索</span></a><a class="btn" data-url="https://aliso.cc/"><span class="btn-name">阿里搜</span></a>
             <a class="btn" data-url="https://aipanso.com/"><span class="btn-name">爱盘搜 (激活码:1314)</span></a>
             <a class="btn" data-url="https://kuake8.com/"><span class="btn-name">夸克吧 (激活码:1314)</span></a>
             <a class="btn" data-url="https://www.alipansou.com/"><span class="btn-name">猫狸盘搜 (激活码:4096)</span></a>
             <a class="btn" data-url="https://panyq.com/"><span class="btn-name">盘友圈</span></a><a class="btn" data-url="https://hunhepan.com/"><span class="btn-name">混合盘</span></a>
-            <a class="btn" data-url="https://pan.xiaozi.cc/"><span class="btn-name">盘小子</span></a><a class="btn" data-url="https://www.aipan.me/"><span class="btn-name">AIPAN</span></a>
+            <a class="btn" data-url="https://pan.xiaozi.cc/"><span class="btn-name">盘小子</span></a><a class="btn" data-url="https://www.aipan.me/"><span class="btn-name">爱盼迷</span></a>
             <a class="btn" data-url="https://www.tianyiso.com/"><span class="btn-name">天逸搜</span></a><a class="btn" data-url="https://www.nmme.icu/"><span class="btn-name">橘子盘搜</span></a>
             <a class="btn" data-url="https://haisou.cc/"><span class="btn-name">海搜</span></a><a class="btn" data-url="https://www.pansearch.me/"><span class="btn-name">PanSearch</span></a>
             <a class="btn" data-url="https://www.sofuye.com/"><span class="btn-name">搜副业</span></a><a class="btn" data-url="https://www.yunso.net/"><span class="btn-name">小云搜索</span></a>
             <a class="btn" data-url="https://www.maoliyun.com/"><span class="btn-name">猫狸云搜索</span></a><a class="btn" data-url="https://www.pikasoo.top/"><span class="btn-name">皮卡搜索</span></a>
-            <a class="btn" data-url="https://www.fengba.net/"><span class="btn-name">蜂吧</span></a><a class="btn" data-url="https://wpzy.cc/"><span class="btn-name">AQ网盘搜索</span></a>
+            <a class="btn" data-url="https://www.fengba.net/"><span class="btn-name">蜂吧</span></a><a class="btn" data-url="https://wpzy.cc/"><span class="btn-name">AQ网盘资源论坛</span></a>
             <a class="btn" data-url="https://pan.qianfan.app/"><span class="btn-name">干帆搜索 (激活码:666888)</span></a>
-            <a class="btn" data-url="https://www.codelicence.cn/"><span class="btn-name">云盘4K</span></a><a class="btn" data-url="https://yunsou.xyz/"><span class="btn-name">云搜影视</span></a>
-            <a class="btn" data-url="https://www.quark.so/"><span class="btn-name">夸克搜</span></a><a class="btn" data-url="https://yiso.fun/"><span class="btn-name">易搜</span></a>
+            <a class="btn" data-url="https://www.codelicence.cn/"><span class="btn-name">云盘4K</span></a><a class="btn" data-url="https://p.kdocs.cn/s/PQIZ4BAAHU"><span class="btn-name">云搜影视(新)</span></a>
+            <a class="btn" data-url="https://www.quark.so/"><span class="btn-name">夸克搜</span></a><a class="btn" data-url="https://yiso.eu.org/"><span class="btn-name">易搜(新)</span></a>
             <a class="btn" data-url="https://www.qileso.com/"><span class="btn-name">奇乐搜</span></a><a class="btn" data-url="https://www.buyutu.com/"><span class="btn-name">捕娱兔</span></a>
             <a class="btn" data-url="https://www.upso7.com/"><span class="btn-name">UP云搜</span></a><a class="btn" data-url="https://xiongdipan.com/"><span class="btn-name">兄弟盘</span></a>
             <a class="btn" data-url="https://www.sousuopan.com/"><span class="btn-name">搜索盘</span></a><a class="btn" data-url="https://miaosou.fun/"><span class="btn-name">秒搜</span></a>
@@ -505,94 +491,99 @@
             <a class="btn" data-url="https://www.fastsoso.cc/"><span class="btn-name">fastsoso</span></a><a class="btn" data-url="https://www.duanjuso.com/"><span class="btn-name">短剧搜</span></a>
             <a class="btn" data-url="https://xunjiso.com/"><span class="btn-name">迅极搜</span></a><a class="btn" data-url="https://www.lzpanx.com/"><span class="btn-name">懒盘搜索</span></a>
             <a class="btn" data-url="https://so.lzpanx.com/"><span class="btn-name">懒盘聚合搜索</span></a><a class="btn" data-url="https://xlpanso.com/"><span class="btn-name">迅雷盘搜</span></a>
-            <a class="btn" data-url="https://ysxjjkl.souyisou.top/"><span class="btn-name">网盘资源搜索</span></a><a class="btn" data-url="https://xiaotusoso.com/"><span class="btn-name">小兔搜搜</span></a>
+            <a class="btn" data-url="https://ysxjjkl.souyisou.top/"><span class="btn-name">数据搜索</span></a><a class="btn" data-url="https://xiaotusoso.com/"><span class="btn-name">小兔搜搜</span></a>
             <a class="btn" data-url="https://qkpanso.com/"><span class="btn-name">夸克盘搜</span></a><a class="btn" data-url="https://www.esoua.com/"><span class="btn-name">爱搜</span></a>
             <a class="btn" data-url="http://www.repanso.com/"><span class="btn-name">热盘搜</span></a>
+            <!-- 新增大宝影院厂 以及从网盘资源仓库移入的项 -->
+            <a class="btn" data-url="https://dbyyc.top"><span class="btn-name">大宝影院厂</span></a>
+            <a class="btn" data-url="https://pomo.mom/"><span class="btn-name">Pom原盘资源</span></a>
+            <a class="btn" data-url="https://pinglian.lol/index.php"><span class="btn-name">盘链</span></a>
+            <a class="btn" data-url="https://moovie.c2v2.com"><span class="btn-name">影牛</span></a>
+            <a class="btn" data-url="https://seedhub.cc/"><span class="btn-name">SeedHub</span></a>
+            <a class="btn" data-url="https://chaospace.cc/"><span class="btn-name">CHAOSPACE</span></a>
         </div></div></div>
     </div>
 
-    <!-- 资源分享网站（含磁力种子 + 其他资源 + 追番网站盘点） -->
+    <!-- 资源分享网站 (含磁力种子、其他资源、追番网站盘点，移除emoji，并执行大量增删改) -->
     <div class="accordion" style="--cat-color:#f5a97f" data-id="8">
-        <div class="accordion-header">
-            <div class="header-left"><span class="cat-icon">📦</span><span class="header-label">资源分享网站</span></div>
-            <div class="header-right"><span class="badge-count">173</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div>
-        </div>
+        <div class="accordion-header"><div class="header-left"><span class="header-label">资源分享网站</span></div><div class="header-right"><span class="badge-count">119</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>
         <div class="accordion-body"><div class="accordion-inner">
-            <!-- 磁力种子区块 -->
+            <!-- 磁力种子区块 (已按需求增删) -->
             <div class="sub-section">
-                <div class="sub-section-title">⚡ 磁力种子 <span>11个站点</span></div>
+                <div class="sub-section-title">⚡ 磁力种子 <span>16个站点</span></div>
                 <div class="btn-grid">
                     <a class="btn" data-url="https://laowangzo.top/"><span class="btn-name">老王磁力</span></a>
                     <a class="btn" data-url="https://cili.st/"><span class="btn-name">无极磁力</span></a>
                     <a class="btn" data-url="https://bt1207so.top/"><span class="btn-name">BT1207</span></a>
                     <a class="btn" data-url="https://skrbtso.top/"><span class="btn-name">SkrBT</span></a>
                     <a class="btn" data-url="https://小花猫.com/"><span class="btn-name">磁力猫</span></a>
-                    <a class="btn" data-url="https://bt31.foxs.vip/"><span class="btn-name">磁力狐</span></a>
-                    <a class="btn" data-url="https://cldi.top/"><span class="btn-name">磁力搜索</span></a>
-                    <a class="btn" data-url="https://piratebayproxy.net/zh/"><span class="btn-name">Pirate Bay Proxy</span></a>
-                    <a class="btn" data-url="https://torrentbay.st/"><span class="btn-name">Torrent Bay</span></a>
-                    <a class="btn" data-url="https://immortalproxy.com/"><span class="btn-name">immortal proxy</span></a>
-                    <a class="btn" data-url="https://bt4gprx.com/"><span class="btn-name">bt4gprx</span></a>
+                    <a class="btn" data-url="https://www.btbtla.com/"><span class="btn-name">BT影视</span></a>
+                    <a class="btn" data-url="https://www.bdjuhe.com/"><span class="btn-name">BD影视</span></a>
+                    <a class="btn" data-url="https://video.ainunu.cc/"><span class="btn-name">爱努努</span></a>
+                    <a class="btn" data-url="https://www.cilixiong.org/"><span class="btn-name">磁力熊</span></a>
+                    <a class="btn" data-url="https://bt.mojiez.com/"><span class="btn-name">摩羯座BT资源站</span></a>
+                    <a class="btn" data-url="https://www.mjf2020.com/"><span class="btn-name">美剧粉</span></a>
+                    <a class="btn" data-url="https://yyets.click/search"><span class="btn-name">人人影视分享站</span></a>
+                    <a class="btn" data-url="https://www.hdzu.cc/"><span class="btn-name">高清族</span></a>
+                    <a class="btn" data-url="https://www.mini4k.com/"><span class="btn-name">迷客电影</span></a>
+                    <a class="btn" data-url="https://www.xl720.com/"><span class="btn-name">迅雷电影天堂</span></a>
+                    <a class="btn" data-url="https://www.uump4.cc/"><span class="btn-name">悠悠MP4</span></a>
+                    <a class="btn" data-url="https://gaoyuanxia.cn/ying-shi/"><span class="btn-name">高原下</span></a>
+                    <a class="btn" data-url="https://www.dygod.vip/"><span class="btn-name">电影天堂</span></a>
                 </div>
             </div>
-            <!-- 其他资源区块 -->
+            <!-- 其他资源区块 (大量修改，删除指定项，拆分观影系列，新增移入资源及名称修改) -->
             <div class="sub-section">
-                <div class="sub-section-title">📁 其他资源 <span>52个站点/文档</span></div>
+                <div class="sub-section-title">📁 其他资源 <span>38个站点/文档</span></div>
                 <div class="btn-grid">
                     <a class="btn" data-url="https://mdsub.top"><span class="btn-name">漫迪小站</span></a>
                     <a class="btn" data-url="https://www.kangfuzhongx.in"><span class="btn-name">三次元成瘾者康复中心</span></a>
-                    <a class="btn" data-url="https://hdhive.online"><span class="btn-name">影巢</span></a>
-                    <a class="btn" data-url="https://www.4khdr.cn/search.php"><span class="btn-name">4KHDR</span></a>
-                    <a class="btn" data-url="https://www.91panta.cn/"><span class="btn-name">盘Ta</span></a>
                     <a class="btn" data-url="https://www.acgndog.com/"><span class="btn-name">次元狗动漫</span></a>
-                    <a class="btn" data-url="https://h5.acgn.my/"><span class="btn-name">次元狗移动版</span></a>
                     <a class="btn" data-url="https://susuifa.com/"><span class="btn-name">苏苏影视分享</span></a>
-                    <a class="btn" data-url="https://archive.org/"><span class="btn-name">archive</span></a>
-                    <a class="btn" data-url="https://www.gyg.la/"><span class="btn-name">观影</span></a>
+                    <a class="btn" data-url="https://www.gyg.la/"><span class="btn-name">观影1(教父)</span></a>
+                    <a class="btn" data-url="https://星际穿越.com"><span class="btn-name">观影2(星际穿越)</span></a>
+                    <a class="btn" data-url="https://楚门的世界.com"><span class="btn-name">观影3(楚门的世界)</span></a>
+                    <a class="btn" data-url="https://泰坦尼克号.com"><span class="btn-name">观影4(泰坦尼克号)</span></a>
+                    <a class="btn" data-url="https://盗梦空间.com"><span class="btn-name">观影5(盗梦空间)</span></a>
+                    <a class="btn" data-url="https://肖申克的救赎.com"><span class="btn-name">观影6(肖申克的救赎)</span></a>
+                    <a class="btn" data-url="https://阿甘正传.com"><span class="btn-name">观影7(阿甘正传)</span></a>
+                    <a class="btn" data-url="https://黑客帝国.com"><span class="btn-name">观影8(黑客帝国)</span></a>
                     <a class="btn" data-url="https://t-rex.tzfile.com/"><span class="btn-name">团长资源</span></a>
                     <a class="btn" data-url="http://xykmovie.com/"><span class="btn-name">小宇搜索</span></a>
-                    <a class="btn" data-url="https://ppxzy.cc/"><span class="btn-name">皮皮虾资源</span></a>
-                    <a class="btn" data-url="https://www.xinjuc.com/"><span class="btn-name">新剧坊</span></a>
                     <a class="btn" data-url="https://www.taiqiongle.com/"><span class="btn-name">穷人论坛</span></a>
-                    <a class="btn" data-url="https://pan.52wei.cc/"><span class="btn-name">吾爱资源网</span></a>
-                    <a class="btn" data-url="https://www.jiaozi.me/"><span class="btn-name">饺子影院</span></a>
                     <a class="btn" data-url="https://www.hdmoli.pro/"><span class="btn-name">HDmoli</span></a>
-                    <a class="btn" data-url="https://docs.qq.com/doc/DTVhJR1RibVNEUmJB"><span class="btn-name">百度网盘资源分享</span></a>
                     <a class="btn" data-url="https://mizixing.com/"><span class="btn-name">米字型</span></a>
                     <a class="btn" data-url="https://www.youjiaoku.com/"><span class="btn-name">儿童动画片</span></a>
-                    <a class="btn" data-url="https://www.mjf2020.com/"><span class="btn-name">美剧粉</span></a>
-                    <a class="btn" data-url="https://www.tokyotosho.info/"><span class="btn-name">东京图书馆</span></a>
-                    <a class="btn" data-url="https://kpkuang.bond/"><span class="btn-name">看片狂人</span></a>
-                    <a class="btn" data-url="https://www.1lou.me/"><span class="btn-name">BT之家1LOU</span></a>
-                    <a class="btn" data-url="https://share.dmhy.org/"><span class="btn-name">动漫花园</span></a>
-                    <a class="btn" data-url="https://mikanani.me/"><span class="btn-name">mikanani</span></a>
                     <a class="btn" data-url="https://vcb-s.com/"><span class="btn-name">VBC-Studio</span></a>
-                    <a class="btn" data-url="https://www.ppat.top/"><span class="btn-name">剧王</span></a>
                     <a class="btn" data-url="http://cc.ewp.cc/"><span class="btn-name">盘资源基地</span></a>
                     <a class="btn" data-url="https://aliyunpan1.com/"><span class="btn-name">阿里云盘资源论坛</span></a>
-                    <a class="btn" data-url="https://pan666.net/"><span class="btn-name">阿里云盘资源共享站</span></a>
-                    <a class="btn" data-url="https://www.kuafuzys.com/"><span class="btn-name">夸父资源社</span></a>
                     <a class="btn" data-url="https://suenen.com/"><span class="btn-name">资源避难所一</span></a>
                     <a class="btn" data-url="https://daiguaji.com/"><span class="btn-name">资源避难所二</span></a>
                     <a class="btn" data-url="https://www.chidao365.com/"><span class="btn-name">赤道365</span></a>
-                    <a class="btn" data-url="https://www.4ksj.vip/"><span class="btn-name">4K世界</span></a>
-                    <a class="btn" data-url="https://51vde.com/"><span class="btn-name">51影源网</span></a>
                     <a class="btn" data-url="https://yunpan1.cc/"><span class="btn-name">云盘资源分享社区</span></a>
                     <a class="btn" data-url="https://www.xxttq.com/"><span class="btn-name">甜甜圈</span></a>
                     <a class="btn" data-url="https://excessive-vegetable-04e.notion.site/4e0b1016c745413387794b38df8b0e7b"><span class="btn-name">Notion 页面</span></a>
-                    <a class="btn" data-url="https://docs.qq.com/sheet/DSkprSURFRHJaek1H?tab=etwyrr"><span class="btn-name">QQ Docs 表格 1</span></a>
-                    <a class="btn" data-url="https://docs.qq.com/doc/DYWRrUVBIUEl6TkVt"><span class="btn-name">QQ Docs 表格 2</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/corXUSaAaKVM"><span class="btn-name">KDocs 链接 1</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/cme3OfQte1wR"><span class="btn-name">KDocs 链接 2</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/cqBM72NrCiGY"><span class="btn-name">KDocs 链接 3</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/ckpWje77SgXu"><span class="btn-name">KDocs 链接 4</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/cgqWkD4v1nHK"><span class="btn-name">KDocs 链接 5</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/clRvemMcGVf8"><span class="btn-name">KDocs 链接 6</span></a>
-                    <a class="btn" data-url="https://www.kdocs.cn/l/cq2X5aX6Ed6p"><span class="btn-name">KDocs 链接 7</span></a>
+                    <a class="btn" data-url="https://docs.qq.com/sheet/DSkprSURFRHJaek1H?tab=etwyrr"><span class="btn-name">QQ Docs 表格1(动漫资源整合)</span></a>
+                    <a class="btn" data-url="https://docs.qq.com/doc/DYWRrUVBIUEl6TkVt"><span class="btn-name">QQ Docs 表格2(觅影寻踪影视资源)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/corXUSaAaKVM"><span class="btn-name">KDocs链接1(火花影视库)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/cme3OfQte1wR"><span class="btn-name">KDocs链接2(网盘影视资源整合)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/cqBM72NrCiGY"><span class="btn-name">KDocs链接3(90000T影视资源)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/ckpWje77SgXu"><span class="btn-name">KDocs链接4(网盘影视资源整合)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/cgqWkD4v1nHK"><span class="btn-name">KDocs链接5(911影视资源)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/clRvemMcGVf8"><span class="btn-name">KDocs链接6(爱之梦梦影视资源)</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/cq2X5aX6Ed6p"><span class="btn-name">KDocs链接7(爱之梦梦影视资源)</span></a>
                     <a class="btn" data-url="https://idfree.top/"><span class="btn-name">苹果ID共享</span></a>
+                    <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW"><span class="btn-name">KDocs链接8(韩剧综合影视资源)</span></a>
+                    <a class="btn" data-url="https://vlink.cc/xmo"><span class="btn-name">木偶资源</span></a>
+                    <a class="btn" data-url="https://link3.cc/dyyj"><span class="btn-name">电影云集</span></a>
+                    <a class="btn" data-url="https://link3.cc/xkfenx"><span class="btn-name">星空影视</span></a>
+                    <a class="btn" data-url="https://www.czzy89.com"><span class="btn-name">厂长</span></a>
+                    <a class="btn" data-url="https://wogg.xxooo.cf/"><span class="btn-name">玩偶</span></a>
+                    <a class="btn" data-url="https://docs.qq.com/doc/DTVhJR1RibVNEUmJB"><span class="btn-name">云盘资源网</span></a>
+                    <a class="btn" data-url="https://www.ppat.top/"><span class="btn-name">夸盘资源网</span></a>
                 </div>
             </div>
-            <!-- 追番网站盘点（新增） -->
+            <!-- 追番网站盘点 (原封保留) -->
             <div class="sub-section">
                 <div class="sub-section-title">🎬 追番网站盘点 <span>55个站点</span></div>
                 <div class="btn-grid">
@@ -655,22 +646,12 @@
         </div></div>
     </div>
 
-    <!-- 影视软件仓库 -->
+    <!-- 影视软件仓库、猫系软件仓库、网盘资源仓库(已移除大多数资源)、小说软件仓库、小火箭永久订阅、视频解析网站仓库保留原样 (网盘资源仓库仅剩极少数未删除的) -->
     <div class="accordion" style="--cat-color:#ffb43c" data-id="1"><div class="accordion-header"><div class="header-left"><span class="header-label">影视软件仓库</span></div><div class="header-right"><span class="badge-count">12</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"><a class="btn" data-url="https://a123tv.com/"><span class="btn-name">123TV</span></a><a class="btn" data-url="https://www.flixflop.com/"><span class="btn-name">飞流视频</span></a><a class="btn" data-url="https://gaze.run/"><span class="btn-name">注视影视</span></a><a class="btn" data-url="https://kafeizhibo.com/"><span class="btn-name">咖啡直播</span></a><a class="btn" data-url="https://dogpan.com/s/R6GKck"><span class="btn-name">OK影视</span></a><a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2"><span class="btn-name">TVbox订阅「裤佬」</span></a><a class="btn" data-url="https://9280.kstore.vip/newwex.json"><span class="btn-name">TVbox订阅「牛二」</span></a><a class="btn" data-url="https://dogpan.com/s/mZp9cK"><span class="btn-name">UZ影视全家桶</span></a><a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3"><span class="btn-name">UZ影视订阅</span></a><a class="btn" data-url="https://aptv.wegic.app/"><span class="btn-name">APTV</span></a><a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1.m3u"><span class="btn-name">IPTV订阅</span></a><a class="btn" data-url="https://www.饭太硬.com/"><span class="btn-name">饭总接口汇总</span></a></div></div></div></div>
-
-    <!-- 猫系软件仓库 -->
     <div class="accordion" style="--cat-color:#c084fc" data-id="2"><div class="accordion-header"><div class="header-left"><span class="header-label">猫系软件仓库</span></div><div class="header-right"><span class="badge-count">9</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"><a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5"><span class="btn-name">永久猫源订阅</span></a><a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/lmentor/index.js.md5"><span class="btn-name">导师猫源</span></a><a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/Darklessing/catvod/refs/heads/main/xuenai/index.js.md5"><span class="btn-name">雪乃猫源</span></a><a class="btn" data-url="https://woleigedouer:woleigedouer@catpaw.douer.me/index.js.md5"><span class="btn-name">豆儿猫源</span></a><a class="btn" data-url="https://ghfast.top/https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5"><span class="btn-name">沐辰猫源</span></a><a class="btn" data-url="https://9280.kstore.vip/cat/index.js.md5"><span class="btn-name">牛二猫源</span></a><a class="btn" data-url="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN"><span class="btn-name">MiraPlay</span></a><a class="btn" data-url="https://testflight.apple.com/join/thdxEjTZ"><span class="btn-name">JSTV</span></a><a class="btn" data-url="https://testflight.apple.com/join/ywzcMKS3"><span class="btn-name">魔力云播</span></a></div></div></div></div>
-
-    <!-- 网盘资源仓库 -->
-    <div class="accordion" style="--cat-color:#64dc78" data-id="3"><div class="accordion-header"><div class="header-left"><span class="header-label">网盘资源仓库</span></div><div class="header-right"><span class="badge-count">11</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"><a class="btn" data-url="https://seedhub.cc/"><span class="btn-name">SeedHub</span></a><a class="btn" data-url="https://chaospace.cc/"><span class="btn-name">CHAOSPACE</span></a><a class="btn" data-url="https://vlink.cc/xmo"><span class="btn-name">可爱帅气的小木偶</span></a><a class="btn" data-url="https://pomo.mom/"><span class="btn-name">4K原盘</span></a><a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW"><span class="btn-name">韩剧Tv综合吧</span></a><a class="btn" data-url="https://link3.cc/dyyj"><span class="btn-name">电影云集</span></a><a class="btn" data-url="https://pinglian.lol/index.php"><span class="btn-name">盘链</span></a><a class="btn" data-url="https://link3.cc/xkfenx"><span class="btn-name">星空影视</span></a><a class="btn" data-url="https://moovie.c2v2.com"><span class="btn-name">影牛</span></a><a class="btn" data-url="https://www.czzy89.com"><span class="btn-name">厂长</span></a><a class="btn" data-url="https://wogg.xxooo.cf/"><span class="btn-name">玩偶</span></a></div></div></div></div>
-
-    <!-- 小说软件仓库 -->
+    <div class="accordion" style="--cat-color:#64dc78" data-id="3"><div class="accordion-header"><div class="header-left"><span class="header-label">网盘资源仓库</span></div><div class="header-right"><span class="badge-count">0</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"></div></div></div></div>
     <div class="accordion" style="--cat-color:#e0b97a" data-id="4"><div class="accordion-header"><div class="header-left"><span class="header-label">小说软件仓库</span></div><div class="header-right"><span class="badge-count">6</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"><a class="btn" data-url="https://apps.apple.com/cn/app/id6445861996"><span class="btn-name">亨读</span></a><a class="btn" data-url="https://gh-proxy.org/https://raw.githubusercontent.com/xiangduread/xiangdureadshuyuan/refs/heads/main/total.json"><span class="btn-name">亨读书源</span></a><a class="btn" data-url="https://apps.apple.com/cn/app/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8B/id1662413517"><span class="btn-name">读不舍手</span></a><a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/%E8%AF%BB%E4%B8%8D%E8%88%8D%E6%89%8Bapp-%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%9E%8D%E5%90%884.0(%E5%85%BC%E5%AE%B9%E7%89%88).json"><span class="btn-name">读不舍手书源</span></a><a class="btn" data-url="https://apps.apple.com/cn/app/%E5%8D%83%E9%98%85-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%85%E8%AF%BB%E4%B8%BB%E9%A2%98/id1665963317"><span class="btn-name">千阅</span></a><a class="btn" data-url="https://raw.githubusercontent.com/shidahuilang/shuyuan/refs/heads/shuyuan/千阅专用书源.json"><span class="btn-name">千阅书源</span></a></div></div></div></div>
-
-    <!-- 小火箭永久订阅 -->
     <div class="accordion" style="--cat-color:#ff7878" data-id="5"><div class="accordion-header"><div class="header-left"><span class="header-label">小火箭永久订阅</span></div><div class="header-right"><span class="badge-count">5</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"><a class="btn" data-url="https://edt2.qxy929.ccwu.cc/login"><span class="btn-name">小钱自建</span></a><a class="btn" data-url="https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/Jsnzkpg/Jsnzkpg"><span class="btn-name">裤佬</span></a><a class="btn" data-url="https://shz.al/~WangCai"><span class="btn-name">旺财</span></a><a class="btn" data-url="https://lsmoo.pages.dev/lsm/5ca37755-ee04-431b-8b9a-9740d396b29b"><span class="btn-name">周润发</span></a><a class="btn" data-url="https://xjj.zzxi.de/%E6%97%A0%E9%99%90%E6%B5%81%E9%87%8Fxiangjiao"><span class="btn-name">香蕉</span></a></div></div></div></div>
-
-    <!-- 视频解析网站仓库 -->
     <div class="accordion" style="--cat-color:#3cb4ff" data-id="6"><div class="accordion-header"><div class="header-left"><span class="header-label">视频解析网站仓库</span></div><div class="header-right"><span class="badge-count">5</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div><div class="accordion-body"><div class="accordion-inner"><div class="btn-grid"><a class="btn" data-url="https://9xbuddy.in/zh"><span class="btn-name">国外主流平台解析</span></a><a class="btn" data-url="https://www.v2ob.com/"><span class="btn-name">国内短视频去水印</span></a><a class="btn" data-url="https://am1907.top/"><span class="btn-name">爱优腾芒vip解析·搜索</span></a><a class="btn" data-url="https://www.nuliya.top/vip"><span class="btn-name">爱优腾芒vip解析·链接</span></a><a class="btn" data-url="https://www.dlbunny.com/"><span class="btn-name">抖音专用·去水印下载</span></a></div></div></div></div>
 
     <div class="copyright">
@@ -682,23 +663,14 @@
 </div>
 
 <script>
+// (JS逻辑部分与之前保持一致，为简洁省略重复代码，实际已包含原所有交互功能)
 (function() {
     const canvas = document.getElementById('aurora');
     const ctx = canvas.getContext('2d');
     let W, H, t = 0, rafId, paused = false;
-
-    function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    document.addEventListener('visibilitychange', () => {
-        paused = document.hidden;
-        if (!paused) frame();
-    });
-
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', () => { paused = document.hidden; if (!paused) frame(); });
     const bands = [
         { color:[80,220,200],  baseY:0.26, amp:0.10, freq:0.55, speed:0.28, width:0.38, alpha:0.22 },
         { color:[160,100,255], baseY:0.36, amp:0.08, freq:0.40, speed:0.20, width:0.30, alpha:0.18 },
@@ -706,163 +678,48 @@
         { color:[200,140,255], baseY:0.46, amp:0.07, freq:0.30, speed:0.16, width:0.34, alpha:0.14 },
         { color:[100,240,180], baseY:0.16, amp:0.09, freq:0.60, speed:0.25, width:0.22, alpha:0.14 },
     ];
-
     function drawBand(b, time) {
         const yC = b.baseY * H + Math.sin(time * b.speed + 1.2) * b.amp * H;
-        const bH  = b.width * H;
-        const [r,g,bl] = b.color;
-
+        const bH = b.width * H; const [r,g,bl] = b.color;
         ctx.beginPath();
         for (let i = 0; i <= 120; i++) {
             const x = (i / 120) * W;
-            const w = Math.sin(i * b.freq * 0.08 + time * b.speed) * 18
-                    + Math.sin(i * b.freq * 0.15 + time * b.speed * 1.3 + 2) * 10
-                    + Math.sin(i * b.freq * 0.04 + time * b.speed * 0.7 + 4) * 28;
+            const w = Math.sin(i * b.freq * 0.08 + time * b.speed) * 18 + Math.sin(i * b.freq * 0.15 + time * b.speed * 1.3 + 2) * 10 + Math.sin(i * b.freq * 0.04 + time * b.speed * 0.7 + 4) * 28;
             i === 0 ? ctx.moveTo(x, yC + w) : ctx.lineTo(x, yC + w);
         }
         ctx.lineTo(W, yC + bH); ctx.lineTo(0, yC + bH); ctx.closePath();
-
         const g2 = ctx.createLinearGradient(0, yC - bH * 0.3, 0, yC + bH);
         g2.addColorStop(0,   `rgba(${r},${g},${bl},0)`);
         g2.addColorStop(0.2, `rgba(${r},${g},${bl},${b.alpha})`);
         g2.addColorStop(0.55,`rgba(${r},${g},${bl},${b.alpha * 0.55})`);
         g2.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
-        ctx.fillStyle = g2;
-        ctx.fill();
+        ctx.fillStyle = g2; ctx.fill();
     }
-
     function frame() {
         if (paused) return;
-        t += 0.008;
-        ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = '#0d1117';
-        ctx.fillRect(0, 0, W, H);
-
-        ctx.save();
-        ctx.globalCompositeOperation = 'screen';
-        bands.forEach(b => drawBand(b, t));
-        ctx.restore();
-
+        t += 0.008; ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#0d1117'; ctx.fillRect(0, 0, W, H);
+        ctx.save(); ctx.globalCompositeOperation = 'screen';
+        bands.forEach(b => drawBand(b, t)); ctx.restore();
         const fade = ctx.createLinearGradient(0, H * 0.48, 0, H);
-        fade.addColorStop(0, 'rgba(13,17,23,0)');
-        fade.addColorStop(1, 'rgba(13,17,23,0.9)');
-        ctx.fillStyle = fade;
-        ctx.fillRect(0, H * 0.48, W, H * 0.52);
-
+        fade.addColorStop(0, 'rgba(13,17,23,0)'); fade.addColorStop(1, 'rgba(13,17,23,0.9)');
+        ctx.fillStyle = fade; ctx.fillRect(0, H * 0.48, W, H * 0.52);
         rafId = requestAnimationFrame(frame);
     }
     frame();
 })();
-
 const STORAGE_KEY = 'xq_open';
-
-function saveState() {
-    const open = [...document.querySelectorAll('.accordion.active')]
-        .map(el => el.dataset.id);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(open)); } catch(e){}
-}
-
-function restoreState() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        saved.forEach(id => {
-            const el = document.querySelector(`.accordion[data-id="${id}"]`);
-            if (el) el.classList.add('active');
-        });
-    } catch(e){}
-}
+function saveState() { const open = [...document.querySelectorAll('.accordion.active')].map(el => el.dataset.id); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(open)); } catch(e){} }
+function restoreState() { try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); saved.forEach(id => { const el = document.querySelector(`.accordion[data-id="${id}"]`); if (el) el.classList.add('active'); }); } catch(e){} }
 restoreState();
-
-document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', () => {
-        header.parentElement.classList.toggle('active');
-        if (navigator.vibrate) navigator.vibrate(15);
-        saveState();
-        updateToggleBtn();
-    });
-});
-
-const toggleBtn = document.getElementById('toggleAll');
-let allOpen = false;
-
-function updateToggleBtn() {
-    const visibles = [...document.querySelectorAll('.accordion:not(.hidden)')];
-    allOpen = visibles.length > 0 && visibles.every(el => el.classList.contains('active'));
-    toggleBtn.textContent = allOpen ? '全部收起' : '全部展开';
-}
-
-toggleBtn.addEventListener('click', () => {
-    const visibles = document.querySelectorAll('.accordion:not(.hidden)');
-    const target = !allOpen;
-    visibles.forEach(el => el.classList.toggle('active', target));
-    allOpen = target;
-    toggleBtn.textContent = allOpen ? '全部收起' : '全部展开';
-    saveState();
-});
-
-const searchInput = document.getElementById('search');
-const noResult    = document.getElementById('noResult');
-
-searchInput.addEventListener('input', () => {
-    const q = searchInput.value.trim().toLowerCase();
-    let totalVisible = 0;
-
-    document.querySelectorAll('.accordion').forEach(acc => {
-        const btns = acc.querySelectorAll('.btn');
-        let accVisible = 0;
-
-        btns.forEach(btn => {
-            const text = btn.querySelector('.btn-name').textContent.toLowerCase();
-            const match = !q || text.includes(q);
-            btn.classList.toggle('search-hidden', !match);
-            btn.classList.toggle('search-match', !!q && match);
-            if (match) accVisible++;
-        });
-
-        acc.classList.toggle('hidden', accVisible === 0);
-        if (accVisible > 0) {
-            totalVisible++;
-            if (q) acc.classList.add('active');
-        }
-    });
-
-    noResult.style.display = totalVisible === 0 ? 'block' : 'none';
-    if (!q) {
-        document.querySelectorAll('.accordion').forEach(el => {
-            el.classList.remove('hidden');
-            el.querySelectorAll('.btn').forEach(b => {
-                b.classList.remove('search-hidden', 'search-match');
-            });
-        });
-        restoreState();
-    }
-    updateToggleBtn();
-});
-
-const toast = document.getElementById('toast');
-let toastTimer;
-
-document.querySelectorAll('.btn[data-url]').forEach(btn => {
-    btn.addEventListener('click', async function(e) {
-        const rect = this.getBoundingClientRect();
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        const size = Math.max(rect.width, rect.height);
-        ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
-        this.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
-
-        const url = this.dataset.url;
-        try { await navigator.clipboard.writeText(url); } catch(err){}
-
-        clearTimeout(toastTimer);
-        toast.classList.add('show');
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
-
-        window.open(url, '_blank');
-    });
-});
-
+document.querySelectorAll('.accordion-header').forEach(header => { header.addEventListener('click', () => { header.parentElement.classList.toggle('active'); if (navigator.vibrate) navigator.vibrate(15); saveState(); updateToggleBtn(); }); });
+const toggleBtn = document.getElementById('toggleAll'); let allOpen = false;
+function updateToggleBtn() { const visibles = [...document.querySelectorAll('.accordion:not(.hidden)')]; allOpen = visibles.length > 0 && visibles.every(el => el.classList.contains('active')); toggleBtn.textContent = allOpen ? '全部收起' : '全部展开'; }
+toggleBtn.addEventListener('click', () => { const visibles = document.querySelectorAll('.accordion:not(.hidden)'); const target = !allOpen; visibles.forEach(el => el.classList.toggle('active', target)); allOpen = target; toggleBtn.textContent = allOpen ? '全部收起' : '全部展开'; saveState(); });
+const searchInput = document.getElementById('search'); const noResult = document.getElementById('noResult');
+searchInput.addEventListener('input', () => { const q = searchInput.value.trim().toLowerCase(); let totalVisible = 0; document.querySelectorAll('.accordion').forEach(acc => { const btns = acc.querySelectorAll('.btn'); let accVisible = 0; btns.forEach(btn => { const text = btn.querySelector('.btn-name').textContent.toLowerCase(); const match = !q || text.includes(q); btn.classList.toggle('search-hidden', !match); btn.classList.toggle('search-match', !!q && match); if (match) accVisible++; }); acc.classList.toggle('hidden', accVisible === 0); if (accVisible > 0) { totalVisible++; if (q) acc.classList.add('active'); } }); noResult.style.display = totalVisible === 0 ? 'block' : 'none'; if (!q) { document.querySelectorAll('.accordion').forEach(el => { el.classList.remove('hidden'); el.querySelectorAll('.btn').forEach(b => { b.classList.remove('search-hidden', 'search-match'); }); }); restoreState(); } updateToggleBtn(); });
+const toast = document.getElementById('toast'); let toastTimer;
+document.querySelectorAll('.btn[data-url]').forEach(btn => { btn.addEventListener('click', async function(e) { const rect = this.getBoundingClientRect(); const ripple = document.createElement('span'); ripple.className = 'ripple'; const size = Math.max(rect.width, rect.height); ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`; this.appendChild(ripple); ripple.addEventListener('animationend', () => ripple.remove()); const url = this.dataset.url; try { await navigator.clipboard.writeText(url); } catch(err){} clearTimeout(toastTimer); toast.classList.add('show'); toastTimer = setTimeout(() => toast.classList.remove('show'), 1500); window.open(url, '_blank'); }); });
 updateToggleBtn();
 </script>
 </body>
