@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>小钱全网综合分享</title>
+    <title>小钱全网综合分享 · 精校导航</title>
     <style>
         :root {
             --bg-deep: #0d1117;
@@ -21,7 +21,8 @@
         }
 
         *, *::before, *::after {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
@@ -45,6 +46,7 @@
             z-index: 0;
             pointer-events: none;
         }
+
         .noise {
             position: fixed;
             inset: 0;
@@ -61,23 +63,32 @@
             width: 100%;
             max-width: 480px;
         }
-        @media(min-width:1024px){ .wrap{ max-width:1100px; } }
+
+        @media (min-width:1024px) {
+            .wrap {
+                max-width: 1100px;
+            }
+        }
 
         .marquee-bar {
             position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: rgba(13,17,23,0.80);
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.80);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.09);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
             padding: 9px 0;
             overflow: hidden;
             z-index: 200;
         }
+
         .marquee-track {
             display: flex;
             white-space: nowrap;
             animation: mscroll 24s linear infinite;
         }
+
         .marquee-track span {
             flex-shrink: 0;
             padding: 0 60px;
@@ -86,11 +97,16 @@
             color: var(--accent-gold);
             font-variant-numeric: tabular-nums;
             font-weight: 480;
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
         }
+
         @keyframes mscroll {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
         }
 
         .header {
@@ -98,18 +114,29 @@
             padding: 18px 0 28px;
             animation: fadeUp 0.9s var(--ease) both;
         }
+
         .header-dot {
-            width: 7px; height: 7px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: var(--accent-teal);
             margin: 0 auto 18px;
-            box-shadow: 0 0 16px var(--accent-teal), 0 0 32px rgba(109,213,237,0.35);
+            box-shadow: 0 0 16px var(--accent-teal), 0 0 32px rgba(109, 213, 237, 0.35);
             animation: pulse 2.8s ease infinite;
         }
+
         @keyframes pulse {
-            0%,100% { transform:scale(1); box-shadow:0 0 16px var(--accent-teal),0 0 32px rgba(109,213,237,0.35); }
-            50%      { transform:scale(0.6); box-shadow:0 0 5px var(--accent-teal); }
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 16px var(--accent-teal), 0 0 32px rgba(109, 213, 237, 0.35);
+            }
+            50% {
+                transform: scale(0.6);
+                box-shadow: 0 0 5px var(--accent-teal);
+            }
         }
+
         .page-title {
             font-size: clamp(26px, 5.5vw, 40px);
             font-weight: 800;
@@ -122,9 +149,15 @@
             animation: shimmer 7s ease infinite;
             margin-bottom: 4px;
         }
+
         @keyframes shimmer {
-            0%,100% { background-position:0% 50%; }
-            50%      { background-position:100% 50%; }
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .toolbar {
@@ -133,10 +166,12 @@
             margin-bottom: 14px;
             animation: fadeUp 0.7s 0.1s var(--ease) both;
         }
+
         .search-wrap {
             flex: 1;
             position: relative;
         }
+
         .search-icon {
             position: absolute;
             left: 12px;
@@ -145,7 +180,13 @@
             color: var(--text-muted);
             pointer-events: none;
         }
-        .search-icon svg { width:15px; height:15px; display:block; }
+
+        .search-icon svg {
+            width: 15px;
+            height: 15px;
+            display: block;
+        }
+
         #search {
             width: 100%;
             padding: 11px 14px 11px 36px;
@@ -159,11 +200,16 @@
             transition: border-color 0.2s, background 0.2s;
             backdrop-filter: blur(12px);
         }
-        #search::placeholder { color: var(--text-muted); }
-        #search:focus {
-            border-color: rgba(109,213,237,0.45);
-            background: rgba(255,255,255,0.11);
+
+        #search::placeholder {
+            color: var(--text-muted);
         }
+
+        #search:focus {
+            border-color: rgba(109, 213, 237, 0.45);
+            background: rgba(255, 255, 255, 0.11);
+        }
+
         .toggle-all-btn {
             padding: 11px 14px;
             border-radius: 10px;
@@ -178,6 +224,7 @@
             backdrop-filter: blur(12px);
             letter-spacing: 0.03em;
         }
+
         .toggle-all-btn:hover {
             background: var(--bg-card-hover);
             border-color: var(--border-hover);
@@ -204,21 +251,52 @@
             transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s, opacity 0.2s;
             animation: fadeUp 0.65s var(--ease) both;
         }
-        .accordion:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.10); }
-        .accordion.active {
-            border-color: rgba(109,213,237,0.32);
-            box-shadow: 0 0 0 1px rgba(109,213,237,0.10), 0 14px 45px rgba(0,0,0,0.32);
-        }
-        .accordion.hidden { display: none; }
 
-        .accordion:nth-child(1){ animation-delay:0.02s; }
-        .accordion:nth-child(2){ animation-delay:0.05s; }
-        .accordion:nth-child(3){ animation-delay:0.08s; }
-        .accordion:nth-child(4){ animation-delay:0.11s; }
-        .accordion:nth-child(5){ animation-delay:0.14s; }
-        .accordion:nth-child(6){ animation-delay:0.17s; }
-        .accordion:nth-child(7){ animation-delay:0.20s; }
-        .accordion:nth-child(8){ animation-delay:0.23s; }
+        .accordion:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .accordion.active {
+            border-color: rgba(109, 213, 237, 0.32);
+            box-shadow: 0 0 0 1px rgba(109, 213, 237, 0.10), 0 14px 45px rgba(0, 0, 0, 0.32);
+        }
+
+        .accordion.hidden {
+            display: none;
+        }
+
+        .accordion:nth-child(1) {
+            animation-delay: 0.02s;
+        }
+
+        .accordion:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+
+        .accordion:nth-child(3) {
+            animation-delay: 0.08s;
+        }
+
+        .accordion:nth-child(4) {
+            animation-delay: 0.11s;
+        }
+
+        .accordion:nth-child(5) {
+            animation-delay: 0.14s;
+        }
+
+        .accordion:nth-child(6) {
+            animation-delay: 0.17s;
+        }
+
+        .accordion:nth-child(7) {
+            animation-delay: 0.20s;
+        }
+
+        .accordion:nth-child(8) {
+            animation-delay: 0.23s;
+        }
 
         .accordion::before {
             content: '';
@@ -228,7 +306,10 @@
             transition: height 0.35s var(--ease);
             opacity: 0.7;
         }
-        .accordion.active::before { height: 2.5px; }
+
+        .accordion.active::before {
+            height: 2.5px;
+        }
 
         .accordion-header {
             display: flex;
@@ -239,9 +320,17 @@
             user-select: none;
             transition: background 0.18s;
         }
-        .accordion-header:active { background: rgba(255,255,255,0.04); }
 
-        .header-left { display: flex; align-items: center; gap: 10px; }
+        .accordion-header:active {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .header-label {
             font-size: 15px;
             font-weight: 700;
@@ -249,18 +338,24 @@
             color: var(--text-primary);
         }
 
-        .header-right { display: flex; align-items: center; gap: 8px; }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .badge-count {
             font-size: 11px;
             padding: 2px 7px;
             border-radius: 20px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
             letter-spacing: 0.03em;
             transition: background 0.2s, color 0.2s;
         }
+
         .accordion.active .badge-count {
-            background: rgba(109,213,237,0.15);
+            background: rgba(109, 213, 237, 0.15);
             color: var(--accent-teal);
         }
 
@@ -269,16 +364,31 @@
             color: var(--text-muted);
             transition: transform 0.4s var(--ease), color 0.3s;
         }
-        .accordion.active .header-arrow { transform: rotate(180deg); color: var(--accent-teal); }
-        .header-arrow svg { width:14px; height:14px; display:block; }
+
+        .accordion.active .header-arrow {
+            transform: rotate(180deg);
+            color: var(--accent-teal);
+        }
+
+        .header-arrow svg {
+            width: 14px;
+            height: 14px;
+            display: block;
+        }
 
         .accordion-body {
             display: grid;
             grid-template-rows: 0fr;
             transition: grid-template-rows 0.42s var(--ease);
         }
-        .accordion.active .accordion-body { grid-template-rows: 1fr; }
-        .accordion-inner { overflow: hidden; }
+
+        .accordion.active .accordion-body {
+            grid-template-rows: 1fr;
+        }
+
+        .accordion-inner {
+            overflow: hidden;
+        }
 
         .btn-grid {
             padding: 0 12px 12px;
@@ -286,15 +396,27 @@
             grid-template-columns: 1fr;
             gap: 7px;
         }
-        @media(min-width:1024px){ .btn-grid{ grid-template-columns:repeat(2,1fr); } }
-        @media(min-width:1600px){ .btn-grid{ grid-template-columns:repeat(3,1fr); } }
+
+        @media (min-width:1024px) {
+            .btn-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width:1600px) {
+            .btn-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
 
         .sub-section {
             margin-top: 8px;
         }
+
         .sub-section:first-of-type {
             margin-top: 0;
         }
+
         .sub-section-title {
             font-size: 12px;
             font-weight: 600;
@@ -308,12 +430,14 @@
             margin: 4px 12px 6px 12px;
             text-transform: uppercase;
         }
+
         .sub-section-title span {
-            background: rgba(109,213,237,0.12);
+            background: rgba(109, 213, 237, 0.12);
             border-radius: 16px;
             padding: 2px 8px;
             font-size: 10px;
         }
+
         .sub-section .btn-grid {
             padding: 0 12px 12px;
         }
@@ -324,8 +448,8 @@
             justify-content: space-between;
             padding: 13px 14px;
             border-radius: 9px;
-            border: 1px solid rgba(255,255,255,0.10);
-            background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.055);
             color: #eef0f8;
             font-family: inherit;
             font-size: 14px;
@@ -338,38 +462,59 @@
             overflow: hidden;
             text-align: left;
         }
-        .btn-name { flex: 1; }
+
+        .btn-name {
+            flex: 1;
+        }
 
         .btn::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, rgba(109,213,237,0.08) 0%, rgba(192,132,252,0.05) 100%);
+            background: linear-gradient(120deg, rgba(109, 213, 237, 0.08) 0%, rgba(192, 132, 252, 0.05) 100%);
             opacity: 0;
             transition: opacity 0.25s;
         }
+
         .btn:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(109,213,237,0.38);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(109, 213, 237, 0.38);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(109,213,237,0.12);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(109, 213, 237, 0.12);
             color: #fff;
         }
-        .btn:hover::before { opacity: 1; }
-        .btn:active { transform: translateY(0) scale(0.975); }
 
-        .btn.search-match { border-color: rgba(109,213,237,0.3); }
-        .btn.search-hidden { display: none; }
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: translateY(0) scale(0.975);
+        }
+
+        .btn.search-match {
+            border-color: rgba(109, 213, 237, 0.3);
+        }
+
+        .btn.search-hidden {
+            display: none;
+        }
 
         .btn .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(109,213,237,0.20);
+            background: rgba(109, 213, 237, 0.20);
             transform: scale(0);
             animation: ripple-anim 0.55s linear;
             pointer-events: none;
         }
-        @keyframes ripple-anim { to { transform:scale(4); opacity:0; } }
+
+        @keyframes ripple-anim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
 
         .copyright {
             margin-top: 36px;
@@ -381,19 +526,20 @@
             text-align: center;
             font-size: 11px;
             line-height: 2;
-            color: rgba(240,242,248,0.42);
+            color: rgba(240, 242, 248, 0.42);
             letter-spacing: 0.05em;
             animation: fadeUp 0.7s 0.5s var(--ease) both;
         }
 
         .toast {
             position: fixed;
-            bottom: 28px; left: 50%;
+            bottom: 28px;
+            left: 50%;
             transform: translateX(-50%) translateY(16px);
             padding: 9px 22px;
             border-radius: 40px;
-            background: rgba(18,22,30,0.93);
-            border: 1px solid rgba(109,213,237,0.32);
+            background: rgba(18, 22, 30, 0.93);
+            border: 1px solid rgba(109, 213, 237, 0.32);
             color: var(--accent-teal);
             font-size: 12px;
             letter-spacing: 0.08em;
@@ -404,11 +550,21 @@
             backdrop-filter: blur(20px);
             white-space: nowrap;
         }
-        .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
 
         @keyframes fadeUp {
-            from { opacity:0; transform:translateY(16px); }
-            to   { opacity:1; transform:translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -462,7 +618,7 @@
         </div></div></div>
     </div>
 
-    <!-- 网盘搜索工具 (保留现有并新增13个资源) -->
+    <!-- 网盘搜索工具 (保持不变) -->
     <div class="accordion" style="--cat-color:#3aa8ff" data-id="7">
         <div class="accordion-header"><div class="header-left"><span class="header-label">网盘搜索工具</span></div><div class="header-right"><span class="badge-count">43</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>
         <div class="accordion-body"><div class="accordion-inner"><div class="btn-grid">
@@ -496,7 +652,6 @@
             <a class="btn" data-url="https://moovie.c2v2.com"><span class="btn-name">影牛</span></a>
             <a class="btn" data-url="https://seedhub.cc/"><span class="btn-name">SeedHub</span></a>
             <a class="btn" data-url="https://chaospace.cc/"><span class="btn-name">CHAOSPACE</span></a>
-            <!-- 新增13个网盘搜索资源 -->
             <a class="btn" data-url="https://www.rrdynb.com/index.html"><span class="btn-name">人人电影网</span></a>
             <a class="btn" data-url="https://dy.qidiandaohang.com/"><span class="btn-name">奇点追剧</span></a>
             <a class="btn" data-url="http://j-so.com/?ref=FCEOM74I"><span class="btn-name">珈珈4K网盘</span></a>
@@ -513,9 +668,9 @@
         </div></div></div>
     </div>
 
-    <!-- 资源分享网站 (磁力种子、其他资源、追番盘点；其他资源内新增KDocs链接8) -->
+    <!-- 资源分享网站 (新增KDocs链接9~14) -->
     <div class="accordion" style="--cat-color:#f5a97f" data-id="8">
-        <div class="accordion-header"><div class="header-left"><span class="header-label">资源分享网站</span></div><div class="header-right"><span class="badge-count">114</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>
+        <div class="accordion-header"><div class="header-left"><span class="header-label">资源分享网站</span></div><div class="header-right"><span class="badge-count">120</span><div class="header-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg></div></div></div>
         <div class="accordion-body"><div class="accordion-inner">
             <!-- 磁力种子区块 -->
             <div class="sub-section">
@@ -541,9 +696,9 @@
                     <a class="btn" data-url="https://www.dygod.vip/"><span class="btn-name">电影天堂</span></a>
                 </div>
             </div>
-            <!-- 其他资源区块 (原有所有资源 + 新增KDocs链接8) -->
+            <!-- 其他资源区块 (新增KDocs链接9~14) -->
             <div class="sub-section">
-                <div class="sub-section-title">📁 其他资源 <span>38个站点/文档</span></div>
+                <div class="sub-section-title">📁 其他资源 <span>44个站点/文档</span></div>
                 <div class="btn-grid">
                     <a class="btn" data-url="https://mdsub.top"><span class="btn-name">漫迪小站</span></a>
                     <a class="btn" data-url="https://www.kangfuzhongx.in"><span class="btn-name">三次元成瘾者康复中心</span></a>
@@ -583,7 +738,7 @@
                     <!-- QQDocs 系列 -->
                     <a class="btn" data-url="https://docs.qq.com/sheet/DSkprSURFRHJaek1H?tab=etwyrr"><span class="btn-name">QQ Docs 表格1(动漫资源整合)</span></a>
                     <a class="btn" data-url="https://docs.qq.com/doc/DYWRrUVBIUEl6TkVt"><span class="btn-name">QQ Docs 表格2(觅影寻踪影视资源)</span></a>
-                    <!-- KDocs 系列 -->
+                    <!-- KDocs 系列 (原有1~8) -->
                     <a class="btn" data-url="https://www.kdocs.cn/l/corXUSaAaKVM"><span class="btn-name">KDocs链接1(火花影视库)</span></a>
                     <a class="btn" data-url="https://www.kdocs.cn/l/cme3OfQte1wR"><span class="btn-name">KDocs链接2(网盘影视资源整合)</span></a>
                     <a class="btn" data-url="https://www.kdocs.cn/l/cqBM72NrCiGY"><span class="btn-name">KDocs链接3(90000T影视资源)</span></a>
@@ -591,8 +746,14 @@
                     <a class="btn" data-url="https://www.kdocs.cn/l/cgqWkD4v1nHK"><span class="btn-name">KDocs链接5(911影视资源)</span></a>
                     <a class="btn" data-url="https://www.kdocs.cn/l/clRvemMcGVf8"><span class="btn-name">KDocs链接6(爱之梦梦影视资源)</span></a>
                     <a class="btn" data-url="https://www.kdocs.cn/l/sqg0XCnR1xfW"><span class="btn-name">KDocs链接7(韩剧综合影视资源)</span></a>
-                    <!-- 新增KDocs链接8 -->
                     <a class="btn" data-url="https://zyfx.ysepan.com"><span class="btn-name">KDocs链接8(此间微凉影视资源)</span></a>
+                    <!-- 新增KDocs链接9~14 -->
+                    <a class="btn" data-url="https://link3.cc/dx98637"><span class="btn-name">KDocs链接9(茬子哥影视资源)</span></a>
+                    <a class="btn" data-url="https://link3.cc/quduoduo"><span class="btn-name">KDocs链接10(趣多多影视资源)</span></a>
+                    <a class="btn" data-url="https://link3.cc/huangdaren"><span class="btn-name">KDocs链接11(荒大人影视资源)</span></a>
+                    <a class="btn" data-url="https://link3.cc/mengye768"><span class="btn-name">KDocs链接12(梦夜资源站)</span></a>
+                    <a class="btn" data-url="https://link3.cc/shiguangzhe"><span class="btn-name">KDocs链接13(拾光者分享)</span></a>
+                    <a class="btn" data-url="https://link3.cc/cztv"><span class="btn-name">KDocs链接14(橙子剧场)</span></a>
                 </div>
             </div>
             <!-- 追番网站盘点 -->
@@ -675,63 +836,232 @@
 </div>
 
 <script>
-(function() {
-    const canvas = document.getElementById('aurora');
-    const ctx = canvas.getContext('2d');
-    let W, H, t = 0, rafId, paused = false;
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-    document.addEventListener('visibilitychange', () => { paused = document.hidden; if (!paused) frame(); });
-    const bands = [
-        { color:[80,220,200],  baseY:0.26, amp:0.10, freq:0.55, speed:0.28, width:0.38, alpha:0.22 },
-        { color:[160,100,255], baseY:0.36, amp:0.08, freq:0.40, speed:0.20, width:0.30, alpha:0.18 },
-        { color:[60,200,255],  baseY:0.20, amp:0.12, freq:0.70, speed:0.35, width:0.26, alpha:0.16 },
-        { color:[200,140,255], baseY:0.46, amp:0.07, freq:0.30, speed:0.16, width:0.34, alpha:0.14 },
-        { color:[100,240,180], baseY:0.16, amp:0.09, freq:0.60, speed:0.25, width:0.22, alpha:0.14 },
-    ];
-    function drawBand(b, time) {
-        const yC = b.baseY * H + Math.sin(time * b.speed + 1.2) * b.amp * H;
-        const bH = b.width * H; const [r,g,bl] = b.color;
-        ctx.beginPath();
-        for (let i = 0; i <= 120; i++) {
-            const x = (i / 120) * W;
-            const w = Math.sin(i * b.freq * 0.08 + time * b.speed) * 18 + Math.sin(i * b.freq * 0.15 + time * b.speed * 1.3 + 2) * 10 + Math.sin(i * b.freq * 0.04 + time * b.speed * 0.7 + 4) * 28;
-            i === 0 ? ctx.moveTo(x, yC + w) : ctx.lineTo(x, yC + w);
+    (function() {
+        const canvas = document.getElementById('aurora');
+        const ctx = canvas.getContext('2d');
+        let W, H, t = 0, rafId, paused = false;
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
         }
-        ctx.lineTo(W, yC + bH); ctx.lineTo(0, yC + bH); ctx.closePath();
-        const g2 = ctx.createLinearGradient(0, yC - bH * 0.3, 0, yC + bH);
-        g2.addColorStop(0,   `rgba(${r},${g},${bl},0)`);
-        g2.addColorStop(0.2, `rgba(${r},${g},${bl},${b.alpha})`);
-        g2.addColorStop(0.55,`rgba(${r},${g},${bl},${b.alpha * 0.55})`);
-        g2.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
-        ctx.fillStyle = g2; ctx.fill();
+        resize();
+        window.addEventListener('resize', resize);
+
+        document.addEventListener('visibilitychange', () => {
+            paused = document.hidden;
+            if (!paused) frame();
+        });
+
+        const bands = [{
+                color: [80, 220, 200],
+                baseY: 0.26,
+                amp: 0.10,
+                freq: 0.55,
+                speed: 0.28,
+                width: 0.38,
+                alpha: 0.22
+            },
+            {
+                color: [160, 100, 255],
+                baseY: 0.36,
+                amp: 0.08,
+                freq: 0.40,
+                speed: 0.20,
+                width: 0.30,
+                alpha: 0.18
+            },
+            {
+                color: [60, 200, 255],
+                baseY: 0.20,
+                amp: 0.12,
+                freq: 0.70,
+                speed: 0.35,
+                width: 0.26,
+                alpha: 0.16
+            },
+            {
+                color: [200, 140, 255],
+                baseY: 0.46,
+                amp: 0.07,
+                freq: 0.30,
+                speed: 0.16,
+                width: 0.34,
+                alpha: 0.14
+            },
+            {
+                color: [100, 240, 180],
+                baseY: 0.16,
+                amp: 0.09,
+                freq: 0.60,
+                speed: 0.25,
+                width: 0.22,
+                alpha: 0.14
+            },
+        ];
+
+        function drawBand(b, time) {
+            const yC = b.baseY * H + Math.sin(time * b.speed + 1.2) * b.amp * H;
+            const bH = b.width * H;
+            const [r, g, bl] = b.color;
+
+            ctx.beginPath();
+            for (let i = 0; i <= 120; i++) {
+                const x = (i / 120) * W;
+                const w = Math.sin(i * b.freq * 0.08 + time * b.speed) * 18 +
+                    Math.sin(i * b.freq * 0.15 + time * b.speed * 1.3 + 2) * 10 +
+                    Math.sin(i * b.freq * 0.04 + time * b.speed * 0.7 + 4) * 28;
+                i === 0 ? ctx.moveTo(x, yC + w) : ctx.lineTo(x, yC + w);
+            }
+            ctx.lineTo(W, yC + bH);
+            ctx.lineTo(0, yC + bH);
+            ctx.closePath();
+
+            const g2 = ctx.createLinearGradient(0, yC - bH * 0.3, 0, yC + bH);
+            g2.addColorStop(0, `rgba(${r},${g},${bl},0)`);
+            g2.addColorStop(0.2, `rgba(${r},${g},${bl},${b.alpha})`);
+            g2.addColorStop(0.55, `rgba(${r},${g},${bl},${b.alpha * 0.55})`);
+            g2.addColorStop(1, `rgba(${r},${g},${bl},0)`);
+            ctx.fillStyle = g2;
+            ctx.fill();
+        }
+
+        function frame() {
+            if (paused) return;
+            t += 0.008;
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, W, H);
+
+            ctx.save();
+            ctx.globalCompositeOperation = 'screen';
+            bands.forEach(b => drawBand(b, t));
+            ctx.restore();
+
+            const fade = ctx.createLinearGradient(0, H * 0.48, 0, H);
+            fade.addColorStop(0, 'rgba(13,17,23,0)');
+            fade.addColorStop(1, 'rgba(13,17,23,0.9)');
+            ctx.fillStyle = fade;
+            ctx.fillRect(0, H * 0.48, W, H * 0.52);
+
+            rafId = requestAnimationFrame(frame);
+        }
+        frame();
+    })();
+
+    const STORAGE_KEY = 'xq_open';
+
+    function saveState() {
+        const open = [...document.querySelectorAll('.accordion.active')].map(el => el.dataset.id);
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(open));
+        } catch (e) {}
     }
-    function frame() {
-        if (paused) return;
-        t += 0.008; ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = '#0d1117'; ctx.fillRect(0, 0, W, H);
-        ctx.save(); ctx.globalCompositeOperation = 'screen';
-        bands.forEach(b => drawBand(b, t)); ctx.restore();
-        const fade = ctx.createLinearGradient(0, H * 0.48, 0, H);
-        fade.addColorStop(0, 'rgba(13,17,23,0)'); fade.addColorStop(1, 'rgba(13,17,23,0.9)');
-        ctx.fillStyle = fade; ctx.fillRect(0, H * 0.48, W, H * 0.52);
-        rafId = requestAnimationFrame(frame);
+
+    function restoreState() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            saved.forEach(id => {
+                const el = document.querySelector(`.accordion[data-id="${id}"]`);
+                if (el) el.classList.add('active');
+            });
+        } catch (e) {}
     }
-    frame();
-})();
-const STORAGE_KEY = 'xq_open';
-function saveState() { const open = [...document.querySelectorAll('.accordion.active')].map(el => el.dataset.id); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(open)); } catch(e){} }
-function restoreState() { try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); saved.forEach(id => { const el = document.querySelector(`.accordion[data-id="${id}"]`); if (el) el.classList.add('active'); }); } catch(e){} }
-restoreState();
-document.querySelectorAll('.accordion-header').forEach(header => { header.addEventListener('click', () => { header.parentElement.classList.toggle('active'); if (navigator.vibrate) navigator.vibrate(15); saveState(); updateToggleBtn(); }); });
-const toggleBtn = document.getElementById('toggleAll'); let allOpen = false;
-function updateToggleBtn() { const visibles = [...document.querySelectorAll('.accordion:not(.hidden)')]; allOpen = visibles.length > 0 && visibles.every(el => el.classList.contains('active')); toggleBtn.textContent = allOpen ? '全部收起' : '全部展开'; }
-toggleBtn.addEventListener('click', () => { const visibles = document.querySelectorAll('.accordion:not(.hidden)'); const target = !allOpen; visibles.forEach(el => el.classList.toggle('active', target)); allOpen = target; toggleBtn.textContent = allOpen ? '全部收起' : '全部展开'; saveState(); });
-const searchInput = document.getElementById('search'); const noResult = document.getElementById('noResult');
-searchInput.addEventListener('input', () => { const q = searchInput.value.trim().toLowerCase(); let totalVisible = 0; document.querySelectorAll('.accordion').forEach(acc => { const btns = acc.querySelectorAll('.btn'); let accVisible = 0; btns.forEach(btn => { const text = btn.querySelector('.btn-name').textContent.toLowerCase(); const match = !q || text.includes(q); btn.classList.toggle('search-hidden', !match); btn.classList.toggle('search-match', !!q && match); if (match) accVisible++; }); acc.classList.toggle('hidden', accVisible === 0); if (accVisible > 0) { totalVisible++; if (q) acc.classList.add('active'); } }); noResult.style.display = totalVisible === 0 ? 'block' : 'none'; if (!q) { document.querySelectorAll('.accordion').forEach(el => { el.classList.remove('hidden'); el.querySelectorAll('.btn').forEach(b => { b.classList.remove('search-hidden', 'search-match'); }); }); restoreState(); } updateToggleBtn(); });
-const toast = document.getElementById('toast'); let toastTimer;
-document.querySelectorAll('.btn[data-url]').forEach(btn => { btn.addEventListener('click', async function(e) { const rect = this.getBoundingClientRect(); const ripple = document.createElement('span'); ripple.className = 'ripple'; const size = Math.max(rect.width, rect.height); ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`; this.appendChild(ripple); ripple.addEventListener('animationend', () => ripple.remove()); const url = this.dataset.url; try { await navigator.clipboard.writeText(url); } catch(err){} clearTimeout(toastTimer); toast.classList.add('show'); toastTimer = setTimeout(() => toast.classList.remove('show'), 1500); window.open(url, '_blank'); }); });
-updateToggleBtn();
+    restoreState();
+
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            header.parentElement.classList.toggle('active');
+            if (navigator.vibrate) navigator.vibrate(15);
+            saveState();
+            updateToggleBtn();
+        });
+    });
+
+    const toggleBtn = document.getElementById('toggleAll');
+    let allOpen = false;
+
+    function updateToggleBtn() {
+        const visibles = [...document.querySelectorAll('.accordion:not(.hidden)')];
+        allOpen = visibles.length > 0 && visibles.every(el => el.classList.contains('active'));
+        toggleBtn.textContent = allOpen ? '全部收起' : '全部展开';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        const visibles = document.querySelectorAll('.accordion:not(.hidden)');
+        const target = !allOpen;
+        visibles.forEach(el => el.classList.toggle('active', target));
+        allOpen = target;
+        toggleBtn.textContent = allOpen ? '全部收起' : '全部展开';
+        saveState();
+    });
+
+    const searchInput = document.getElementById('search');
+    const noResult = document.getElementById('noResult');
+
+    searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        let totalVisible = 0;
+
+        document.querySelectorAll('.accordion').forEach(acc => {
+            const btns = acc.querySelectorAll('.btn');
+            let accVisible = 0;
+
+            btns.forEach(btn => {
+                const text = btn.querySelector('.btn-name').textContent.toLowerCase();
+                const match = !q || text.includes(q);
+                btn.classList.toggle('search-hidden', !match);
+                btn.classList.toggle('search-match', !!q && match);
+                if (match) accVisible++;
+            });
+
+            acc.classList.toggle('hidden', accVisible === 0);
+            if (accVisible > 0) {
+                totalVisible++;
+                if (q) acc.classList.add('active');
+            }
+        });
+
+        noResult.style.display = totalVisible === 0 ? 'block' : 'none';
+        if (!q) {
+            document.querySelectorAll('.accordion').forEach(el => {
+                el.classList.remove('hidden');
+                el.querySelectorAll('.btn').forEach(b => {
+                    b.classList.remove('search-hidden', 'search-match');
+                });
+            });
+            restoreState();
+        }
+        updateToggleBtn();
+    });
+
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    document.querySelectorAll('.btn[data-url]').forEach(btn => {
+        btn.addEventListener('click', async function(e) {
+            const rect = this.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
+            this.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+
+            const url = this.dataset.url;
+            try {
+                await navigator.clipboard.writeText(url);
+            } catch (err) {}
+
+            clearTimeout(toastTimer);
+            toast.classList.add('show');
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
+
+            window.open(url, '_blank');
+        });
+    });
+
+    updateToggleBtn();
 </script>
 </body>
 </html>
